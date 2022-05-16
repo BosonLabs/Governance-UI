@@ -5,7 +5,7 @@ import Layout from './LayoutT';
 import node from './nodeapi.json';
 import governance from './governance.json';
 import ReactDomServer from 'react-dom/server';
-
+import firebase from '../../NFTFolder/firebase';
 const algosdk = require('algosdk');
 const VoteStatus = () => {
 
@@ -29,6 +29,14 @@ const VoteStatus = () => {
     const[yesPercentValue,setYesPercentValue]= useState();
     const[noPercentValue,setNoPercentValue]= useState();
     const[totalVotePercentValue,setTotalVotePercentValue]= useState();
+    const [commitamount,setcommitamount] = useState("");
+    const [planetamount,setPlanetAmount] = useState(0);
+    const [algoAmount,setAlgoAmount] = useState(0);
+    const [count,setCount] = useState(0);
+    const [eligible,setEligible] = useState(0);
+    const [noteligible,setNotEligible] = useState(0);
+    
+    console.log("noteligible",noteligible);
     const[map1,setMap]= useState([]); 
 
     let appID = 89296370;
@@ -91,6 +99,67 @@ for(let i = 0; i < endCount; i++)
     return JSON.stringify(e, null, 2);
 }
 }
+const dbcallProfile=async()=>{            
+    let r=[];
+    try { 
+        let TPA=0;   
+        let TALA=0;  
+        let Totalcount=0; 
+        let Totaleligible=0;
+        let Totalnoteligible=0;
+    firebase.database().ref("Registeruser").on("value", (data) => {     
+    // firebase.database().ref(`Registeruser/${localStorage.getItem("walletAddress")}`).on("value", (data) => {          
+                               
+            if (data) {
+                data.forEach((d) => { 
+                  Totalcount=Totalcount +1;
+                  let value=d.val();
+                  console.log("valuecheck",value);
+                  if(d.val().Assettype==="Planet"){
+                            TPA= TPA + parseFloat(d.val().Amount) ;
+                  }
+                  else if(d.val().Assettype==="Algos"){
+                    TALA=TALA + parseFloat(d.val().Amount);
+          }
+                     if(d.val().Eligibility==="1"||d.val().Eligibility=== 1){
+                        Totaleligible=Totaleligible + 1;
+  }
+  else if(d.val().Eligibility==="0"||d.val().Eligibility=== 0){
+    Totalnoteligible=Totalnoteligible + 1;
+}
+          
+                //   r.push({
+                                
+
+                //     id:d.val().id,
+                //     WalletAddress:d.val().WalletAddress,
+                //     TimeStamp:d.val().TimeStamp,
+                //     Amount:d.val().Amount,
+                //     Eligibility:d.val().Eligibility,
+                //     Assettype:d.val().Assettype,
+                //     Vote:d.val().Vote
+                    
+                // })  
+                  
+  })
+  setPlanetAmount(TPA);
+   setAlgoAmount(TALA); 
+   setCount(Totalcount) ;
+   setEligible(Totaleligible);
+   setNotEligible(Totalnoteligible);                         
+      }
+      else{
+        setcommitamount([""]);  
+      }
+      setcommitamount(r);
+    //   setPlanetAmount(planetAmount);
+           
+    });                  
+  } catch (error) {
+    //console.log('error occured during search', error);    
+  }                
+}
+useEffect(()=>{dbcallProfile()},[])
 
     return (
         <Layout>
@@ -263,7 +332,7 @@ for(let i = 0; i < endCount; i++)
                                 {/* <h6 className='sub-heading mb-0'>
                                     Percentage per Redeem
                                 </h6> */}
-                                <h4 className='mb-2'>0 Participants</h4>
+                                {eligible===""||eligible===null||eligible===undefined ?( <h4 className='mb-2'>0 Participants</h4>):( <h4 className='mb-2'> {eligible} Participants</h4>)}
                             </div>
                         </Card> 
                     </Col>
@@ -297,7 +366,8 @@ for(let i = 0; i < endCount; i++)
                                 <h6 className='sub-heading mb-0'>
                                     
                                 </h6>
-                                <h4 className='mb-2'>0 Planets</h4>
+                                {planetamount===""||planetamount===null||planetamount===undefined ?( <h4 className='mb-2'>0 Planets</h4>):( <h4 className='mb-2'> {planetamount} Planets</h4>)}
+                               
                             </div>
                         </Card> 
 
@@ -330,7 +400,7 @@ for(let i = 0; i < endCount; i++)
                                 {/* <h6 className='sub-heading mb-0'>
                                     Percentage per Redeem
                                 </h6> */}
-                                <h4 className='mb-2'>0 Algos</h4>
+                               {algoAmount===""||algoAmount===null||algoAmount===undefined ?( <h4 className='mb-2'>0 Algo</h4>):( <h4 className='mb-2'> {algoAmount} Algo</h4>)}
                             </div>
                         </Card> 
 
@@ -363,7 +433,8 @@ for(let i = 0; i < endCount; i++)
                                 {/* <h6 className='sub-heading mb-0'>
                                     Percentage per Redeem
                                 </h6> */}
-                                <h4 className='mb-2'>0 Participants</h4>
+                                 {count===""||count===null||count===undefined ?( <h4 className='mb-2'>0 Participants</h4>):( <h4 className='mb-2'> {count} Participants</h4>)}
+                               
                             </div>
                         </Card> 
 
@@ -396,7 +467,8 @@ for(let i = 0; i < endCount; i++)
                                 {/* <h6 className='sub-heading mb-0'>
                                     Percentage per Redeem
                                 </h6> */}
-                                <h4 className='mb-2'>0 Participants</h4>
+                                 {noteligible===""||noteligible===null||noteligible===undefined ?( <h4 className='mb-2'>0 Participants</h4>):( <h4 className='mb-2'> {noteligible} Participants</h4>)}
+                               
                             </div>
                         </Card> 
                     </Col> 

@@ -77,7 +77,7 @@ const TopLiquidity = () => {
     const [usdcPrice, setUsdcPrice] = useState("");
     const[c,setc] = useState([]);
     const[pageSize,setPageSize]=useState(0); 
-   const[getasset,setAsset]=useState("Committed");
+   const[getasset,setAsset]=useState("Commited");
     const[startingpage,setstap ] = useState(0);
     const[spvalue,setpvalue] = useState("");
   //console.log("avalue",a);
@@ -219,36 +219,6 @@ const TopLiquidity = () => {
       setstap(indexOfLastPost)
       setpostperpage(postsPerPage+4)
      }
-   
-    ////console.log("lofpair",lofPar/10)
-    //  if(parseInt(pageoffset) < parseInt((dbvalues.length / 4)-1))
-    //  {
-      // setpageoffset(pageoffset + 1)
-      // let k = await callapiforuserslist(pageoffset + 1);
-      // currentPosts = b.slice(indexOfLastPost, indexOfLastPost + 4);
- // console.log("K",k)
-  //  setb(k);
-    //  }
-    
-// console.log("not enter",postsPerPage,(b.length-4))
-  //  if(postsPerPage > (b.length-4))
-  //  {
-  //    if((b.length)-postsPerPage > 0){
-  //     // console.log("not enter")
-  //       let k = (b.length)-postsPerPage;
-  //       setpostperpage(postsPerPage+k)
-  //       // setstap(startingpage)
-  //       currentPosts= b.slice(indexOfLastPost, indexOfLastPost+k);
-  //    }
-     
-  //  }
-  //  else{
-  //   setpostperpage(postsPerPage+4)
-  //   // setstap(startingpage)
-  //    currentPosts= b.slice(indexOfLastPost, indexOfLastPost+4);
-  //  //console.log("current",currentPosts);
-  //  }
-    
    }
    
  
@@ -283,102 +253,7 @@ const filterdata=()=>{
           {/* <br></br> */}
             <h2 className="h3 text-uppercase mb-40">Governors</h2>
            
-                <Modal show={handleLiquidiyopen} centered={true} size="lg" onHide={handlelclose}>
-            <ToastContainer position='top-center' draggable = {false} transition={Zoom} autoClose={8000} closeOnClick = {false}/>
-                <Modal.Body className='modal-liquidity-body'>
-                <div className="modal_header mb-50 d-flex align-items-center">
-                                <Button variant='reset'  className='p-0 me-4'>
-                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M3.828 7.00017H16V9.00017H3.828L9.192 14.3642L7.778 15.7782L0 8.00017L7.778 0.222168L9.192 1.63617L3.828 7.00017Z" fill="white"/>
-                                    </svg>
-                                </Button>
-
-                                <h2 className="h3 mb-0" >ADD LIQUIDITY</h2>     
-                            </div>
-
-                            <Row className='justify-content-center'>
-                                <Col md={7}>
-                                    <div className="mb-2">
-                                        <label className='d-flex align-items-center justify-content-between'>From <small>Balance: { a1balance > 0 ? parseFloat(a1balance/1000000).toFixed(3) : '0.0'} </small></label>
-
-                                        <div className="balance-card d-flex align-items-center justify-content-between">
-                                         
-                                          <Button variant='filter'  >
-                                          {spvalue.asetName1 === "ALGO"?
-                                          (<> <img  width="31" height="30" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROQNyD7j5bC5DMh1kN613JbHgcczZBwncxFrSp-5EhdVCrg3vEHayr5WtEo1JCSyyJUAs&usqp=CAU"></img></>):
-                                          spvalue.asetName1 === "USDC" ?
-                                        (<> <img  width="31" height="30" src={usdclogo}></img></>):
-                                        spvalue.asetName1 === "ELEM" ?
-                                        (<> <img  width="31" height="30" src={elem}></img></>):
-                                        spvalue.asetName1 === "TAU" ?
-                                        (<> <img  width="31" height="30" src={tau}></img></>):
-                                        (<> <img  width="31" height="30" src={logo}></img></>)}
-                                         
-                                            {spvalue.asetName1}
-                                            </Button>
-                                      </div>
-                                    </div>
-
-                                    <div className="mb-2 pt-1 text-center">
-                                        <Button variant='reset'>
-                                            <svg width="62" height="61" viewBox="0 0 62 61" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <rect x="0.919922" y="60.1743" width="60.0313" height="60.1591" rx="30" transform="rotate(-90 0.919922 60.1743)" fill="white"/>
-                                                <path d="M30 29.1584V23.1553H32V29.1584H38V31.1595H32V37.1626H30V31.1595H24V29.1584H30Z" fill="black"/>
-                                            </svg>
-                                        </Button>
-                                    </div>
-
-                                    <div className="mb-20">
-                                        <label className='d-flex align-items-center justify-content-between'>T0 <small>Balance: { a2balance > 0 ? parseFloat(a2balance/1000000).toFixed(4) :'0.0'}  </small></label>
-
-                                        <div className="balance-card d-flex align-items-center justify-content-between">
-                                        
-                                          <Button variant='filter'  >
-                                          {spvalue.asetName2 === "ALGO"?
-                                          (<> <img  width="31" height="30" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROQNyD7j5bC5DMh1kN613JbHgcczZBwncxFrSp-5EhdVCrg3vEHayr5WtEo1JCSyyJUAs&usqp=CAU"></img></>):
-                                          spvalue.asetName2 === "USDC" ?
-                                        (<> <img  width="31" height="30" src={usdclogo}></img></>):
-                                        spvalue.asetName2 === "ELEM" ?
-                                        (<> <img  width="31" height="30" src={elem}></img></>):
-                                        spvalue.asetName2 === "TAU" ?
-                                        (<> <img  width="31" height="30" src={tau}></img></>):
-                                        (<> <img  width="31" height="30" src={logo}></img></>)}
-                                            {spvalue.asetName2}</Button>
-                                            {/* <FilterDropdown2 /> */}
-                                        </div>
-                                    </div>
-
-                                    <div className="balance-card py-2 mb-10 d-flex align-items-center justify-content-between">
-                                        <label>Pool Fee</label>
-
-                                        <h6>0.86 ALGO</h6>
-                                    </div>
-
-                                    <p className="text-red">
-                                        {/* <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi me-2 bi-info-circle" viewBox="0 0 16 16">
-                                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                                            <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
-                                        </svg>
-                                        unverified assets alert, be careful! */}
-                                    </p>
-
-
-
-                                    <p className='d-flex'>
-                                        <span>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" className="bi me-2 bi-info-circle" viewBox="0 0 16 16">
-                                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                                                <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
-                                            </svg>
-                                        </span>
-                                        Once you create the pool, other users will be able to add liquidity to it.
-                                    </p>
-
-                                </Col>
-                            </Row>
-                                </Modal.Body>
-            </Modal>
-           
+               
             <ToastContainer position='top-center' draggable = {false} transition={Zoom} autoClose={8000} closeOnClick = {false}/>
 
             <div className="table-group-outer table-group-lg">
@@ -405,8 +280,8 @@ const filterdata=()=>{
                                     
                                 </Dropdown.Menu>
                             </Dropdown> */}
-                            <select value={getasset} onChange={handleChange}>
-          <option   value="Commited">Committed </option>
+                            <select className="table-group-th" value={getasset} onChange={handleChange}>
+          <option   value="Commited">Commited </option>
           <option  value= "Planet">Planet</option>
           <option   value="Algos">Algos</option>
 
@@ -421,7 +296,7 @@ const filterdata=()=>{
                     
                     </div>
                 </div>
-               
+                
 
                     {dbvalues ===null || dbvalues ==="" || dbvalues ===undefined || dbvalues.length == 0?(<>
                       
@@ -460,7 +335,7 @@ const filterdata=()=>{
 <div className="table-group-td">
     <div className="d-flex align-items-center td-cell">
     {/* {(localStorage.getItem("walletAddress")).substring(0, 4)}...{(localStorage.getItem("walletAddress")).substring((localStorage.getItem("walletAddress")).length -4, (localStorage.getItem("walletAddress")).length)} */}
-        <div className="table-group-td">{(pageSize.WalletAddress).substring(0, 4)}...{(pageSize.WalletAddress).substring((pageSize.WalletAddress).length -4,(pageSize.WalletAddress).length)} </div>
+        <div className="table-group-td">{(pageSize.WalletAddress).substring(0, 8)}...{(pageSize.WalletAddress).substring((pageSize.WalletAddress).length -4,(pageSize.WalletAddress).length)} </div>
        
     </div>
 </div>
