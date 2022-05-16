@@ -1,27 +1,10 @@
 import React, {useState, useEffect} from 'react';
-import { Card, Col, Container, OverlayTrigger, Row, Tooltip } from 'react-bootstrap';
+import { Card, Col, Container, OverlayTrigger, Row, Tooltip, ProgressBar } from 'react-bootstrap';
 import Layout from './LayoutT';
-import AreaChart from './snippets/AreaChart';
-import AreaChartTau from './snippets/AreaChartTau';
-import AreaChartasaswap from './snippets/AreaChartASAswap';
-import AreaChartMintFeeTau from './snippets/AreaChartMintFeeTau';
-import AreaChartEinr from './snippets/AreaChartEinr';
-import AreaChartElemReserve from './snippets/AreaChartElemReserve';
-import AreaChartMintFeeEinr from './snippets/AreaChartMintFeeEinr';
-import AreaChartRedeemFee from './snippets/AreaChartRedeemFee';
-import AreaChartTauCollateral from './snippets/AreaChartTauCollateral';
-import AreaChartEinrCollateral from './snippets/AreaChartEinrCollateral';
-import LineChart from './snippets/LineChart';
-import PieChartElem from './snippets/PieChart';
-import PieChartTau from './snippets/PieChart';
-import PieChartEinr from './snippets/PieChart';
+
 import node from './nodeapi.json';
-import dashboardDetails from '../Dashboard/stablecoin.json';
-import config from '../../NFTFolder/config.json'
-import axios from 'axios';
-import { elemToken } from '../swapConfig';
-import AreaChartNFT from './snippets/AreaChartNFT'
-import Logo from '../../assets/images/algorand-logo.png';
+import governance from './governance.json';
+import ReactDomServer from 'react-dom/server';
 
 const algosdk = require('algosdk');
 const VoteStatus = () => {
@@ -30,209 +13,94 @@ const VoteStatus = () => {
         document.title = "PLANET WATCH | VOTESTATUS"
     }, [])
 
-    const [einrCir, setEinrCir] = useState("");
-    const [elemCir, setElemCir] = useState("");
-    const [tauCir, setTauCir] = useState("");
-    const [usdcFee, setUsdcFee] = useState("");
-    const [tauFee, setTauFee] = useState("");
-    const [einrFee, setEinrFee] = useState("");
-    const [elemBalance, setElemBalance] = useState("");
-    const [elemReserveBalance, setElemReserveBalance] = useState("");
-    const [tauBalance, setTauBalance] = useState("");
-    const [usdcTauBalance, setUsdcTauBalance] = useState("");
-    const [einrBalance, setEinrBalance] = useState("");
-    const [usdcEinrBalance, setUsdcEinrBalance] = useState("");
-    const [nftBalance, setnftBalance] = useState("");
-    const[asaswapelembalance,setasaswapelembalance] = useState("");
-
     const algodClientGet = new algosdk.Algodv2('', node['algodclient'], '');
-    
-        const algodClient = new algosdk.Algodv2('', node['algodclient'], '');
-        const indexClient = new algosdk.Indexer('', node['indexerclient'], '');
 
-        const tauID = dashboardDetails.tauID;
-        const einrID = dashboardDetails.einrID;
-        const elemID = dashboardDetails.elemID;
-        const usdcID = dashboardDetails.usdcID;
-        const tauTotalSupply = 18446744073709.551615;
-        const elemTotalSupply = 18446744073709.551615;
-        const einrTotalSupply = 18446744073709.551615;
+    const algodClient = new algosdk.Algodv2('', node['algodclient'], '');
+    const indexClient = new algosdk.Indexer('', node['indexerclient'], '');
 
-    useEffect(async() => {
-        await cir();
-    }, [tauCir, einrCir, elemCir, usdcFee]);
+    const[totalYes,setTotalYes]= useState("");
+    const[totalNo,setTotalNo]= useState("");
+    const[voteYes,setVoteYes]= useState("");
+    const[voteNo,setVoteNo]= useState("");
+    const[result,setResult]= useState("");
+    const[yesPercent,setYesPercent]= useState();
+    const[noPercent,setNoPercent]= useState();
+    const[totalVotePercent,setTotalVotePercent]= useState();
+    const[yesPercentValue,setYesPercentValue]= useState();
+    const[noPercentValue,setNoPercentValue]= useState();
+    const[totalVotePercentValue,setTotalVotePercentValue]= useState();
+    const[map1,setMap]= useState([]); 
 
-    const cir =async () =>
-    {
-        let escrow = await indexClient.lookupAccountByID(dashboardDetails.dynamicStablecoinEscrowAddressEinr).do(); 
-        let tauFeeAddress = await indexClient.lookupAccountByID(dashboardDetails.owner).do();
-        let einrFeeAddress = await indexClient.lookupAccountByID(dashboardDetails.owner).do();  
-        let usdcFeeAddress = await indexClient.lookupAccountByID(dashboardDetails.owner).do(); 
-        let elemReserve = await indexClient.lookupAccountByID(dashboardDetails.elemReserveAddress).do();
-        let tauReserve = await indexClient.lookupAccountByID(dashboardDetails.dynamicStablecoinEscrowAddress).do();   
-        let usdcTreasuryTau = await indexClient.lookupAccountByID(dashboardDetails.dynamicStablecoinEscrowAddress).do(); 
-        let usdcTreasuryEinr = await indexClient.lookupAccountByID(dashboardDetails.dynamicStablecoinEscrowAddressEinr).do();       
-    let eL = escrow['account']['assets']['length'];
-    let elemL = elemReserve['account']['assets']['length'];
-    let tauFeeL = tauFeeAddress['account']['assets']['length'];
-    let einrFeeL = einrFeeAddress['account']['assets']['length'];
-    let usdcFeeL = usdcFeeAddress['account']['assets']['length'];
-    let tauL = tauReserve['account']['assets']['length'];
-    let usdcTreasuryTauL = usdcTreasuryTau['account']['assets']['length'];
-    let usdcTreasuryEinrL = usdcTreasuryEinr['account']['assets']['length'];
-    // console.log(l);
-    for(let k = 0; k < tauL; k++)
-    {
-        if(tauReserve['account']['assets'][k]['asset-id'] === tauID)
-        {
-            setTauCir(tauReserve['account']['assets'][k]['amount']);
-            break;
+    let appID = 89296370;
+
+
+    useEffect(async() =>{await globalState()},[totalYes, totalNo, voteYes, voteNo, result]) 
+
+const globalState = async () =>
+{
+      try {
+        let appById = await indexClient.lookupApplications(appID).do();
+        //  console.log("app", appById['application']['params']['global-state']);
+         setMap(appById['application']['params']['global-state']);
+         //console.log("length", appById['application']['params']['global-state']['length']);
+let endCount = appById['application']['params']['global-state']['length'];
+for(let i = 0; i < endCount; i++)
+{
+        if(appById['application']['params']['global-state'][i]['key'] == "dG90YWxQYXJ0aWNpcGF0ZVllcw=="){
+            // let endDate_c = JSON.stringify(await appById['application']['params']['global-state'][i]['value'][`uint`]);
+            //  console.log("endDate", endDate_c);
+            setTotalYes(JSON.stringify(await appById['application']['params']['global-state'][i]['value'][`uint`]));
         }
-    }
-    for(let k = 0; k < eL; k++)
-    {
-        if(escrow['account']['assets'][k]['asset-id'] === einrID)
-        {
-            setEinrCir(escrow['account']['assets'][k]['amount']);
-            break;
+        if(appById['application']['params']['global-state'][i]['key'] == "dG90YWxQYXJ0aWNpcGF0ZU5v"){
+            // let endDate_c = JSON.stringify(await appById['application']['params']['global-state'][i]['value'][`uint`]);
+            //  console.log("endDate", endDate_c);
+            setTotalNo(JSON.stringify(await appById['application']['params']['global-state'][i]['value'][`uint`]));
         }
-    }
-    for(let k = 0; k < elemL; k++)
-    {
-        if(elemReserve['account']['assets'][k]['asset-id'] === elemID)
-        {
-            setElemCir(elemReserve['account']['assets'][k]['amount']);
-            break;
+        if(appById['application']['params']['global-state'][i]['key'] == "dG90YWxWb3RlWWVz"){
+            // let endDate_c = JSON.stringify(await appById['application']['params']['global-state'][i]['value'][`uint`]);
+             //console.log("endDate", endDate_c);
+            setVoteYes(JSON.stringify(await appById['application']['params']['global-state'][i]['value'][`uint`]));
         }
-    }  
-    for(let k = 0; k < tauFeeL; k++)
-    {
-        if(tauFeeAddress['account']['assets'][k]['asset-id'] === tauID)
-        {
-            setTauFee(tauFeeAddress['account']['assets'][k]['amount']);
-            break;
+        if(appById['application']['params']['global-state'][i]['key'] == "dG90YWxWb3RlTm8="){
+            // let endDate_c = JSON.stringify(await appById['application']['params']['global-state'][i]['value'][`uint`]);
+             //console.log("endDate", endDate_c);
+            setVoteNo(JSON.stringify(await appById['application']['params']['global-state'][i]['value'][`uint`]));
         }
-    }     
-    for(let k = 0; k < einrFeeL; k++)
-    {
-        if(einrFeeAddress['account']['assets'][k]['asset-id'] === einrID)
-        {
-            setEinrFee(einrFeeAddress['account']['assets'][k]['amount']);
-            break;
+        if(appById['application']['params']['global-state'][i]['key'] == "UmVzdWx0"){
+            // let endDate_c = JSON.stringify(await appById['application']['params']['global-state'][i]['value'][`uint`]);
+             //console.log("endDate", endDate_c);
+            setResult(JSON.stringify(await appById['application']['params']['global-state'][i]['value'][`uint`]));
         }
-    }    
-    for(let k = 0; k < usdcFeeL; k++)
-    {
-        if(usdcFeeAddress['account']['assets'][k]['asset-id'] === usdcID)
-        {
-            setUsdcFee(usdcFeeAddress['account']['assets'][k]['amount']);
-            break;
-        }
-    } 
-    for(let i = 0; i < usdcTreasuryTauL; i++)
-    {
-        if(usdcTreasuryTau['account']['assets'][i]['asset-id'] === usdcID)
-        {
-    setUsdcTauBalance(parseFloat(usdcTreasuryTau['account']['assets'][i]['amount'])/1000000);
-    break;
-        }
-    }
-    for(let i = 0; i < usdcTreasuryEinrL; i++)
-    {
-        if(usdcTreasuryEinr['account']['assets'][i]['asset-id'] === usdcID)
-        {
-    setUsdcEinrBalance(parseFloat(usdcTreasuryEinr['account']['assets'][i]['amount'])/1000000);
-    break;
-        }
-    }
     }
 
-    useEffect(async() => {
-        await Balance()
-		let ln = await axios.get(`${node['algodclient']}/v2/accounts/K44D26OSBNXR4DOYT4E6X7NLUOWRVJYYHDKWCBRGUNTL3VF3TLZZSCVXQU/assets/${elemToken}`);
-        setasaswapelembalance(ln.data['asset-holding'].amount);
-    }, [elemBalance, tauBalance, einrBalance]);        
-    
-    const Balance = async () =>{
-    let balance = await indexClient.lookupAccountByID(dashboardDetails.rebaseElemTreasury).do();
-    let elemReservebalance = await indexClient.lookupAccountByID(dashboardDetails.elemReserveAddress).do();
-    let taubalance = await indexClient.lookupAccountByID(dashboardDetails.dynamicStablecoinEscrowAddress).do();
-    let einrbalance = await indexClient.lookupAccountByID(dashboardDetails.dynamicStablecoinEscrowAddressEinr).do();
-    // console.log(balance);
-    // console.log(taubalance);
-    // console.log(einrbalance);
-    let assetCount = balance['account']['assets']['length'];
-    let assetCountElemReserve = balance['account']['assets']['length'];
-    let assetCountTau = taubalance['account']['assets']['length'];
-    let assetCountEinr = einrbalance['account']['assets']['length'];
-    // console.log(l);
-    for(let i = 0; i < assetCount; i++)
-    {
-        if(balance['account']['assets'][i]['asset-id'] === elemID)
-        {
-    setElemBalance(parseFloat(balance['account']['assets'][i]['amount'])/1000000);
-    break;
-        }
-    }
-    for(let i = 0; i < assetCountElemReserve; i++)
-    {
-        if(elemReservebalance['account']['assets'][i]['asset-id'] === elemID)
-        {
-    setElemReserveBalance(parseFloat(elemReservebalance['account']['assets'][i]['amount'])/1000000);
-    break;
-        }
-    }
-    for(let i = 0; i < assetCountTau; i++)
-    {
-        if(taubalance['account']['assets'][i]['asset-id'] === tauID)
-        {
-    setTauBalance(parseFloat(taubalance['account']['assets'][i]['amount'])/1000000);
-    break;
-        }
-    }
-    for(let i = 0; i < assetCountEinr; i++)
-    {
-        if(einrbalance['account']['assets'][i]['asset-id'] === einrID)
-        {
-    setEinrBalance(parseFloat(einrbalance['account']['assets'][i]['amount'])/1000000);
-    break;
-        }
-    }
-    }   
-    
-    useEffect(async() => {
-        await NFTBalance()
-    }, [nftBalance]);        
+    let yes = (parseInt(totalYes) / 10) * 100;
+    let no = (parseInt(totalNo) / 10) * 100;
 
-    const NFTBalance = async () =>{
-        let ln = await axios.get(`${node['algodclient']}/v2/accounts/${config.feesescrow}`);                
-        let k = ln.data.amount;        
-        //console.log("lndata",k);
-        setnftBalance(parseFloat(k/1000000));
-        //let balance = await indexClient.lookupAccountByID(config.elemescrow).do();
-        
-        //let assetCount = balance['account']['assets']['length']
-        //sconsole.log("Ass",k)  
-        // console.log(l);
-        // for(let i = 0; i < assetCount; i++)
-        // {
-        //     if(balance['account']['assets'][i]['asset-id'] === "76802389")
-        //     {
-        // setnftBalance(parseFloat(balance['account']['assets'][i]['amount'])/1000000);
-        // break;
-        //     }
-        // }
-        }    
+    setYesPercent(((parseInt(totalYes) / 10) * 100).toFixed(0));
+    setNoPercent(((parseInt(totalNo) / 10) * 100).toFixed(0));
+
+    setYesPercentValue(((parseInt(totalYes) / 10) * 100).toFixed(2));
+    setNoPercentValue(((parseInt(totalNo) / 10) * 100).toFixed(2));
+
+    setTotalVotePercent((( (parseInt(totalYes) + parseInt(totalNo)) / 10) * 100).toFixed(0));
+    setTotalVotePercentValue((((parseInt(totalYes) + parseInt(totalNo)) / 10) * 100).toFixed(2));
+
+
+} catch (e) {
+    //console.error(e);
+    return JSON.stringify(e, null, 2);
+}
+}
 
     return (
         <Layout>
             <Container>
                 <Row>
                     <Col md={6} className="mb-4">                
-                        <Card className='card-dash border-0 mb-4'>
+                    <Card className='card-dash border-0 mb-4'>
                             <Row>
                                 <Col>
-                            <div className="text-md mb-20 font-semibold leading-7 text-purple">VOTES  
+                            <div className="text-md mb-10 font-semibold leading-7 text-purple">VOTES  
                             <OverlayTrigger
                                 key="right"
                                 placement="right"
@@ -253,16 +121,31 @@ const VoteStatus = () => {
 
                             <hr className='mb-20 mt-0' />
                             <div className='mb-0'>
-                                
+                            <div className='mb-20 pt-sm-3'>
+                                            {/* <div className="p d-flex align-items-center mb-1  "> */}
+                                                {/* <svg className="d-inline-block me-2" style={{width: '16px', height: '16px', borderRadius: '4px'}}><rect fill="#2C3862" x="0" y="0" width="16" height="16"></rect></svg> */}
+                                                {/* Measure */}
 
-                                <Row className='justify-content-center'>
-                                    <Col xs={12} sm={6} className="mb-sm-0 text-center mb-3">
-                                        <PieChartTau />
-                                    </Col>
-                                    <Col xs={'auto'} sm={6}>
-                                        <div className='mb-20 pt-sm-3'>
+                                                {/* <OverlayTrigger
+                                                    key="left"
+                                                    placement="left"
+                                                    overlay={
+                                                        <Tooltip id={`tooltip-left`}>
+                                                            Start Date for Voting and Timer
+                                                        </Tooltip>
+                                                    }
+                                                    >
+                                                        <svg className="tooltip-icon ms-2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21.25 12C21.25 17.1086 17.1086 21.25 12 21.25C6.89137 21.25 2.75 17.1086 2.75 12C2.75 6.89137 6.89137 2.75 12 2.75C17.1086 2.75 21.25 6.89137 21.25 12Z" stroke="#CCCCCC" stroke-width="1.5"></path><path d="M11 8C11 7.44772 11.4477 7 12 7C12.5523 7 13 7.44772 13 8C13 8.55228 12.5523 9 12 9C11.4477 9 11 8.55228 11 8Z" fill="#CCCCCC"></path><path d="M11 12C11 11.4477 11.4477 11 12 11C12.5523 11 13 11.4477 13 12V16C13 16.5523 12.5523 17 12 17C11.4477 17 11 16.5523 11 16V12Z" fill="#CCCCCC"></path></svg>
+                                                    </OverlayTrigger> */}
+                                            {/* </div> */}
+                                            <div className="h4 mb-0">Question goes here?</div>
+                                            </div>                               
+                                    {/* Progress bar */}
+                                    <div className="mb-10">
+                                        <div className="d-flex justify-content-between">
+                                        <div className='pt-sm-3'>
                                             <div className="text-sm d-flex align-items-center mb-1  ">
-                                                <svg className="d-inline-block me-2" style={{width: '16px', height: '16px', borderRadius: '4px'}}><rect fill="#2C3862" x="0" y="0" width="16" height="16"></rect></svg>
+                                                <svg className="d-inline-block me-2" style={{width: '16px', height: '16px', borderRadius: '4px'}}><rect fill="green" x="0" y="0" width="16" height="16"></rect></svg>
                                                 YES
 
                                                 <OverlayTrigger
@@ -270,18 +153,30 @@ const VoteStatus = () => {
                                                     placement="left"
                                                     overlay={
                                                         <Tooltip id={`tooltip-left`}>
-                                                            No of Voters vote Yes
+                                                            Percentage of Voters voted Yes
                                                         </Tooltip>
                                                     }
                                                     >
                                                         <svg className="tooltip-icon ms-2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21.25 12C21.25 17.1086 17.1086 21.25 12 21.25C6.89137 21.25 2.75 17.1086 2.75 12C2.75 6.89137 6.89137 2.75 12 2.75C17.1086 2.75 21.25 6.89137 21.25 12Z" stroke="#CCCCCC" stroke-width="1.5"></path><path d="M11 8C11 7.44772 11.4477 7 12 7C12.5523 7 13 7.44772 13 8C13 8.55228 12.5523 9 12 9C11.4477 9 11 8.55228 11 8Z" fill="#CCCCCC"></path><path d="M11 12C11 11.4477 11.4477 11 12 11C12.5523 11 13 11.4477 13 12V16C13 16.5523 12.5523 17 12 17C11.4477 17 11 16.5523 11 16V12Z" fill="#CCCCCC"></path></svg>
                                                     </OverlayTrigger>
                                             </div>
-                                            <h6>{parseInt((tauTotalSupply - parseFloat(tauCir)/1000000)) ? (parseInt((tauTotalSupply - parseFloat(tauCir)/1000000).toFixed(0))).toLocaleString() : "0"} TAU</h6>
+                                            {/* <h6>{parseInt((tauTotalSupply - parseFloat(tauCir)/1000000)) ? (parseInt((tauTotalSupply - parseFloat(tauCir)/1000000).toFixed(0))).toLocaleString() : "0"} TAU</h6> */}
                                         </div>
-                                        <div className='mb-20'>
+                                        </div>
+                                        <ProgressBar className='no-shadow' now={yesPercent} variant="success"/>
+                                        <div className="d-flex justify-content-between">
+                                            <strong>{yesPercentValue}%</strong>
+                                            {/* <strong>{50} / {50} ALGO</strong> */}
+                                        </div>
+                                    </div>
+                                    {/* Progress bar */}
+                                    
+                                    {/* Progress bar */}
+                                    <div className="mb-10">
+                                        <div className="d-flex justify-content-between">
+                                        <div className='pt-sm-3'>
                                             <div className="text-sm d-flex align-items-center mb-1  ">
-                                                <svg className="d-inline-block me-2" style={{width: '16px', height: '16px', borderRadius: '4px'}}><rect fill="#55689E" x="0" y="0" width="16" height="16"></rect></svg>
+                                                <svg className="d-inline-block me-2" style={{width: '16px', height: '16px', borderRadius: '4px'}}><rect fill="red" x="0" y="0" width="16" height="16"></rect></svg>
                                                 NO
 
                                                 <OverlayTrigger
@@ -289,31 +184,100 @@ const VoteStatus = () => {
                                                     placement="left"
                                                     overlay={
                                                         <Tooltip id={`tooltip-left`}>
-                                                            No of Voters vote NO
+                                                            Percentage of Voters voted No
                                                         </Tooltip>
                                                     }
                                                     >
                                                         <svg className="tooltip-icon ms-2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21.25 12C21.25 17.1086 17.1086 21.25 12 21.25C6.89137 21.25 2.75 17.1086 2.75 12C2.75 6.89137 6.89137 2.75 12 2.75C17.1086 2.75 21.25 6.89137 21.25 12Z" stroke="#CCCCCC" stroke-width="1.5"></path><path d="M11 8C11 7.44772 11.4477 7 12 7C12.5523 7 13 7.44772 13 8C13 8.55228 12.5523 9 12 9C11.4477 9 11 8.55228 11 8Z" fill="#CCCCCC"></path><path d="M11 12C11 11.4477 11.4477 11 12 11C12.5523 11 13 11.4477 13 12V16C13 16.5523 12.5523 17 12 17C11.4477 17 11 16.5523 11 16V12Z" fill="#CCCCCC"></path></svg>
                                                     </OverlayTrigger>
                                             </div>
-                                            <h6>{(parseInt((parseFloat(tauCir)/1000000))) ? (parseInt((parseFloat(tauCir)/1000000).toFixed(0))).toLocaleString() : "0"} TAU</h6>
+                                            {/* <h6>{(parseInt((parseFloat(tauCir)/1000000))) ? (parseInt((parseFloat(tauCir)/1000000).toFixed(0))).toLocaleString() : "0"} TAU</h6> */}
                                         </div>
-                                    </Col>
-                                </Row>
+                                        </div>
+                                        <ProgressBar className='no-shadow' now={noPercent} variant="danger"/>
+                                        <div className="d-flex justify-content-between">
+                                            <strong>{noPercentValue}%</strong>
+                                            {/* <strong>{50} / {50} ALGO</strong> */}
+                                        </div>
+                                    </div>
+
+                                    {/* Progress bar */}
+                                    <div className="mb-20">
+                                        <div className="d-flex justify-content-between">
+                                        <div className='pt-sm-3'>
+                                            <div className="text-sm d-flex align-items-center mb-1  ">
+                                                <svg className="d-inline-block me-2" style={{width: '16px', height: '16px', borderRadius: '4px'}}><rect fill="blue" x="0" y="0" width="16" height="16"></rect></svg>
+                                                Participants Voted
+
+                                                <OverlayTrigger
+                                                    key="left"
+                                                    placement="left"
+                                                    overlay={
+                                                        <Tooltip id={`tooltip-left`}>
+                                                            Percentage of Voted participants
+                                                        </Tooltip>
+                                                    }
+                                                    >
+                                                        <svg className="tooltip-icon ms-2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21.25 12C21.25 17.1086 17.1086 21.25 12 21.25C6.89137 21.25 2.75 17.1086 2.75 12C2.75 6.89137 6.89137 2.75 12 2.75C17.1086 2.75 21.25 6.89137 21.25 12Z" stroke="#CCCCCC" stroke-width="1.5"></path><path d="M11 8C11 7.44772 11.4477 7 12 7C12.5523 7 13 7.44772 13 8C13 8.55228 12.5523 9 12 9C11.4477 9 11 8.55228 11 8Z" fill="#CCCCCC"></path><path d="M11 12C11 11.4477 11.4477 11 12 11C12.5523 11 13 11.4477 13 12V16C13 16.5523 12.5523 17 12 17C11.4477 17 11 16.5523 11 16V12Z" fill="#CCCCCC"></path></svg>
+                                                    </OverlayTrigger>
+                                            </div>
+                                            {/* <h6>{(parseInt((parseFloat(tauCir)/1000000))) ? (parseInt((parseFloat(tauCir)/1000000).toFixed(0))).toLocaleString() : "0"} TAU</h6> */}
+                                        </div>
+                                        </div>
+                                        <ProgressBar className='no-shadow' now={totalVotePercent} />
+                                        <div className="d-flex justify-content-between">
+                                            <strong>{totalVotePercentValue}%</strong>
+                                            {/* <strong>{50} / {50} ALGO</strong> */}
+                                        </div>
+                                    </div>
+                                    <div className="h4 mb-1">Result</div>
+                                    <div className="h5 mb-0">To Be Announced</div>
                             </div>
                         </Card>
+                        <Card className='card-dash border-0 mb-4'>
+                            <Row>
+                                <Col>
+                            <div className="text-md mb-20 font-semibold leading-7 text-purple">Total Qualified Participants 
+                            <OverlayTrigger
+                                key="right"
+                                placement="right"
+                                overlay={
+                                    <Tooltip id={`tooltip-right`}>
+                                        Total participants registered and Qualified
+                                    </Tooltip>
+                                }
+                                >
+                                    <svg className="tooltip-icon ms-2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21.25 12C21.25 17.1086 17.1086 21.25 12 21.25C6.89137 21.25 2.75 17.1086 2.75 12C2.75 6.89137 6.89137 2.75 12 2.75C17.1086 2.75 21.25 6.89137 21.25 12Z" stroke="#CCCCCC" stroke-width="1.5"></path><path d="M11 8C11 7.44772 11.4477 7 12 7C12.5523 7 13 7.44772 13 8C13 8.55228 12.5523 9 12 9C11.4477 9 11 8.55228 11 8Z" fill="#CCCCCC"></path><path d="M11 12C11 11.4477 11.4477 11 12 11C12.5523 11 13 11.4477 13 12V16C13 16.5523 12.5523 17 12 17C11.4477 17 11 16.5523 11 16V12Z" fill="#CCCCCC"></path></svg>
+                                </OverlayTrigger>
+                            </div>
+                            </Col>
+                            {/* <Col>
+                            <a className='mb-3 text-white d-flex align-items-center btn-link' href={"https://testnet.algoexplorer.io/address/" + dashboardDetails.owner} target="_blank" rel="noreferer">
+                            <svg class="white me-2" width="16" height="16" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M15.8333 15.8333H4.16667V4.16667H10V2.5H4.16667C3.24167 2.5 2.5 3.25 2.5 4.16667V15.8333C2.5 16.75 3.24167 17.5 4.16667 17.5H15.8333C16.75 17.5 17.5 16.75 17.5 15.8333V10H15.8333V15.8333ZM11.6667 2.5V4.16667H14.6583L6.46667 12.3583L7.64167 13.5333L15.8333 5.34167V8.33333H17.5V2.5H11.6667Z"></path></svg>
+                            View on explorer
+                            </a>
+                            </Col> */}
+                            </Row>
+
+                            <div className='mb-20'>
+                                {/* <h6 className='sub-heading mb-0'>
+                                    Percentage per Redeem
+                                </h6> */}
+                                <h4 className='mb-2'>0 Participants</h4>
+                            </div>
+                        </Card> 
                     </Col>
                     <Col md={6}>
                     <Card className='card-dash border-0 mb-4'>
                             <Row>
                                 <Col>
-                            <div className="text-md mb-20 font-semibold leading-7 text-purple">VOTES  
+                            <div className="text-md mb-20 font-semibold leading-7 text-purple">Planets Commited 
                             <OverlayTrigger
                                 key="right"
                                 placement="right"
                                 overlay={
                                     <Tooltip id={`tooltip-right`}>
-                                       Total No of Votes casted
+                                        Total planets asset commited by participants
                                     </Tooltip>
                                 }
                                 >
@@ -321,62 +285,120 @@ const VoteStatus = () => {
                                 </OverlayTrigger>
                             </div>
                             </Col>
-                           
+                            {/* <Col>
+                            <a className='mb-3 text-white d-flex align-items-center btn-link' href={"https://testnet.algoexplorer.io/address/" + dashboardDetails.owner} target="_blank" rel="noreferer">
+                            <svg class="white me-2" width="16" height="16" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M15.8333 15.8333H4.16667V4.16667H10V2.5H4.16667C3.24167 2.5 2.5 3.25 2.5 4.16667V15.8333C2.5 16.75 3.24167 17.5 4.16667 17.5H15.8333C16.75 17.5 17.5 16.75 17.5 15.8333V10H15.8333V15.8333ZM11.6667 2.5V4.16667H14.6583L6.46667 12.3583L7.64167 13.5333L15.8333 5.34167V8.33333H17.5V2.5H11.6667Z"></path></svg>
+                            View on explorer
+                            </a>
+                            </Col> */}
                             </Row>
-                            
 
-
-                            <hr className='mb-20 mt-0' />
-                            <div className='mb-0'>
-                                
-
-                                <Row className='justify-content-center'>
-                                    <Col xs={12} sm={6} className="mb-sm-0 text-center mb-3">
-                                        <PieChartTau />
-                                    </Col>
-                                    <Col xs={'auto'} sm={6}>
-                                        <div className='mb-20 pt-sm-3'>
-                                            <div className="text-sm d-flex align-items-center mb-1  ">
-                                                <svg className="d-inline-block me-2" style={{width: '16px', height: '16px', borderRadius: '4px'}}><rect fill="#2C3862" x="0" y="0" width="16" height="16"></rect></svg>
-                                                YES
-
-                                                <OverlayTrigger
-                                                    key="left"
-                                                    placement="left"
-                                                    overlay={
-                                                        <Tooltip id={`tooltip-left`}>
-                                                            No of Voters vote Yes
-                                                        </Tooltip>
-                                                    }
-                                                    >
-                                                        <svg className="tooltip-icon ms-2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21.25 12C21.25 17.1086 17.1086 21.25 12 21.25C6.89137 21.25 2.75 17.1086 2.75 12C2.75 6.89137 6.89137 2.75 12 2.75C17.1086 2.75 21.25 6.89137 21.25 12Z" stroke="#CCCCCC" stroke-width="1.5"></path><path d="M11 8C11 7.44772 11.4477 7 12 7C12.5523 7 13 7.44772 13 8C13 8.55228 12.5523 9 12 9C11.4477 9 11 8.55228 11 8Z" fill="#CCCCCC"></path><path d="M11 12C11 11.4477 11.4477 11 12 11C12.5523 11 13 11.4477 13 12V16C13 16.5523 12.5523 17 12 17C11.4477 17 11 16.5523 11 16V12Z" fill="#CCCCCC"></path></svg>
-                                                    </OverlayTrigger>
-                                            </div>
-                                            <h6>{parseInt((tauTotalSupply - parseFloat(tauCir)/1000000)) ? (parseInt((tauTotalSupply - parseFloat(tauCir)/1000000).toFixed(0))).toLocaleString() : "0"} TAU</h6>
-                                        </div>
-                                        <div className='mb-20'>
-                                            <div className="text-sm d-flex align-items-center mb-1  ">
-                                                <svg className="d-inline-block me-2" style={{width: '16px', height: '16px', borderRadius: '4px'}}><rect fill="#55689E" x="0" y="0" width="16" height="16"></rect></svg>
-                                                NO
-
-                                                <OverlayTrigger
-                                                    key="left"
-                                                    placement="left"
-                                                    overlay={
-                                                        <Tooltip id={`tooltip-left`}>
-                                                            No of Voters vote NO
-                                                        </Tooltip>
-                                                    }
-                                                    >
-                                                        <svg className="tooltip-icon ms-2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21.25 12C21.25 17.1086 17.1086 21.25 12 21.25C6.89137 21.25 2.75 17.1086 2.75 12C2.75 6.89137 6.89137 2.75 12 2.75C17.1086 2.75 21.25 6.89137 21.25 12Z" stroke="#CCCCCC" stroke-width="1.5"></path><path d="M11 8C11 7.44772 11.4477 7 12 7C12.5523 7 13 7.44772 13 8C13 8.55228 12.5523 9 12 9C11.4477 9 11 8.55228 11 8Z" fill="#CCCCCC"></path><path d="M11 12C11 11.4477 11.4477 11 12 11C12.5523 11 13 11.4477 13 12V16C13 16.5523 12.5523 17 12 17C11.4477 17 11 16.5523 11 16V12Z" fill="#CCCCCC"></path></svg>
-                                                    </OverlayTrigger>
-                                            </div>
-                                            <h6>{(parseInt((parseFloat(tauCir)/1000000))) ? (parseInt((parseFloat(tauCir)/1000000).toFixed(0))).toLocaleString() : "0"} TAU</h6>
-                                        </div>
-                                    </Col>
-                                </Row>
+                            <div className='mb-20'>
+                                <h6 className='sub-heading mb-0'>
+                                    
+                                </h6>
+                                <h4 className='mb-2'>0 Planets</h4>
                             </div>
-                        </Card>
+                        </Card> 
+
+                        <Card className='card-dash border-0 mb-4'>
+                            <Row>
+                                <Col>
+                            <div className="text-md mb-20 font-semibold leading-7 text-purple">Algos Commited 
+                            <OverlayTrigger
+                                key="right"
+                                placement="right"
+                                overlay={
+                                    <Tooltip id={`tooltip-right`}>
+                                        Total Algos commited by participants
+                                    </Tooltip>
+                                }
+                                >
+                                    <svg className="tooltip-icon ms-2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21.25 12C21.25 17.1086 17.1086 21.25 12 21.25C6.89137 21.25 2.75 17.1086 2.75 12C2.75 6.89137 6.89137 2.75 12 2.75C17.1086 2.75 21.25 6.89137 21.25 12Z" stroke="#CCCCCC" stroke-width="1.5"></path><path d="M11 8C11 7.44772 11.4477 7 12 7C12.5523 7 13 7.44772 13 8C13 8.55228 12.5523 9 12 9C11.4477 9 11 8.55228 11 8Z" fill="#CCCCCC"></path><path d="M11 12C11 11.4477 11.4477 11 12 11C12.5523 11 13 11.4477 13 12V16C13 16.5523 12.5523 17 12 17C11.4477 17 11 16.5523 11 16V12Z" fill="#CCCCCC"></path></svg>
+                                </OverlayTrigger>
+                            </div>
+                            </Col>
+                            {/* <Col>
+                            <a className='mb-3 text-white d-flex align-items-center btn-link' href={"https://testnet.algoexplorer.io/address/" + dashboardDetails.owner} target="_blank" rel="noreferer">
+                            <svg class="white me-2" width="16" height="16" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M15.8333 15.8333H4.16667V4.16667H10V2.5H4.16667C3.24167 2.5 2.5 3.25 2.5 4.16667V15.8333C2.5 16.75 3.24167 17.5 4.16667 17.5H15.8333C16.75 17.5 17.5 16.75 17.5 15.8333V10H15.8333V15.8333ZM11.6667 2.5V4.16667H14.6583L6.46667 12.3583L7.64167 13.5333L15.8333 5.34167V8.33333H17.5V2.5H11.6667Z"></path></svg>
+                            View on explorer
+                            </a>
+                            </Col> */}
+                            </Row>
+
+                            <div className='mb-20'>
+                                {/* <h6 className='sub-heading mb-0'>
+                                    Percentage per Redeem
+                                </h6> */}
+                                <h4 className='mb-2'>0 Algos</h4>
+                            </div>
+                        </Card> 
+
+                        <Card className='card-dash border-0 mb-4'>
+                            <Row>
+                                <Col>
+                            <div className="text-md mb-20 font-semibold leading-7 text-purple">Total Participants 
+                            <OverlayTrigger
+                                key="right"
+                                placement="right"
+                                overlay={
+                                    <Tooltip id={`tooltip-right`}>
+                                        Total participants registered
+                                    </Tooltip>
+                                }
+                                >
+                                    <svg className="tooltip-icon ms-2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21.25 12C21.25 17.1086 17.1086 21.25 12 21.25C6.89137 21.25 2.75 17.1086 2.75 12C2.75 6.89137 6.89137 2.75 12 2.75C17.1086 2.75 21.25 6.89137 21.25 12Z" stroke="#CCCCCC" stroke-width="1.5"></path><path d="M11 8C11 7.44772 11.4477 7 12 7C12.5523 7 13 7.44772 13 8C13 8.55228 12.5523 9 12 9C11.4477 9 11 8.55228 11 8Z" fill="#CCCCCC"></path><path d="M11 12C11 11.4477 11.4477 11 12 11C12.5523 11 13 11.4477 13 12V16C13 16.5523 12.5523 17 12 17C11.4477 17 11 16.5523 11 16V12Z" fill="#CCCCCC"></path></svg>
+                                </OverlayTrigger>
+                            </div>
+                            </Col>
+                            {/* <Col>
+                            <a className='mb-3 text-white d-flex align-items-center btn-link' href={"https://testnet.algoexplorer.io/address/" + dashboardDetails.owner} target="_blank" rel="noreferer">
+                            <svg class="white me-2" width="16" height="16" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M15.8333 15.8333H4.16667V4.16667H10V2.5H4.16667C3.24167 2.5 2.5 3.25 2.5 4.16667V15.8333C2.5 16.75 3.24167 17.5 4.16667 17.5H15.8333C16.75 17.5 17.5 16.75 17.5 15.8333V10H15.8333V15.8333ZM11.6667 2.5V4.16667H14.6583L6.46667 12.3583L7.64167 13.5333L15.8333 5.34167V8.33333H17.5V2.5H11.6667Z"></path></svg>
+                            View on explorer
+                            </a>
+                            </Col> */}
+                            </Row>
+
+                            <div className='mb-20'>
+                                {/* <h6 className='sub-heading mb-0'>
+                                    Percentage per Redeem
+                                </h6> */}
+                                <h4 className='mb-2'>0 Participants</h4>
+                            </div>
+                        </Card> 
+
+                        <Card className='card-dash border-0 mb-4'>
+                            <Row>
+                                <Col>
+                            <div className="text-md mb-20 font-semibold leading-7 text-purple">Total Disqualified Participants 
+                            <OverlayTrigger
+                                key="right"
+                                placement="right"
+                                overlay={
+                                    <Tooltip id={`tooltip-right`}>
+                                        Total participants registered and Disqualified
+                                    </Tooltip>
+                                }
+                                >
+                                    <svg className="tooltip-icon ms-2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21.25 12C21.25 17.1086 17.1086 21.25 12 21.25C6.89137 21.25 2.75 17.1086 2.75 12C2.75 6.89137 6.89137 2.75 12 2.75C17.1086 2.75 21.25 6.89137 21.25 12Z" stroke="#CCCCCC" stroke-width="1.5"></path><path d="M11 8C11 7.44772 11.4477 7 12 7C12.5523 7 13 7.44772 13 8C13 8.55228 12.5523 9 12 9C11.4477 9 11 8.55228 11 8Z" fill="#CCCCCC"></path><path d="M11 12C11 11.4477 11.4477 11 12 11C12.5523 11 13 11.4477 13 12V16C13 16.5523 12.5523 17 12 17C11.4477 17 11 16.5523 11 16V12Z" fill="#CCCCCC"></path></svg>
+                                </OverlayTrigger>
+                            </div>
+                            </Col>
+                            {/* <Col>
+                            <a className='mb-3 text-white d-flex align-items-center btn-link' href={"https://testnet.algoexplorer.io/address/" + dashboardDetails.owner} target="_blank" rel="noreferer">
+                            <svg class="white me-2" width="16" height="16" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M15.8333 15.8333H4.16667V4.16667H10V2.5H4.16667C3.24167 2.5 2.5 3.25 2.5 4.16667V15.8333C2.5 16.75 3.24167 17.5 4.16667 17.5H15.8333C16.75 17.5 17.5 16.75 17.5 15.8333V10H15.8333V15.8333ZM11.6667 2.5V4.16667H14.6583L6.46667 12.3583L7.64167 13.5333L15.8333 5.34167V8.33333H17.5V2.5H11.6667Z"></path></svg>
+                            View on explorer
+                            </a>
+                            </Col> */}
+                            </Row>
+
+                            <div className='mb-20'>
+                                {/* <h6 className='sub-heading mb-0'>
+                                    Percentage per Redeem
+                                </h6> */}
+                                <h4 className='mb-2'>0 Participants</h4>
+                            </div>
+                        </Card> 
                     </Col> 
                 </Row>
             </Container>
