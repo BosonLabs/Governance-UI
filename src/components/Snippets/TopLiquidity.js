@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Dropdown } from 'react-bootstrap';
+import { Dropdown,DropdownButton } from 'react-bootstrap';
 import { ToastContainer, Toast, Zoom, Bounce, toast} from 'react-toastify';
 
 import Icon1 from '../../assets/images/icon1.png';
@@ -8,7 +8,7 @@ import Icon2 from '../../assets/images/icon2.png';
 import elem from '../../assets/images/elem-original.png';
 import tau from '../../assets/images/tau-original.png';
 import logo from '../../assets/images/logoasset.png';
-
+import planetlogo from '../../assets/images/planet.png';
 import taulogo from '../../assets/images/tau-original.png';
 import elemlogo from '../../assets/images/elem-original.png';
 import algologo from '../../assets/images/Algo.png';
@@ -77,7 +77,7 @@ const TopLiquidity = () => {
     const [usdcPrice, setUsdcPrice] = useState("");
     const[c,setc] = useState([]);
     const[pageSize,setPageSize]=useState(0); 
-   
+   const[getasset,setAsset]=useState("Committed");
     const[startingpage,setstap ] = useState(0);
     const[spvalue,setpvalue] = useState("");
   //console.log("avalue",a);
@@ -102,7 +102,14 @@ const TopLiquidity = () => {
 
     let currentPosts;
     // Get current posts
-  
+   
+    const dateOptions = ["Newest", "Oldest"];
+    const [value, setValue] = React.useState('fruit');
+    const [drink, setDrink] = React.useState('water');
+    const handleChange = (event) => {
+      setAsset(event.target.value);
+    };
+    
     const indexOfLastPost = currentPage * postsPerPage;
     const indexOfFirstPost = indexOfLastPost - postsPerPage;
   //console.log("bva",startingpage, indexOfLastPost)
@@ -120,7 +127,7 @@ const TopLiquidity = () => {
       // console.log("data")  
       try {         
         // firebase.database().ref(`Registeruser/${localStorage.getItem("walletAddress")}`);
-        fireDb.database().ref("UserVisits").on("value", (data) => {          
+        fireDb.database().ref("Registeruser").on("value", (data) => {          
         if (data) { 
         //console.log("valuedata",data.val())
           r = (data.val())
@@ -168,43 +175,8 @@ const TopLiquidity = () => {
     // setb(k);
   }
   useEffect(()=>{readfirebasedata()},[])
-useEffect(() =>{readvaliemethod()},[])
-const readvaliemethod=async()=>{
-  setOpted(await checkotp(appID_global));
-  // let k = await callapiforuserslist(pageoffset);
-// console.log("K",k)
-  // setb(k);
- //  let c = k.slice(1, 4);
-  let m =0;
-// console.log("m",m)
-  // k.map((r,i)=>{
-  //   m = m + r.tvl;
-  // })
-  // let len = await numberofpairs();
-  // setlengthOfPair(len)
-// console.log("m",m)
-   localStorage.setItem("tvl",m);
 
-   let pk1 = await priceofalgoperusdc(algodClient);
-   setAlgoPrice(pk1);
-  //  let pk2 = await priceOfCoin2();
-    setUsdcPrice(1);
-  //console.log("priceofalgo",pk1)
-  // **********
-//  let k = await getmethod(1,2);
-////console.log("K",k)
-//  setb(k);
-// //  let c = k.slice(1, 4);
-//  let m =0;
-////console.log("m",m)
-//  k.map((r,i)=>{
-//    m = m + r.tvl;
-//  })
-////console.log("m",m)
-//   localStorage.setItem("tvl",m);
 
-  // ********* firebase code
-}
 
 
     const setpostcall = async()=>{
@@ -237,107 +209,9 @@ const readvaliemethod=async()=>{
     
        
     }
-    async function readLocalState(client, account,passvalue){
-        let accountInfoResponse = await client.accountInformation(account).do();
-      //console.log("accinfo",accountInfoResponse);
-        let avalue,bvalue,cvalue;
-        if(accountInfoResponse['apps-local-state'].length > 0){
-          for(let i = 0; i< accountInfoResponse['apps-local-state'][0]['key-value'].length;i++){
-            if(accountInfoResponse['apps-local-state'][0]['key-value'][i]['key'] === "czE="){
-             avalue = (accountInfoResponse['apps-local-state'][0]['key-value'][i]['value']['uint'])
-            //  setMax(accountInfoResponse['apps-local-state'][0]['key-value'][i]['value']['uint'])
-           //console.log(accountInfoResponse['apps-local-state'][0]['key-value'][i]['value']['uint'])
-            }
-            else if(accountInfoResponse['apps-local-state'][0]['key-value'][i]['key'] === "czI="){
-             bvalue = (accountInfoResponse['apps-local-state'][0]['key-value'][i]['value']['uint'])
-            //  setMax1(accountInfoResponse['apps-local-state'][0]['key-value'][i]['value']['uint'])
-           //console.log(accountInfoResponse['apps-local-state'][0]['key-value'][i]['value']['uint'])
-            }
-            else if(accountInfoResponse['apps-local-state'][0]['key-value'][i]['key'] ===  "aWx0"){
-             cvalue = (accountInfoResponse['apps-local-state'][0]['key-value'][i]['value']['uint'])
-           //console.log(accountInfoResponse['apps-local-state'][0]['key-value'][i]['value']['uint'])
-            }
-          }
-        }
-        let pgsize = {"a":avalue,"b":bvalue,"c":cvalue,"name1":passvalue.asetName1,"name2":passvalue.asetName2,"id1":passvalue.asetId1,"id2":passvalue.asetId2}
-        history.push({
-            pathname: '/swap',          
-            state: { detail: pgsize }
-        })
-    }
-    async function readLocalStateValue(client, account, index1,asset1,asset2){
-        let accountInfoResponse = await readingLocalstate(client,account);
-        
-        for(let i=0;i<15;i++){
-          let keys = accountInfoResponse['apps-local-state'][0]['key-value'][i]['key'];
-          // console.log("keys",keys)
-          if(keys === "czE="){
-           sets1(accountInfoResponse['apps-local-state'][0]['key-value'][i]['value']['uint'])
-           
-          }
-          if(keys === "czI="){
-              sets2(accountInfoResponse['apps-local-state'][0]['key-value'][i]['value']['uint'])
-           
-          }
-          if(keys === "aWx0"){
-              setilt(accountInfoResponse['apps-local-state'][0]['key-value'][i]['value']['uint'])
-            
-            } 
-          if(keys === "cA=="){
-            setunclaimed_protocol_fees(accountInfoResponse['apps-local-state'][0]['key-value'][i]['value']['uint'])
-           
-          } 
-          // if(keys.slice(0,2) === "bw"){
-          //   let a1 = decodLocalState(String(keys));
-           
-          //   if(decodLocalState(keys) === asset1){
-          //     setoutstanding_asset1_amount(accountInfoResponse['apps-local-state'][0]['key-value'][i]['value']['uint'])
-              
-          //   } 
-          //   if(decodLocalState(keys) === asset2){
-          //     setoutstanding_asset2_amount(accountInfoResponse['apps-local-state'][0]['key-value'][i]['value']['uint'])
-             
-          //   } 
-          //   if(decodLocalState(keys) === asset3){
-          //     setoutstanding_liquidity_amount(accountInfoResponse['apps-local-state'][0]['key-value'][i]['value']['uint'])
-           
-          //   }
-          // }          
-         
-        
-         
-        }
-     
-    }
-    const waitForConfirmation = async function (algodclient, txId) {
-        let status = await algodclient.status().do();
-        let lastRound = status["last-round"];
-        while (true) {
-          const pendingInfo = await algodclient
-            .pendingTransactionInformation(txId)
-            .do();
-          if (
-            pendingInfo["confirmed-round"] !== null &&
-            pendingInfo["confirmed-round"] > 0
-          ) {
-            //Got the completed Transaction
-          //console.log(
-            //   "Transaction " +
-            //     txId +
-            //     " confirmed in round " +
-            //     pendingInfo["confirmed-round"]
-            // );
-            break;
-          }
-          lastRound++;
-          await algodclient.statusAfterBlock(lastRound).do();
-        }
-      };
-    const buttonclick = async(pvalue) =>{
-
-        await readLocalState(algodClient,pvalue.escrowAddress,pvalue);
-       
-    }
+   
+  
+    
 
    
    const setincrm= async()=>{
@@ -377,454 +251,30 @@ const readvaliemethod=async()=>{
     
    }
    
- //console.log("bvalue",b)
-
-function SetValue1(Amountin){
-    //console.log("aprice",aprice);
-    let amount2 = convert1((Amountin * 1000000),aprice[0],aprice[1]);
-  //console.log("amout2",amount2)
-    setamount2(amount2/1000000);
-    setsAmount1(Amountin * 1000000)
-    setsAmount2(amount2)
-  }
-  function SetValue2(Amountin){
-    let amount2 = convert2((Amountin * 1000000),aprice[0],aprice[1]);
-  //console.log("amout2",amount2)
-    setamount1(amount2/1000000);
-    setsAmount1(amount2)
-    setsAmount2(Amountin * 1000000)
-  }
-  const addli = async(as1,as2) =>{
-    let s1 =  await find_balance(as1);
-  //console.log("b1",s1,as1)
-    setas1balance(s1);
-    let s2 = await find_balance(as2);
-    setas2balance(s2);
-  //console.log("b2",s2)
-    
-    
-  }
-  const pass =async(pvalue)=>{
-   
-    addli(pvalue.asetId1,pvalue.asetId2)
-    setpvalue(pvalue)
-    let a1 = await readingLocalstate(algodClient,pvalue.escrowAddress);
-  //console.log("values",a1);
-
-    let b1 = assert1Reserve(a1);
-   let  b2 = assert2Reserve(a1);
-   
-   let pr =[];
-   pr.push(b1);
-   pr.push(b2);
-   setaprice(pr);
-   readLocalStateValue(algodClient,pvalue.escrowAddress,appId,pvalue.asetId1,pvalue.asetId2);
-
-
-   let sh = await checkassetin(pvalue.asetId3);
-    if(sh === undefined || sh === null || sh===""){
-      setshownalue(false);
-    }
-    else{
-      setshownalue(true);
-    }
-   
-   handlelopen();
-
-  //console.log("asset1",b1,b2,pr)
-    
-  }
-  const closevalue =()=>{
-    setamount1(0)
-    setamount2(0)
-    handlelclose();
-   
-    // setas1balance(0);
-    // setas2balance(0);
-  }
-  const optIn =async (assid) => {
-
-    // const algodClient = new algosdk.Algodv2('', 'https://api.testnet.algoexplorer.io', '');
-    const params = await algodClient.getTransactionParams().do();
-  ;
-
-   
-    // console.log('Asset 3 ID: ', assetId3);
-// console.log("appId inside donate", index)
-try {
-
-
-let optinTranscation = algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
-  from:localStorage.getItem("walletAddress"),
-  to :localStorage.getItem("walletAddress"),
-  assetIndex: assid ,
-  amount: 0,
-  suggestedParams:params,
-  
-});
-
-
-  
-  const signedTx1 = await myAlgoWallet.signTransaction(optinTranscation.toByte());
-  toast.info("Optin Progress");
-
-const response = await algodClient.sendRawTransaction(signedTx1.blob).do();
-//console.log("TxID", JSON.stringify(response, null, 1));
-await waitForConfirmation(algodClient, response.txId);
-toast.success(`Transaction Success ${response.txId}`);
-toast.info("Optin Done Sucessfully");
-setshownalue(true);
-} catch (err) {
-  toast.error(`Transaction Failed due to ${err}`);
-  //console.error(err);
-}
-
  
-}
-  const mint1call = async (appid,a1,a2,asn1,asn2) => {
- 
-    let index = parseInt(appid);
-  //console.log("appId inside donate", index);
-  //console.log("input1",a1)
-  //console.log("input2",a2)
-    setAppId(appid);
-    let tokenid1 = spvalue.asetId1;
-    let tokenid2 = spvalue.asetId2;
-      
-    let replacedData = data.replaceAll("Token1",tokenid1).replaceAll("Token2",tokenid2).replaceAll("appId",appID_global);
-    let results = await algodClient.compile(replacedData).do();
 
-  //console.log("Hash = " + results.hash);
-  //console.log("Result = " + results.result);
 
-    
-    let assetId3 = spvalue.asetId3;
-  //console.log(assetId3)
-
-    let program = new Uint8Array(Buffer.from(results.result, "base64"));
-
-    let lsig = algosdk.makeLogicSig(program);
-  //console.log("Escrow =", lsig.address()); 
-
-    // readLocalStateValue(algodClient,results.hash,appId,tokenid1,tokenid2);
-
-let i1 = Math.floor(a1);
-let i2 = Math.floor(a2);
-console.log("input1",i1)
-  //console.log("input2",ilt)
-let vl = s1+s2+ilt;
-let tvl = s1 + s2;
-    let total;
-   
-
-      let liquidity_asset_amount = Math.min(
-        (i1 * ilt) / s1,
-        (i2 * ilt) / s2
-      );
-      liquidity_asset_amount = liquidity_asset_amount - (liquidity_asset_amount * 0.05)
-      //  let liquidity_asset_amount = Math.min(
-      //   (i1 * aprice[3]) / aprice[0],
-      //   (i2 * aprice[3]) / aprice[1]
-      // );
-    //console.log("liquidity_asset_amount",liquidity_asset_amount)
-      // total = Math.floor((liquidity_asset_amount - liquidity_asset_amount )* 0.5);
-      total = Math.floor(liquidity_asset_amount)
-    //console.log("Total 2: ", total);
-   
-
-                          
-          // this.setState({setLoading:false}) ;  
-          // this.setState({setisOpenmkyc:true}); 
-          try {
-
-            const params = await algodClient.getTransactionParams().do();
-            let sender = localStorage.getItem("walletAddress");
-      
-            let recv_escrow = lsig.address();
-            let amount = 3000;
-      
-            let note1 = [];
-            note1.push(new Uint8Array(Buffer.from("fee")));
-            if(parseInt(tokenid2) == 0){
-      
-              let transaction1 = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
-                from: sender,
-                to: recv_escrow,
-                amount: amount,
-                suggestedParams: params,
-              });
-        
-              let appArg = [];
-              appArg.push(new Uint8Array(Buffer.from("mint")));
-        
-              let foreignassets = [];
-              foreignassets.push(parseInt(tokenid1));
-              // foreignassets.push(parseInt(tokenid2));
-              foreignassets.push(parseInt(assetId3));
-            //console.log("asset3",assetId3)
-              const transaction2 = algosdk.makeApplicationNoOpTxnFromObject({
-                from: recv_escrow,
-                appIndex: index,
-                appArgs: appArg,
-                appAccounts: sender,
-                accounts: [sender],
-                foreignAssets: foreignassets,
-                suggestedParams: params,
-              });
-      //console.log("3rdtran",i1)
-              const transaction3 =
-                algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
-                  from: sender,
-                  to: recv_escrow,
-                  assetIndex: parseInt(tokenid1),
-                  note: undefined,
-                  accounts: sender,
-                  amount: parseInt(Math.floor(i1)),
-                  suggestedParams: params,
-                });
-        
-              const transaction4 =
-                algosdk.makePaymentTxnWithSuggestedParamsFromObject({
-                  from: sender,
-                  to: recv_escrow,
-                  note: undefined,
-                  accounts: sender,
-                  amount: parseInt(Math.floor(i2)),
-                  suggestedParams: params,
-                });
-        
-              let foreignassetliquidity = [];
-              foreignassetliquidity.push(parseInt(assetId3));
-            //console.log(total);
-              const transaction5 =
-                algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
-                  from: recv_escrow,
-                  to: sender,
-                  assetIndex: parseInt(assetId3),
-                  note: undefined,
-                  accounts: [recv_escrow],
-                  appAccounts: recv_escrow,
-                  foreignAssets: foreignassetliquidity,
-                  amount: parseInt(total),
-                  suggestedParams: params,
-                });
-                const groupID = algosdk.computeGroupID([
-                  transaction1,
-                  transaction2,
-                  transaction3,
-                  transaction4,
-                  transaction5,
-                ]);
-                const txs = [
-                  transaction1,
-                  transaction2,
-                  transaction3,
-                  transaction4,
-                  transaction5,
-                ];
-                for (let i = 0; i <= 4; i++) txs[i].group = groupID;
-          
-                const signedTx1 = algosdk.signLogicSigTransaction(txs[1], lsig);
-                const signedTx2 = algosdk.signLogicSigTransaction(txs[4], lsig);
-        
-                const signedTxArray = await myAlgoWallet.signTransaction([txs[0].toByte(),txs[2].toByte(),txs[3].toByte()]);
-                toast.info("Transaction in Progress");
-                const response = await algodClient
-                  .sendRawTransaction([
-                    signedTxArray[0].blob,
-                    signedTx1.blob,
-                    signedTxArray[1].blob,
-                    signedTxArray[2].blob,
-                    signedTx2.blob,
-                  ])
-                  .do();
-              //console.log("TxID", JSON.stringify(response, null, 1));
-                await waitForConfirmation(algodClient, response.txId);
-      
-              let an = asn1 +"/"+ asn2;
-                // await postusertx(localStorage.getItem("walletAddress"),response.txId,recv_escrow,"Add Liquidity",total,0,asn1,asn2,amount);
-                // await createtxhash(recv_escrow,response.txId,"ADD LIQUIDITY",total,an)
-                // await updatepairhistory(tokenid1,tokenid2,amount,tvl,vl);
-                await updateusedetails(tokenid1,tokenid2,tvl,vl,0);
-                await postusertx(recv_escrow,response.txId,"ADD LIQUIDITY",total,an)
-                toast.success(`Transaction Success ${response.txId}`);
-                toast.info("Adding Liquidity is Successfully Done!")
-                closevalue();
-              //   setTxId(response.txId);
-            }
-            else{
-            let transaction1 = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
-              from: sender,
-              to: recv_escrow,
-              amount: amount,
-              suggestedParams: params,
-            });
-      
-            let appArg = [];
-            appArg.push(new Uint8Array(Buffer.from("mint")));
-      
-            let foreignassets = [];
-            foreignassets.push(parseInt(tokenid1));
-            foreignassets.push(parseInt(tokenid2));
-            foreignassets.push(parseInt(assetId3));
-            const transaction2 = algosdk.makeApplicationNoOpTxnFromObject({
-              from: recv_escrow,
-              appIndex: index,
-              appArgs: appArg,
-              appAccounts: sender,
-              accounts: [sender],
-              foreignAssets: foreignassets,
-              suggestedParams: params,
-            });
-      
-            const transaction3 =
-              algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
-                from: sender,
-                to: recv_escrow,
-                assetIndex: parseInt(tokenid1),
-                note: undefined,
-                accounts: sender,
-                amount: parseInt(Math.floor(i1)),
-                suggestedParams: params,
-              });
-      
-            const transaction4 =
-              algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
-                from: sender,
-                to: recv_escrow,
-                assetIndex: parseInt(tokenid2),
-                note: undefined,
-                accounts: sender,
-                amount: parseInt(Math.floor(i2)),
-                suggestedParams: params,
-              });
-      
-            let foreignassetliquidity = [];
-            foreignassetliquidity.push(parseInt(assetId3));
-        // console.log(total.toFixed(0));
-            const transaction5 =
-              algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
-                from: recv_escrow,
-                to: sender,
-                assetIndex: parseInt(assetId3),
-                note: undefined,
-                accounts: [recv_escrow],
-                appAccounts: recv_escrow,
-                foreignAssets: foreignassetliquidity,
-                amount: parseInt((total)),
-                suggestedParams: params,
-              });
-              const groupID = algosdk.computeGroupID([
-                transaction1,
-                transaction2,
-                transaction3,
-                transaction4,
-                transaction5,
-              ]);
-              const txs = [
-                transaction1,
-                transaction2,
-                transaction3,
-                transaction4,
-                transaction5,
-              ];
-              for (let i = 0; i <= 4; i++) txs[i].group = groupID;
-        
-              const signedTx1 = algosdk.signLogicSigTransaction(txs[1], lsig);
-              const signedTx2 = algosdk.signLogicSigTransaction(txs[4], lsig);
-             
-              const signedTxArray = await myAlgoWallet.signTransaction([txs[0].toByte(),txs[2].toByte(),txs[3].toByte()]);
-              toast.info("Transaction in Progress");
-              const response = await algodClient
-                .sendRawTransaction([
-                  signedTxArray[0].blob,
-                  signedTx1.blob,
-                  signedTxArray[1].blob,
-                  signedTxArray[2].blob,
-                  signedTx2.blob,
-                ])
-                .do();
-            //console.log("TxID", JSON.stringify(response, null, 1));
-              await waitForConfirmation(algodClient, response.txId);
-      let an = asn1 +"/"+asn2;
-              // await postusertx(localStorage.getItem("walletAddress"),response.txId,recv_escrow,"Add Liquidity",total,0,asn1,asn2,amount);
-              await updateusedetails(tokenid1,tokenid2,tvl,vl,0);
-              await postusertx(recv_escrow,response.txId,"ADD LIQUIDITY",total,an)
-              toast.success(`Transaction Success ${response.txId}`);
-              toast.info("Adding Liquidity is successfully Done!")
-              closevalue();
-              // setTxId(response.txId);
-            }
-            
-           
-            
-          } catch (err) {
-            toast.error(`Transaction Failed due to ${err}`);
-          //console.error(err);
-          }                                         
-        
-    
-  };
-
-  const appOptIn = async () =>
-{
-  const myAlgoWallet = new MyAlgoConnect();
-  // const algodClient = new algosdk.Algodv2('', 'https://api.testnet.algoexplorer.io', '');
-  
-  
-  
-  let index = parseInt(appID_global);
-  // console.log("appId inside donate", index)
-try {
- 
-  const params = await algodClient.getTransactionParams().do();
-
-  let optinTranscation = algosdk.makeApplicationOptInTxnFromObject({
-    from:localStorage.getItem("walletAddress"),
-    suggestedParams:params,
-    appIndex:index
-  });
-
-  
-    
-    const signedTx1 = await myAlgoWallet.signTransaction(optinTranscation.toByte());
-    
-    toast.info("Transaction in Progress");
-const response = await algodClient.sendRawTransaction(signedTx1.blob).do();
-// console.log("TxID", JSON.stringify(response, null, 1));
-await waitForConfirmation(algodClient, response.txId);
-
-// await postusertx(localStorage.getItem("walletAddress"),response.txId,0,"Opt-In App",0,0,"","",0);
-
-await postusertx("-",response.txId,"App Opt-In","-","-")
-toast.success(`Transaction Success ${response.txId}`);
-setOpted(true);
-  } catch (err) {
-    toast.error(`Transaction Failed due to ${err}`);
-    // console.error(err);
+const filterdata=()=>{
+       
+  if(getasset === "Algos"){        
+      let data=b.filter((val)=> {return (val.Assettype ==="Algos")})
+  //   console.log("filtercall12",data)
+    return data;        
   }
-}
-  
-const checklogo = (name,id)=>{
-  if(name === "ALGO" && id === 0){
-      return algologo;
-  }
-  else if(name === "USDC" && id === 78045387){
-      return usdclogo;
-  }
-  else if(name === "ELEM"  && id === 78044331){
-      return elemlogo;
-  }
-  else if(name === "TAU"  && id === 78043454){
-      return taulogo;
-  }
-  else if(name === "EINR"  && id === 78044898){
-      return einrlogo;
+  else if(getasset==="Planet"){
+    let data=b.filter((val)=> {return (val.Assettype ==="Planet")})
+    //   console.log("filtercall12",data)
+      return data;  
   }
   else{
-    return selecttoken;
+    
+    //   console.log("filtercall12",data)
+      return b;  
   }
-} 
+                 
+  return b
+}
+
     return (
         <div className='mb-5'>
 
@@ -837,7 +287,7 @@ const checklogo = (name,id)=>{
             <ToastContainer position='top-center' draggable = {false} transition={Zoom} autoClose={8000} closeOnClick = {false}/>
                 <Modal.Body className='modal-liquidity-body'>
                 <div className="modal_header mb-50 d-flex align-items-center">
-                                <Button variant='reset' onClick={()=>closevalue()} className='p-0 me-4'>
+                                <Button variant='reset'  className='p-0 me-4'>
                                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M3.828 7.00017H16V9.00017H3.828L9.192 14.3642L7.778 15.7782L0 8.00017L7.778 0.222168L9.192 1.63617L3.828 7.00017Z" fill="white"/>
                                     </svg>
@@ -852,11 +302,7 @@ const checklogo = (name,id)=>{
                                         <label className='d-flex align-items-center justify-content-between'>From <small>Balance: { a1balance > 0 ? parseFloat(a1balance/1000000).toFixed(3) : '0.0'} </small></label>
 
                                         <div className="balance-card d-flex align-items-center justify-content-between">
-                                          {amount1Value ? (<>
-                                            <input type='number' className='m-0 form-control p-0 border-0 text-white'  value={amount1Value}  placeholder="0.0" autoComplete='off'/>
-                                          </>):(<>
-                                            <input type='number' className='m-0 form-control p-0 border-0 text-white'  onChange={e => SetValue1(e.target.value)}   placeholder="0.0" autoComplete='off'/>
-                                          </>)}
+                                         
                                           <Button variant='filter'  >
                                           {spvalue.asetName1 === "ALGO"?
                                           (<> <img  width="31" height="30" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROQNyD7j5bC5DMh1kN613JbHgcczZBwncxFrSp-5EhdVCrg3vEHayr5WtEo1JCSyyJUAs&usqp=CAU"></img></>):
@@ -886,11 +332,7 @@ const checklogo = (name,id)=>{
                                         <label className='d-flex align-items-center justify-content-between'>T0 <small>Balance: { a2balance > 0 ? parseFloat(a2balance/1000000).toFixed(4) :'0.0'}  </small></label>
 
                                         <div className="balance-card d-flex align-items-center justify-content-between">
-                                          {amount2Value ? (<>
-                                            <input type='number' className='m-0 form-control p-0 border-0 text-white'  value={amount2Value}  placeholder="0.0" autoComplete='off'></input>
-                                          </>):(<>
-                                            <input type='number' className='m-0 form-control p-0 border-0 text-white'  onChange={e => SetValue2(e.target.value)}  placeholder="0.0" autoComplete='off'></input>
-                                          </>)}
+                                        
                                           <Button variant='filter'  >
                                           {spvalue.asetName2 === "ALGO"?
                                           (<> <img  width="31" height="30" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROQNyD7j5bC5DMh1kN613JbHgcczZBwncxFrSp-5EhdVCrg3vEHayr5WtEo1JCSyyJUAs&usqp=CAU"></img></>):
@@ -919,18 +361,7 @@ const checklogo = (name,id)=>{
                                         </svg>
                                         unverified assets alert, be careful! */}
                                     </p>
-{appOpted ? (<>
-  {shownvalue ? (<>
-  <Button className='btn w-100 mb-20 text-none btn-grad btn-xl' onClick={()=>mint1call(appID_global,samount1,samount2,spvalue.asetName1,spvalue.asetName2)}>ADD LIQUIDITY</Button>
 
-</>):(<>
-  <Button className='btn w-100 mb-20 text-none btn-grad btn-xl' onClick={()=>optIn(parseInt(spvalue.asetId3))}>Asset Opt-In</Button>
-
-</>)}
-</>):(<>
-  <Button className='btn w-100 mb-20 text-none btn-grad btn-xl' onClick={()=>appOptIn()}>App Opt-In</Button>
-
-</>)}
 
 
                                     <p className='d-flex'>
@@ -957,25 +388,37 @@ const checklogo = (name,id)=>{
                         <div className="table-group-th"></div>
                         {/* <div className="table-group-th"></div> */}
                         <div className="table-group-th">
-                            <Dropdown>
+                       
+                            {/* <Dropdown>
                                 <Dropdown.Toggle variant="reset" id="dropdown-basic">
-                                    Commited Planet
+                                   {getasset}
                                 </Dropdown.Toggle>
 
                                 <Dropdown.Menu>
-                                    <Dropdown.Item href="#/action-1">Planet</Dropdown.Item>
-                                    <Dropdown.Item href="#/action-2">Algos</Dropdown.Item>
-                                    {/* <Dropdown.Item href="#/action-3">Something else</Dropdown.Item> */}
+                                    <Dropdown.Item href="#/action-1" onChange={()=>{setAsset("PlanetToken")}} value="PlanetToken">Planet</Dropdown.Item>
+                                    
+                                   
                                 </Dropdown.Menu>
-                            </Dropdown>
+                                <Dropdown.Menu>
+                                    
+                                    <Dropdown.Item href="#/action-2" onChange={()=>{setAsset("Algos")}} value="Algos">Algos</Dropdown.Item>
+                                    
+                                </Dropdown.Menu>
+                            </Dropdown> */}
+                            <select value={getasset} onChange={handleChange}>
+          <option   value="Commited">Committed </option>
+          <option  value= "Planet">Planet</option>
+          <option   value="Algos">Algos</option>
+
+        
+        </select>
+             
                         </div>
-                       
+                        
                         <div className="table-group-th">Registered</div>
                         <div className="table-group-th">Votes </div>
                         <div className="table-group-th">Status</div>
-                        {/* <div className="table-group-th">POOL</div> */}
-                        {/* <div className="table-group-th"></div> */}
-                        {/* <div className="table-group-th text-end">fees (yearly)</div> */}
+                    
                     </div>
                 </div>
                
@@ -983,10 +426,7 @@ const checklogo = (name,id)=>{
                     {dbvalues ===null || dbvalues ==="" || dbvalues ===undefined || dbvalues.length == 0?(<>
                       
                         <div className="table-group-body text-gray-AA">
-               {/* Loading ....  */}
-               {/* <Button className='btn w-100 mb-20 text-none btn-grad btn-xl' onClick={()=>pass(4)}>VIEW</Button> */}
-
-               {/* <img src="https://c.tenor.com/FBeNVFjn-EkAAAAS/ben-redblock-loading.gif"/> */}
+         
                <span className="d-block text-center">
                   <svg version="1.1" id="L9" width="80" height="80" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
                       viewBox="0 0 100 100" enable-background="new 0 0 0 0">
@@ -1009,7 +449,7 @@ const checklogo = (name,id)=>{
 </div>
                     </>):(<>
                     
-                        {currentPosts.map((pageSize)=>{
+                        {filterdata().map((pageSize)=>{
                         //    if(i<pageSize)
 // console.log("pagesize",(pageSize.fees/1000000)* algoPrice)
                             return(<>
@@ -1020,44 +460,34 @@ const checklogo = (name,id)=>{
 <div className="table-group-td">
     <div className="d-flex align-items-center td-cell">
     {/* {(localStorage.getItem("walletAddress")).substring(0, 4)}...{(localStorage.getItem("walletAddress")).substring((localStorage.getItem("walletAddress")).length -4, (localStorage.getItem("walletAddress")).length)} */}
-        <div className="table-group-td">{(pageSize.AlgoAddress).substring(0, 4)}...{(pageSize.AlgoAddress).substring((pageSize.AlgoAddress).length -4,(pageSize.AlgoAddress).length)} </div>
+        <div className="table-group-td">{(pageSize.WalletAddress).substring(0, 4)}...{(pageSize.WalletAddress).substring((pageSize.WalletAddress).length -4,(pageSize.WalletAddress).length)} </div>
        
     </div>
 </div>
 <div className="table-group-td"></div>
 
 {/* <div className="table-group-td"></div> */}
-{(pageSize.AssetName1=== "ALGO" || pageSize.AssetName2 ==="ALGO") ? 
+{(pageSize.Amount=== " " || pageSize.Amount === null || pageSize.Amount === undefined ) ? 
 (<>
-<div className="table-group-td">$ {parseFloat((pageSize.tvl/1000000)* (algoPrice/1000000)).toFixed(3)}</div>
+<div className="table-group-td">0</div>
 </>) :
- (pageSize.AssetName1=== "USDC" || pageSize.AssetName2 ==="USDC") ?
+ 
  (<>
- <div className="table-group-td">$ {parseFloat((pageSize.tvl/1000000) * usdcPrice).toFixed(3)}</div>
- </>):
- (<>
- <div className="table-group-td">{parseFloat(pageSize.tvl/1000000).toFixed(3)}</div>
+ <div className="table-group-td">
+   
+   {pageSize.Assettype==="Algos"?(<>
+    <img src={algologo} alt="logo" style={{width:'10%',height:'8%'}} className='me-2 avatar-pic' />
+   </>):(<>
+    <img src={planetlogo} alt="logo" style={{width:'10%',height:'8%'}} className='me-2 avatar-pic' />
+   </>)}
+   {parseFloat(pageSize.Amount)} {(pageSize.Assettype)}</div>
  </>)}
-{/* <div className="table-group-td">{parseFloat(pageSize.tvl/1000000).toFixed(3)}</div> */}
+
 <div className="table-group-td">{pageSize.TimeStamp}</div>
-<div className="table-group-td"></div>
-<div className="table-group-td">{parseFloat(pageSize.fees/1000000).toFixed(3)}</div>
-{/* <div className="table-group-td text-truncate">ELEMENT POOL {(pageSize.asetName1)}-{pageSize.asetName2}</div> */}
-{/* <div className="table-group-td"> */}
-    {/* <div className="d-flex align-items-center">
-    <Button variant='arrow' className="btn btn-grad" onClick={()=>pass(pageSize)} >
-    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-plus-lg" viewBox="0 0 16 16">
-        <path fillRule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
-    </svg>
-    </Button>
-    <Button variant='arrow' className="btn btn-grad" onClick={()=>buttonclick(pageSize)}>
-    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-arrow-left-right" viewBox="0 0 16 16">
-        <path fillRule="evenodd" d="M1 11.5a.5.5 0 0 0 .5.5h11.793l-3.147 3.146a.5.5 0 0 0 .708.708l4-4a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 11H1.5a.5.5 0 0 0-.5.5zm14-7a.5.5 0 0 1-.5.5H2.707l3.147 3.146a.5.5 0 1 1-.708.708l-4-4a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H14.5a.5.5 0 0 1 .5.5z"/>
-    </svg>
-    </Button>
-    </div> */}
-    {/* </div> */}
-{/* <div className="table-group-td text-end">{pageSize.tvlvalue}</div> */}
+{(pageSize.Vote=== " " || pageSize.Vote === null || pageSize.Vote === undefined ) ?(<> 0 </>):(<> <div className="table-group-td">{pageSize.Vote}</div></>) }
+{(pageSize.Eligibility=== " " || pageSize.Eligibility === null || pageSize.Eligibility === undefined || pageSize.Eligibility === "0" ||pageSize.Eligibility === 0) ?(<> Not Eligible </>):(<> <div className="table-group-td">Eligible </div></>) }
+
+
 </div>
 </div></>)
  
@@ -1070,16 +500,7 @@ const checklogo = (name,id)=>{
                 <p>showing {startingpage+1}-{startingpage + 4} from {parseFloat(dbvalues.length/4).toFixed(0)} Page</p>
 
                 <div className="d-flex pagination align-items-center">
-                    {/* <Button variant='arrow'  onClick={()=>{setpostcall()}}>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-chevron-left" viewBox="0 0 16 16">
-                            <path fillRule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
-                        </svg>
-                    </Button>
-                    <Button variant='arrow' onClick={()=>{setincrm()}}>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-chevron-right" viewBox="0 0 16 16">
-                            <path fillRule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
-                        </svg>
-                    </Button> */}
+                  
 
                     <Button variant='page' onClick={()=>{setpostcall()}}>
                         <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="#fff" class="bi m-0 bi-chevron-left" viewBox="0 0 16 16">

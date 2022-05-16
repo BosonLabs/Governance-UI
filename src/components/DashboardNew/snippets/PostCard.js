@@ -18,7 +18,7 @@ import QRCodeModal from "algorand-walletconnect-qrcode-modal";
 import { formatJsonRpcRequest } from "@json-rpc-tools/utils";
 import { updatealgobalance } from "../../formula";
 import governance from "../governance.json";
-
+import firebase from '../../../NFTFolder/firebase';
 import axios from 'axios';  
 // import url from '../../../../configurl';
 import { Link } from 'react-router-dom';
@@ -79,7 +79,8 @@ const PostCard = () => {
     const [planetCommited, setPlanetCommited] = useState("");
     
     const [minAlgo, setMinAlgo] = useState("");
-
+    const [commitamount,setcommitamount] = useState("");
+    const [planetAmount, setPlanetAmount ] = useState();
     let appID_global = launchpadDetails['app1']['appID'];
     let escrow_global = "LMCGCWB7LOFIQBIKO663W4OOOQQCNWQGU23HCMLYXX3S35OXS47XLXLTXQ";
     let elementID_global = launchpadDetails['app1']['elemAssetID'];
@@ -105,7 +106,38 @@ const algodClientGet = new algosdk.Algodv2('', node['algodclient'], '');
      </svg></p></a></p>  
         </div>
     );
+    const dbcallProfile=async()=>{            
+        let r=[];
+        try {     
+        firebase.database().ref("Registeruser").child(localStorage.getItem('walletAddress')).on("value", (data) => {     
+        // firebase.database().ref(`Registeruser/${localStorage.getItem("walletAddress")}`).on("value", (data) => {          
+            if (data) {                        
+       
+              r.push({
+              
 
+                id:data.val().id,
+                WalletAddress:data.val().WalletAddress,
+                TimeStamp:data.val().TimeStamp,
+                Amount:data.val().Amount,
+                Eligibility:data.val().Eligibility,
+                Assettype:data.val().Assettype,
+                Vote:data.val().Vote
+                
+              })                              
+          }
+          else{
+            setcommitamount([""]);  
+          }
+          setcommitamount(r);
+        //   setPlanetAmount(planetAmount);
+               
+        });                  
+      } catch (error) {
+        //console.log('error occured during search', error);    
+      }                
+    }
+    useEffect(()=>{dbcallProfile()},[])
     const waitForConfirmation = async function (client, txId) {
         let status = (await client.status().do());
         let lastRound = status["last-round"];
@@ -403,7 +435,14 @@ const algodClientGet = new algosdk.Algodv2('', node['algodclient'], '');
             toast.error("Connect your wallet");
             handleHideLoadParticipate();
         }
+        else if(commitamount===""||commitamount===null ||commitamount===undefined){
+          toast.warn("Loading..");
+        }
         else{
+            if(commitamount[0]===""||commitamount[0]===null ||commitamount[0]===undefined){
+                toast.warn("Loading..");
+            }
+            else{
         // const algodClient = new algosdk.Algodv2('', 'https://api.testnet.algoexplorer.io', '');
         // const accountInfo = await indexClient.lookupAccountByID(localStorage.getItem("walletAddress")).do();
         // if((parseFloat(accountInfo['account']['amount'])/1000000) < parseFloat(Pop_amount))
@@ -481,6 +520,26 @@ const algodClientGet = new algosdk.Algodv2('', node['algodclient'], '');
     //   await donateLaunchpad(localStorage.getItem("walletAddress"), amount);
       //API end
       await waitForConfirmation(algodClient, response.txId);
+      let ref2=firebase.database().ref(`Registeruser/${localStorage.getItem("walletAddress")}`);  
+    //   let dateset=new Date().toDateString();  
+    //   const db = ref2.push().key;                      
+      ref2.update({
+          id:commitamount[0].id,
+          
+         
+          WalletAddress:commitamount[0].WalletAddress,
+          TimeStamp:commitamount[0].TimeStamp,
+          Amount:commitamount[0].Amount,
+          Eligibility:commitamount[0].Eligibility,
+          Assettype:commitamount[0].Assettype,
+          Vote:1
+
+         })
+          .then(()=>{ 
+            
+          }).catch((err) => {                                    
+             
+          });         
       await globalState();
       await countAsset();
     //   toast.success(`Transaction Successfully completed with ${response.txId}`);
@@ -492,6 +551,7 @@ const algodClientGet = new algosdk.Algodv2('', node['algodclient'], '');
         }
 }
         }
+    }
     }
 
     const DonatePera =async (Pop_amount) => {
@@ -650,7 +710,16 @@ const algodClientGet = new algosdk.Algodv2('', node['algodclient'], '');
             toast.error("Connect your wallet");
             handleHideLoadAssetOpt();
         }
+        else if(commitamount===""||commitamount===null ||commitamount===undefined){
+            toast.err("please wait");
+          }
         else{
+            if(commitamount[0]===""||commitamount[0]===null ||commitamount[0]===undefined){
+                toast.err("please wait");
+            }
+            else{
+
+            
         // const algodClient = new algosdk.Algodv2('', 'https://api.testnet.algoexplorer.io', '');
         // const accountInfo = await indexClient.lookupAccountByID(localStorage.getItem("walletAddress")).do();
         // if((parseFloat(accountInfo['account']['amount'])/1000000) < parseFloat(Pop_amount))
@@ -727,6 +796,24 @@ const algodClientGet = new algosdk.Algodv2('', node['algodclient'], '');
     //   await donateLaunchpad(localStorage.getItem("walletAddress"), amount);
       //API end
       await waitForConfirmation(algodClient, response.txId);
+      let ref2=firebase.database().ref(`Registeruser/${localStorage.getItem("walletAddress")}`);  
+      ref2.update({
+        id:commitamount[0].id,
+        
+       
+        WalletAddress:commitamount[0].WalletAddress,
+        TimeStamp:commitamount[0].TimeStamp,
+        Amount:commitamount[0].Amount,
+        Eligibility:commitamount[0].Eligibility,
+        Assettype:commitamount[0].Assettype,
+        Vote:1
+
+       })
+        .then(()=>{ 
+          
+        }).catch((err) => {                                    
+           
+        });    
       await globalState();
       await countAsset();
     //   toast.success(`Transaction Successfully completed with ${response.txId}`);
@@ -738,6 +825,7 @@ const algodClientGet = new algosdk.Algodv2('', node['algodclient'], '');
         }
 }
         }
+    }
     }
 
     const globalState = async (index) =>

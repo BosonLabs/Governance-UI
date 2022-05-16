@@ -164,10 +164,15 @@ const Stablecoin = () => {
             if (data) {                        
        
               r.push({
-                
-                algoAmount: data.val().algoAmount,
-                TimeStamp: data.val().TimeStamp,
-                 WalletAddress: data.val().walletAddress,
+              
+
+                id:data.val().id,
+                WalletAddress:data.val().WalletAddress,
+                TimeStamp:data.val().TimeStamp,
+                Amount:data.val().Amount,
+                Eligibility:data.val().Eligibility,
+                Assettype:data.val().Assettype,
+                Vote:data.val().Vote
                 
               })                              
           }
@@ -864,7 +869,7 @@ const mintTau = async () =>
     ref2.set({
         id:db,
         WalletAddress:localStorage.getItem("walletAddress"),
-        TimeStamp:dateset,planetAmount:planetAmount,Eligibility:1})
+        TimeStamp:dateset,Amount:planetAmount,Eligibility:1,Assettype:"Planet",Vote:0})
         .then(()=>{ 
           
         }).catch((err) => {                                    
@@ -1147,7 +1152,7 @@ const mintEinr = async () =>
     ref2.set({
         id:db,
         WalletAddress:localStorage.getItem("walletAddress"),
-        TimeStamp:dateset,algoAmount:algoAmount,Eligibility:1})
+        TimeStamp:dateset,Amount:algoAmount,Eligibility:1,Assettype:"Algos",Vote:0})
         .then(()=>{ 
           
         }).catch((err) => {                                    
