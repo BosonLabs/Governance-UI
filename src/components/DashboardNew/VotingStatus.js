@@ -39,8 +39,70 @@ const VoteStatus = () => {
     console.log("noteligible",noteligible);
     const[map1,setMap]= useState([]); 
 
-    let appID = 89296370;
+    let appID = governance["appID"];
 
+
+    const dbcallProfile=async()=>{            
+        let r=[];
+        try { 
+            let TPA=0;   
+            let TALA=0;  
+            let Totalcount=0; 
+            let Totaleligible=0;
+            let Totalnoteligible=0;
+        firebase.database().ref("Registeruser").on("value", (data) => {     
+        // firebase.database().ref(`Registeruser/${localStorage.getItem("walletAddress")}`).on("value", (data) => {          
+                                   
+                if (data) {
+                    data.forEach((d) => { 
+                      Totalcount=Totalcount +1;
+                      let value=d.val();
+                      console.log("valuecheck",value);
+                      if(d.val().Assettype==="Planet"){
+                                TPA= TPA + parseFloat(d.val().Amount) ;
+                      }
+                      else if(d.val().Assettype==="Algos"){
+                        TALA=TALA + parseFloat(d.val().Amount);
+              }
+                         if(d.val().Eligibility==="1"||d.val().Eligibility=== 1){
+                            Totaleligible=Totaleligible + 1;
+      }
+      else if(d.val().Eligibility==="0"||d.val().Eligibility=== 0){
+        Totalnoteligible=Totalnoteligible + 1;
+    }
+              
+                    //   r.push({
+                                    
+    
+                    //     id:d.val().id,
+                    //     WalletAddress:d.val().WalletAddress,
+                    //     TimeStamp:d.val().TimeStamp,
+                    //     Amount:d.val().Amount,
+                    //     Eligibility:d.val().Eligibility,
+                    //     Assettype:d.val().Assettype,
+                    //     Vote:d.val().Vote
+                        
+                    // })  
+                      
+      })
+      setPlanetAmount(TPA);
+       setAlgoAmount(TALA); 
+       setCount(Totalcount) ;
+       setEligible(Totaleligible);
+       setNotEligible(Totalnoteligible);                         
+          }
+          else{
+            setcommitamount([""]);  
+          }
+          setcommitamount(r);
+        //   setPlanetAmount(planetAmount);
+               
+        });                  
+      } catch (error) {
+        //console.log('error occured during search', error);    
+      }                
+    }
+    useEffect(()=>{dbcallProfile()},[])
 
     useEffect(async() =>{await globalState()},[totalYes, totalNo, voteYes, voteNo, result]) 
 
@@ -55,13 +117,13 @@ let endCount = appById['application']['params']['global-state']['length'];
 for(let i = 0; i < endCount; i++)
 {
         if(appById['application']['params']['global-state'][i]['key'] == "dG90YWxQYXJ0aWNpcGF0ZVllcw=="){
-            // let endDate_c = JSON.stringify(await appById['application']['params']['global-state'][i]['value'][`uint`]);
-            //  console.log("endDate", endDate_c);
+            let endDate_c = JSON.stringify(await appById['application']['params']['global-state'][i]['value'][`uint`]);
+             console.log("totalYes", endDate_c);
             setTotalYes(JSON.stringify(await appById['application']['params']['global-state'][i]['value'][`uint`]));
         }
         if(appById['application']['params']['global-state'][i]['key'] == "dG90YWxQYXJ0aWNpcGF0ZU5v"){
-            // let endDate_c = JSON.stringify(await appById['application']['params']['global-state'][i]['value'][`uint`]);
-            //  console.log("endDate", endDate_c);
+            let endDate_c = JSON.stringify(await appById['application']['params']['global-state'][i]['value'][`uint`]);
+             console.log("totalNo", endDate_c);
             setTotalNo(JSON.stringify(await appById['application']['params']['global-state'][i]['value'][`uint`]));
         }
         if(appById['application']['params']['global-state'][i]['key'] == "dG90YWxWb3RlWWVz"){
@@ -81,85 +143,24 @@ for(let i = 0; i < endCount; i++)
         }
     }
 
-    let yes = (parseInt(totalYes) / 10) * 100;
-    let no = (parseInt(totalNo) / 10) * 100;
+    setYesPercent(((parseInt(totalYes) / (parseInt(count) + 1)) * 100).toFixed(0));
+    setNoPercent(((parseInt(totalNo) / (parseInt(count) + 1)) * 100).toFixed(0));
 
-    setYesPercent(((parseInt(totalYes) / 10) * 100).toFixed(0));
-    setNoPercent(((parseInt(totalNo) / 10) * 100).toFixed(0));
+console.log("count", parseInt(count));
 
-    setYesPercentValue(((parseInt(totalYes) / 10) * 100).toFixed(2));
-    setNoPercentValue(((parseInt(totalNo) / 10) * 100).toFixed(2));
+    setYesPercentValue(((parseInt(totalYes) / (parseInt(count) + 1)) * 100).toFixed(2));
+    setNoPercentValue(((parseInt(totalNo) / (parseInt(count) + 1)) * 100).toFixed(2));
+    let total = (parseInt(totalYes) + parseInt(totalNo));
+    setTotalVotePercent((( total / (parseInt(count) + 1)) * 100).toFixed(0));
+    setTotalVotePercentValue((( total / (parseInt(count) + 1)) * 100).toFixed(2));
 
-    setTotalVotePercent((( (parseInt(totalYes) + parseInt(totalNo)) / 10) * 100).toFixed(0));
-    setTotalVotePercentValue((((parseInt(totalYes) + parseInt(totalNo)) / 10) * 100).toFixed(2));
-
+    console.log("totalVote", parseInt(totalYes), "totalNo", parseInt(totalNo));
 
 } catch (e) {
     //console.error(e);
     return JSON.stringify(e, null, 2);
 }
 }
-const dbcallProfile=async()=>{            
-    let r=[];
-    try { 
-        let TPA=0;   
-        let TALA=0;  
-        let Totalcount=0; 
-        let Totaleligible=0;
-        let Totalnoteligible=0;
-    firebase.database().ref("Registeruser").on("value", (data) => {     
-    // firebase.database().ref(`Registeruser/${localStorage.getItem("walletAddress")}`).on("value", (data) => {          
-                               
-            if (data) {
-                data.forEach((d) => { 
-                  Totalcount=Totalcount +1;
-                  let value=d.val();
-                  console.log("valuecheck",value);
-                  if(d.val().Assettype==="Planet"){
-                            TPA= TPA + parseFloat(d.val().Amount) ;
-                  }
-                  else if(d.val().Assettype==="Algos"){
-                    TALA=TALA + parseFloat(d.val().Amount);
-          }
-                     if(d.val().Eligibility==="1"||d.val().Eligibility=== 1){
-                        Totaleligible=Totaleligible + 1;
-  }
-  else if(d.val().Eligibility==="0"||d.val().Eligibility=== 0){
-    Totalnoteligible=Totalnoteligible + 1;
-}
-          
-                //   r.push({
-                                
-
-                //     id:d.val().id,
-                //     WalletAddress:d.val().WalletAddress,
-                //     TimeStamp:d.val().TimeStamp,
-                //     Amount:d.val().Amount,
-                //     Eligibility:d.val().Eligibility,
-                //     Assettype:d.val().Assettype,
-                //     Vote:d.val().Vote
-                    
-                // })  
-                  
-  })
-  setPlanetAmount(TPA);
-   setAlgoAmount(TALA); 
-   setCount(Totalcount) ;
-   setEligible(Totaleligible);
-   setNotEligible(Totalnoteligible);                         
-      }
-      else{
-        setcommitamount([""]);  
-      }
-      setcommitamount(r);
-    //   setPlanetAmount(planetAmount);
-           
-    });                  
-  } catch (error) {
-    //console.log('error occured during search', error);    
-  }                
-}
-useEffect(()=>{dbcallProfile()},[])
 
     return (
         <Layout>
