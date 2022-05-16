@@ -360,7 +360,7 @@ const filterdata=()=>{
 
 <div className="table-group-td">{pageSize.TimeStamp}</div>
 {(pageSize.Vote=== " " || pageSize.Vote === null || pageSize.Vote === undefined ) ?(<> 0 </>):(<> <div className="table-group-td">{pageSize.Vote}</div></>) }
-{(pageSize.Eligibility=== " " || pageSize.Eligibility === null || pageSize.Eligibility === undefined || pageSize.Eligibility === "0" ||pageSize.Eligibility === 0) ?(<> Not Eligible </>):(<> <div className="table-group-td">Eligible </div></>) }
+{(pageSize.Eligibility=== " " || pageSize.Eligibility === null || pageSize.Eligibility === undefined || pageSize.Eligibility === "0" ||pageSize.Eligibility === 0) ?(<><div className="table-group-td" style={{color:"red"}}>Not Eligible </div></>):(<> <div className="table-group-td" style={{color:"green"}}>Eligible </div></>) }
 
 
 </div>
