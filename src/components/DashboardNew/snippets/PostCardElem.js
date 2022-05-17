@@ -1309,7 +1309,7 @@ const max = () =>
                     <div className="d-flex align-items-start justify-content-between">
                         <span>Starts On <br/> Ends On </span>
                         {/* <div className="h6 text-end">{mapStartDate} <small className='d-block'>≈</small></div> */}
-                        <strong className="text-end">{mapStartDate} <br/> {mapEndDate}</strong>
+                        <strong className="text-end">1-June-2022<br/> 6-June-2022</strong>
                     </div>
                 </div>
 

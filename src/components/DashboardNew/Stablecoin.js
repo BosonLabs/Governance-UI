@@ -394,12 +394,6 @@ const planetCommit = async () =>
             handleHideMint();
         }
         else{
-            if(assetTauOpt === false)
-            {
-                toast.error("Please Opt-in PLANET asset and then Commit");
-                handleHideMint();
-            }
-            else{
             if(parseFloat(minAlgo) < 2000)
             {
                 toast.error("Your Algo balance is low.");
@@ -475,7 +469,6 @@ const planetCommit = async () =>
         toast.error(`Transaction Failed due to ${err}`);
         console.error(err);
       }
-    }
 }
 }
 }
@@ -499,12 +492,6 @@ const planetCommitPera = async () =>
             handleHideMint();
         }
         else{
-            if(assetTauOpt === false)
-            {
-                toast.error("Please Opt-in PLANET asset and then Commit");
-                handleHideMint();
-            }
-            else{
             if(parseFloat(minAlgo) < 2000)
             {
                 toast.error("Your Algo balance is low.");
@@ -597,7 +584,6 @@ const planetCommitPera = async () =>
         toast.error(`Transaction Failed due to ${err}`);
         console.error(err);
       }
-    }
 }
 }
 }
@@ -1095,7 +1081,7 @@ const maxAlgo = () =>
                                         </Col>
                                     </Row>
                                 </Tab>
-                                <Tab eventKey="redeem" title="Commit Algos">
+                                {/* <Tab eventKey="redeem" title="Commit Algos">
                                 <div className="group-row mb-20">
                                         <Row>
                                             <Col sm={5} className="mb-sm-0 mb-3">
@@ -1146,7 +1132,7 @@ const maxAlgo = () =>
                                             </ButtonLoad> }
                                         </Col>
                                     </Row>
-                                </Tab>
+                                </Tab> */}
                             </Tabs>
                         </Card>
                     </Col>
