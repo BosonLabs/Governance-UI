@@ -426,93 +426,56 @@ const algodClientGet = new algosdk.Algodv2('', node['algodclient'], '');
     }
   }
 
-    const Donate =async () => {
+    const algoVoteYes =async () => {
         handleShowLoadParticipate();
         handleCloseDonate();
         if (localStorage.getItem("walletAddress") === "")
         {
             toast.error("Connect your wallet");
-            handleHideLoadParticipate();
+            handleHideLoadAssetOpt();
         }
-        else if(commitamount===""||commitamount===null ||commitamount===undefined){
-            toast.warn("Loading..");
-          }
+        // else if(commitamount===""||commitamount===null ||commitamount===undefined){
+        //     toast.warn("Loading..");
+        //   }
         else{
-            if(commitamount[0]===""||commitamount[0]===null ||commitamount[0]===undefined){
-                toast.warn("Loading..");
-            }
-            else{
-        // const algodClient = new algosdk.Algodv2('', 'https://api.testnet.algoexplorer.io', '');
-        // const accountInfo = await indexClient.lookupAccountByID(localStorage.getItem("walletAddress")).do();
-        // if((parseFloat(accountInfo['account']['amount'])/1000000) < parseFloat(Pop_amount))
-        // {
-        //     toast.error(`Your balance is ${(parseFloat(accountInfo['account']['amount'])/1000000)} Algos but trying to spend ${Pop_amount} Algos`);
-        //     handleHideLoadParticipate();
-        // }
-        // else{
-        //     if(appOpt === false)
-        //     {
-        //         toast.error("Please Opt-in to App and then purchase");
-        //         handleHideLoadParticipate();
-        //     }
-        //     else{
-        //         if(assetOpt === false)
-        //         {
-        //             toast.error("Please Opt-in to Asset and then purchase");
-        //             handleHideLoadParticipate();
-        //         }
-        //         else{
-            if(parseFloat(minAlgo) < parseInt(algoCommited) + (2000))
+            // if(commitamount[0]===""||commitamount[0]===null ||commitamount[0]===undefined){
+            //     toast.warn("Loading..");
+            // }
+            // else{
+            if(parseFloat(minAlgo) < parseInt(value) + (2000))
             {
                 toast.error("Your Algo balance is low.")
                 handleHideLoadParticipate();
             }
             else
             {
-        // var amt =  window.prompt("Enter the amount you want to donate"); 
-        // let amount = parseInt(amt);
-        let amount = parseFloat(algoCommited) * 1000000;
-        let index = parseInt(governance['appID']);
-        // //console.log("appId inside donate", index)
-        // //console.log("amonut pop", amount)
+                if(parseInt(value) >= 0.01)
+                {
+                    toast.error("Minimum Algos to vote is 0.01 Algos. The vale entered is less than 0.01 Algos.")
+                    handleHideLoadParticipate();
+                }
+                else
+                {
+
     
         try {
         //   const accounts = await myAlgoWallet.connect();
           // const addresses = accounts.map(account => account.address);
           const params = await algodClient.getTransactionParams().do();
-    
-          let appArgs1 = [];
-          appArgs1.push(new Uint8Array(Buffer.from("VotedYes")));
-          // let decAddr = algosdk.decodeAddress('EGUSS7HHM3ODVPW3Z2L55WPCZCR4TWSN2VVAKYPZKYEUER5BXM5N6YNH7I');
-          // appArgs.push(decAddr.publicKey);
-          //   // //console.log("(line:516) appArgs = ",appArgs)
-          //localStorage.setItem("escrow", 'PKWSTDTMCYQQSFLNOW3W4TJN5VFJDR3KN5Q76G6OY6D4NFKHSFDZWC5BKY');
-          let sender = localStorage.getItem("walletAddress");
-        //   let recv_escrow = escrow;
-          // create unsigned transaction
-          let transaction1 = algosdk.makeApplicationNoOpTxnFromObject({
-            from:sender, 
-            suggestedParams: params, 
-            appIndex: index, 
-            appArgs: appArgs1
-          })                    
+          let noteVote = "yes " + value; 
+          let notefield = new Uint8Array(Buffer.from(noteVote.toString(), 'utf8'));            
           
-          
-          let transaction2 = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
-            from: sender, 
+          let transaction1 = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
+            from: localStorage.getItem("walletAddress"), 
             to: governance["yesAddress"], 
-            amount: parseInt(algoCommited),
+            amount: 0,
+            note: notefield,
             suggestedParams: params
            });
 
-          const groupID = algosdk.computeGroupID([ transaction1, transaction2 ]);
-          const txs = [ transaction1, transaction2 ];
-          txs[0].group = groupID;
-          txs[1].group = groupID;
+          const signedTx1 = await myAlgoWallet.signTransaction(transaction1.toByte());
 
-          const signedTx1 = await myAlgoWallet.signTransaction([txs[0].toByte(), txs[1].toByte()]);
-
-      const response = await algodClient.sendRawTransaction([signedTx1[0].blob, signedTx1[1].blob]).do();
+      const response = await algodClient.sendRawTransaction(signedTx1.blob).do();
       // //console.log("TxID", JSON.stringify(response, null, 1));
       //API for Connect wallet  stored in /lpTracker
     //   await donateLaunchpad(localStorage.getItem("walletAddress"), amount);
@@ -547,11 +510,12 @@ const algodClientGet = new algosdk.Algodv2('', node['algodclient'], '');
           handleHideLoadParticipate();
           console.error(err);
         }
+    // }
 }
         }}
     }
 
-    const DonatePera =async (Pop_amount) => {
+    const algoVoteYesPera =async () => {
         const connector = new WalletConnect({ bridge, qrcodeModal: QRCodeModal });
         setConnector(connector);
         handleShowLoadParticipate();
@@ -559,132 +523,76 @@ const algodClientGet = new algosdk.Algodv2('', node['algodclient'], '');
         if (localStorage.getItem("walletAddress") === "")
         {
             toast.error("Connect your wallet");
-            handleHideLoadParticipate();
+            handleHideLoadAssetOpt();
         }
+        // else if(commitamount===""||commitamount===null ||commitamount===undefined){
+        //     toast.warn("Loading..");
+        //   }
         else{
-        // const algodClient = new algosdk.Algodv2('', 'https://api.testnet.algoexplorer.io', '');
-        const accountInfo = await indexClient.lookupAccountByID(localStorage.getItem("walletAddress")).do();
-        if((parseFloat(accountInfo['account']['amount'])/1000000) < parseFloat(Pop_amount))
-        {
-            toast.error(`Your balance is ${(parseFloat(accountInfo['account']['amount'])/1000000)} Algos but trying to spend ${Pop_amount} Algos`);
-            handleHideLoadParticipate();
-        }
-        else{
-            if(appOpt === false)
+            // if(commitamount[0]===""||commitamount[0]===null ||commitamount[0]===undefined){
+            //     toast.warn("Loading..");
+            // }
+            // else{
+            if(parseFloat(minAlgo) < parseInt(value) + (2000))
             {
-                toast.error("Please Opt-in to App and then purchase");
-                handleHideLoadParticipate();
-            }
-            else{
-                if(assetOpt === false)
-                {
-                    toast.error("Please Opt-in to Asset and then purchase");
-                    handleHideLoadParticipate();
-                }
-                else{
-            if(parseFloat(minAlgo) < (4000 + (parseFloat(Pop_amount) * 1000000)))
-            {
-                toast.error("Your Algo balance is low. Please get more Algos from dispenser.")
+                toast.error("Your Algo balance is low.")
                 handleHideLoadParticipate();
             }
             else
             {
-        // var amt =  window.prompt("Enter the amount you want to donate"); 
-        // let amount = parseInt(amt);
-        let amount = parseFloat(Pop_amount) * 1000000;
-        let index = parseInt(appID_global);
-        // //console.log("appId inside donate", index)
-        // //console.log("amonut pop", amount)
+                if(parseInt(value) >= 0.01)
+                {
+                    toast.error("Minimum Algos to vote is 0.01 Algos. The vale entered is less than 0.01 Algos.")
+                    handleHideLoadParticipate();
+                }
+                else
+                {
     
         try {
         //   const accounts = await myAlgoWallet.connect();
           // const addresses = accounts.map(account => account.address);
           const params = await algodClient.getTransactionParams().do();
-    
-          let appArgs1 = [];
-          appArgs1.push(new Uint8Array(Buffer.from("donate")));
-          // let decAddr = algosdk.decodeAddress('EGUSS7HHM3ODVPW3Z2L55WPCZCR4TWSN2VVAKYPZKYEUER5BXM5N6YNH7I');
-          // appArgs.push(decAddr.publicKey);
-          //   // //console.log("(line:516) appArgs = ",appArgs)
-          //localStorage.setItem("escrow", 'PKWSTDTMCYQQSFLNOW3W4TJN5VFJDR3KN5Q76G6OY6D4NFKHSFDZWC5BKY');
-          let sender = localStorage.getItem("walletAddress");
-        //   let recv_escrow = escrow;
-          // create unsigned transaction
-          let transaction1 = algosdk.makeApplicationNoOpTxnFromObject({
-            from:sender, 
-            suggestedParams: params, 
-            appIndex: index, 
-            appArgs: appArgs1
-          })                    
+          let noteVote = "yes " + value; 
+          let notefield = new Uint8Array(Buffer.from(noteVote.toString(), 'utf8'));            
           
-          let program = new Uint8Array(Buffer.from(launchpadDetails['app1']['escrow'], "base64"));          
-          let lsig = new algosdk.LogicSigAccount(program);
-          console.log("Escrow =", lsig.address());
-          
-          let transaction2 = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
-            from: sender, 
-            to: lsig.address(), 
-            amount: amount, 
-             note: undefined,  
-             suggestedParams: params
-           });
-
-
-          let sender_es = lsig.address();
-          let receiver_es = localStorage.getItem("walletAddress");
-          // let receiver = "<receiver-address>"";
-          let amount_es = amount * 2;
-          let closeToRemaninder = undefined;
-          let note = undefined;
-          let assetID = parseInt(elementID_global) ;
-          let transaction3 = algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
-            from: sender_es, 
-            to: receiver_es, 
-            amount: amount_es, 
-            assetIndex: assetID, 
+          let transaction1 = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
+            from: localStorage.getItem("walletAddress"), 
+            to: governance["yesAddress"], 
+            amount: 0,
+            note: notefield,
             suggestedParams: params
-          }); 
-
-          let transaction4 = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
-            from: sender, 
-            to: lsig.address(), 
-            amount: 1000, 
-             note: undefined,  
-             suggestedParams: params
            });
-          
-          const groupID = algosdk.computeGroupID([ transaction1, transaction2, transaction3, transaction4]);
-          const txs = [ transaction1, transaction2, transaction3, transaction4];
-          txs[0].group = groupID;
-          txs[1].group = groupID;
-          txs[2].group = groupID;
-          txs[3].group = groupID;
 
-          const escrow = algosdk.signLogicSigTransaction(txs[2], lsig);
-        //   const signedTx4 = algosdk.signLogicSigTransaction(txs[3].toByte());
-                      // time to sign . . . which we have to do with walletconnect
-                      const txns = [txs[0], txs[1], txs[2], txs[3]]
-                      const txnsToSign = txns.map(txn => {
-                        const encodedTxn = Buffer.from(algosdk.encodeUnsignedTransaction(txn)).toString("base64");
-                        return {
-                          txn: encodedTxn,
-                         };
-                       });
-                       const requestParams = [ txnsToSign ];
-                      const request = formatJsonRpcRequest("algo_signTxn", requestParams);
- 
-                       const result = await connector.sendCustomRequest(request);
-                       const decodedResult = result.map(element => {
-                         return element ? new Uint8Array(Buffer.from(element, "base64")) : null;
-                       });
-                         // send and await
-                         decodedResult[2] = escrow.blob;
-                         let response = await algodClient.sendRawTransaction(decodedResult).do();
-                         await waitForConfirmation(algodClient, response.txId);
+          const signedTx1 = await myAlgoWallet.signTransaction(transaction1.toByte());
+
+      const response = await algodClient.sendRawTransaction(signedTx1.blob).do();
+      // //console.log("TxID", JSON.stringify(response, null, 1));
+      //API for Connect wallet  stored in /lpTracker
+    //   await donateLaunchpad(localStorage.getItem("walletAddress"), amount);
+      //API end
       await waitForConfirmation(algodClient, response.txId);
+      let ref2=firebase.database().ref(`Registeruser/${localStorage.getItem("walletAddress")}`);  
+      //   let dateset=new Date().toDateString();  
+      //   const db = ref2.push().key;                      
+        ref2.update({
+            id:commitamount[0].id,
+            
+           
+            WalletAddress:commitamount[0].WalletAddress,
+            TimeStamp:commitamount[0].TimeStamp,
+            Amount:commitamount[0].Amount,
+            Eligibility:commitamount[0].Eligibility,
+            Assettype:commitamount[0].Assettype,
+            Vote:1
+  
+           })
+            .then(()=>{ 
+              
+            }).catch((err) => {                                    
+               
+            }); 
       await globalState();
       await countAsset();
-      await optCheck();
     //   toast.success(`Transaction Successfully completed with ${response.txId}`);
     //   //toast.info(`Now you have obtained Element amount = ( ${(parseFloat(Pop_amount) * 2).toFixed(2)} ELEM )`);
         } catch (err) {
@@ -692,14 +600,13 @@ const algodClientGet = new algosdk.Algodv2('', node['algodclient'], '');
           toast.error(`Transaction Failed due to ${err}`);
           console.error(err);
         }
-    }
-    }
+    // }
 }
 }
         }
     }
 
-    const DonateNo =async () => {
+    const algoVoteNo =async () => {
         handleShowLoadAssetOpt();
         handleCloseDonate();
         if (localStorage.getItem("walletAddress") === "")
@@ -707,84 +614,47 @@ const algodClientGet = new algosdk.Algodv2('', node['algodclient'], '');
             toast.error("Connect your wallet");
             handleHideLoadAssetOpt();
         }
-        else if(commitamount===""||commitamount===null ||commitamount===undefined){
-            toast.warn("Loading..");
-          }
+        // else if(commitamount===""||commitamount===null ||commitamount===undefined){
+        //     toast.warn("Loading..");
+        //   }
         else{
-            if(commitamount[0]===""||commitamount[0]===null ||commitamount[0]===undefined){
-                toast.warn("Loading..");
-            }
-            else{
-        // const algodClient = new algosdk.Algodv2('', 'https://api.testnet.algoexplorer.io', '');
-        // const accountInfo = await indexClient.lookupAccountByID(localStorage.getItem("walletAddress")).do();
-        // if((parseFloat(accountInfo['account']['amount'])/1000000) < parseFloat(Pop_amount))
-        // {
-        //     toast.error(`Your balance is ${(parseFloat(accountInfo['account']['amount'])/1000000)} Algos but trying to spend ${Pop_amount} Algos`);
-        //     handleHideLoadParticipate();
-        // }
-        // else{
-        //     if(appOpt === false)
-        //     {
-        //         toast.error("Please Opt-in to App and then purchase");
-        //         handleHideLoadParticipate();
-        //     }
-        //     else{
-        //         if(assetOpt === false)
-        //         {
-        //             toast.error("Please Opt-in to Asset and then purchase");
-        //             handleHideLoadParticipate();
-        //         }
-        //         else{
-            if(parseFloat(minAlgo) < parseInt(algoCommited) + (2000))
+            // if(commitamount[0]===""||commitamount[0]===null ||commitamount[0]===undefined){
+            //     toast.warn("Loading..");
+            // }
+            // else{
+            if(parseFloat(minAlgo) < parseInt(value) + (2000))
             {
                 toast.error("Your Algo balance is low.")
-                handleHideLoadAssetOpt();
+                handleHideLoadParticipate();
             }
             else
             {
-        // var amt =  window.prompt("Enter the amount you want to donate"); 
-        // let amount = parseInt(amt);
-        let amount = parseFloat(algoCommited) * 1000000;
-        let index = parseInt(governance['appID']);
-        // //console.log("appId inside donate", index)
-        // //console.log("amonut pop", amount)
+                if(parseInt(value) >= 0.01)
+                {
+                    toast.error("Minimum Algos to vote is 0.01 Algos. The vale entered is less than 0.01 Algos.")
+                    handleHideLoadParticipate();
+                }
+                else
+                {
     
         try {
         //   const accounts = await myAlgoWallet.connect();
           // const addresses = accounts.map(account => account.address);
           const params = await algodClient.getTransactionParams().do();
-    
-          let appArgs1 = [];
-          appArgs1.push(new Uint8Array(Buffer.from("VotedNo")));
-          // let decAddr = algosdk.decodeAddress('EGUSS7HHM3ODVPW3Z2L55WPCZCR4TWSN2VVAKYPZKYEUER5BXM5N6YNH7I');
-          // appArgs.push(decAddr.publicKey);
-          //   // //console.log("(line:516) appArgs = ",appArgs)
-          //localStorage.setItem("escrow", 'PKWSTDTMCYQQSFLNOW3W4TJN5VFJDR3KN5Q76G6OY6D4NFKHSFDZWC5BKY');
-          let sender = localStorage.getItem("walletAddress");
-        //   let recv_escrow = escrow;
-          // create unsigned transaction
-          let transaction1 = algosdk.makeApplicationNoOpTxnFromObject({
-            from:sender, 
-            suggestedParams: params, 
-            appIndex: index, 
-            appArgs: appArgs1
-          })                    
+          let noteVote = "no " + value; 
+          let notefield = new Uint8Array(Buffer.from(noteVote.toString(), 'utf8'));            
           
-          let transaction2 = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
-            from: sender, 
+          let transaction1 = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
+            from: localStorage.getItem("walletAddress"), 
             to: governance["noAddress"], 
-            amount: parseInt(algoCommited),
+            amount: 0,
+            note: notefield,
             suggestedParams: params
            });
 
-          const groupID = algosdk.computeGroupID([ transaction1, transaction2 ]);
-          const txs = [ transaction1, transaction2 ];
-          txs[0].group = groupID;
-          txs[1].group = groupID;
+          const signedTx1 = await myAlgoWallet.signTransaction(transaction1.toByte());
 
-          const signedTx1 = await myAlgoWallet.signTransaction([txs[0].toByte(), txs[1].toByte()]);
-
-      const response = await algodClient.sendRawTransaction([signedTx1[0].blob, signedTx1[1].blob]).do();
+      const response = await algodClient.sendRawTransaction(signedTx1.blob).do();
       // //console.log("TxID", JSON.stringify(response, null, 1));
       //API for Connect wallet  stored in /lpTracker
     //   await donateLaunchpad(localStorage.getItem("walletAddress"), amount);
@@ -819,6 +689,97 @@ const algodClientGet = new algosdk.Algodv2('', node['algodclient'], '');
           handleHideLoadAssetOpt();
           console.error(err);
         }
+    // }
+}
+        }}
+    }
+
+    const algoVoteNoPera =async () => {
+        const connector = new WalletConnect({ bridge, qrcodeModal: QRCodeModal });
+        setConnector(connector);
+        handleShowLoadAssetOpt();
+        handleCloseDonate();
+        if (localStorage.getItem("walletAddress") === "")
+        {
+            toast.error("Connect your wallet");
+            handleHideLoadAssetOpt();
+        }
+        // else if(commitamount===""||commitamount===null ||commitamount===undefined){
+        //     toast.warn("Loading..");
+        //   }
+        else{
+            // if(commitamount[0]===""||commitamount[0]===null ||commitamount[0]===undefined){
+            //     toast.warn("Loading..");
+            // }
+            // else{
+            if(parseFloat(minAlgo) < parseInt(value) + (2000))
+            {
+                toast.error("Your Algo balance is low.")
+                handleHideLoadParticipate();
+            }
+            else
+            {
+                if(parseInt(value) >= 0.01)
+                {
+                    toast.error("Minimum Algos to vote is 0.01 Algos. The vale entered is less than 0.01 Algos.")
+                    handleHideLoadParticipate();
+                }
+                else
+                {
+    
+        try {
+        //   const accounts = await myAlgoWallet.connect();
+          // const addresses = accounts.map(account => account.address);
+          const params = await algodClient.getTransactionParams().do();
+          let noteVote = "no " + value; 
+          let notefield = new Uint8Array(Buffer.from(noteVote.toString(), 'utf8'));            
+          
+          let transaction1 = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
+            from: localStorage.getItem("walletAddress"), 
+            to: governance["noAddress"], 
+            amount: 0,
+            note: notefield,
+            suggestedParams: params
+           });
+
+          const signedTx1 = await myAlgoWallet.signTransaction(transaction1.toByte());
+
+      const response = await algodClient.sendRawTransaction(signedTx1.blob).do();
+      // //console.log("TxID", JSON.stringify(response, null, 1));
+      //API for Connect wallet  stored in /lpTracker
+    //   await donateLaunchpad(localStorage.getItem("walletAddress"), amount);
+      //API end
+      await waitForConfirmation(algodClient, response.txId);
+      let ref2=firebase.database().ref(`Registeruser/${localStorage.getItem("walletAddress")}`);  
+      //   let dateset=new Date().toDateString();  
+      //   const db = ref2.push().key;                      
+        ref2.update({
+            id:commitamount[0].id,
+            
+           
+            WalletAddress:commitamount[0].WalletAddress,
+            TimeStamp:commitamount[0].TimeStamp,
+            Amount:commitamount[0].Amount,
+            Eligibility:commitamount[0].Eligibility,
+            Assettype:commitamount[0].Assettype,
+            Vote:1
+  
+           })
+            .then(()=>{ 
+              
+            }).catch((err) => {                                    
+               
+            }); 
+      await globalState();
+      await countAsset();
+    //   toast.success(`Transaction Successfully completed with ${response.txId}`);
+    //   //toast.info(`Now you have obtained Element amount = ( ${(parseFloat(Pop_amount) * 2).toFixed(2)} ELEM )`);
+        } catch (err) {
+          toast.error(`Transaction Failed due to ${err}`);
+          handleHideLoadAssetOpt();
+          console.error(err);
+        }
+    // }
 }
         }}
     }
@@ -1022,75 +983,6 @@ const popShow = async () => {
     handleShow();
 }
 
-const mapTotal = map1.map((a)=>{
-    return(
-        <>{a.key === "VG90YWw=" ? parseFloat(parseFloat(a.value['uint'])/1000000).toFixed(2) : ''}</>
-    )
-})
-
-const mapGoal = map1.map((a)=>{
-    return(
-        <>{a.key === "R29hbA==" ? parseFloat(a.value['uint'])/1000000 : ''}</>
-    )
-})
-
-const totalElem = map1.map((a)=>{
-    return(
-        <>{a.key === "R29hbA==" ? parseFloat(a.value['uint'])/1000000 * 2 : ''}</>
-    )
-})
-
-const totalSold = map1.map((a)=>{
-    return(
-        <>{a.key === "VG90YWw=" ? parseFloat(a.value['uint'])/1000000 * 2 : ''}</>
-    )
-})
-
-const mapStartDate = map1.map((a)=>{
-    return(
-        <>{a.key === "U3RhcnREYXRl" ? ((new Date(parseFloat(a.value['uint'])*1000)).toLocaleString()).slice(0,9) : ''}</>
-    )
-})
-
-const mapStartTime = map1.map((a)=>{
-    return(
-        <>{a.key === "U3RhcnREYXRl" ? ((new Date(parseFloat(a.value['uint'])*1000)).toLocaleString()).slice(11,23) : ''}</>
-    )
-})
-
-const mapEndDate = map1.map((a)=>{
-    return(
-        <>{a.key === "RW5kRGF0ZQ==" ? ((new Date(parseFloat(a.value['uint'])*1000)).toLocaleString()).slice(0,9) : ''}</>
-    )
-})
-
-const mapCreator = map1.map((a)=>{
-    return(
-        <>{a.key === "Q3JlYXRvcg==" ? a.value['byte'] : ''}</>
-    )
-})
-
-const mapRecv = map1.map((a)=>{
-    return(
-        <>{a.key === "UmVjZWl2ZXI=" ? parseFloat(a.value['uint'])/1000000 : ''}</>
-    )
-})
-
-const mapEscrow = map1.map((a)=>{
-    return(
-        <>{a.key === "RXNjcm93" ? parseFloat(a.value['uint'])/1000000 : ''}</>
-    )
-})
-
-const mapCloseDate = map1.map((a)=>{
-    return(
-        <>{a.key === "RnVuZENsb3NlRGF0ZQ==" ? parseFloat(a.value['uint'])/1000000 : ''}</>
-    )
-})
-
-let mapPercent = parseFloat((ReactDomServer.renderToString(mapTotal))/parseFloat(ReactDomServer.renderToString(mapGoal))*100).toFixed(4);
-
-
 useEffect(async() => {
     await optCheck();
 }, [assetOpt, appOpt]);
@@ -1179,44 +1071,16 @@ useEffect(async() => {
             setMinAlgo(min['amount'] - min['min-balance']);
             console.log("minBalance", minAlgo);
         }
-
-        const appOptinWalletCheck = async () =>
-        {
-            if(localStorage.getItem("walletName") === "myAlgoWallet")
-            {
-                await AppOptIn();
-            }
-            else if(localStorage.getItem("walletName") === "PeraWallet")
-            {
-                await appOptInPera();
-            }
-        }
-        
-        const assetOptinWalletCheck = async () =>
-        {
-            if(localStorage.getItem("walletName") === "myAlgoWallet")
-            {
-                await optinAsset();
-            }
-            else if(localStorage.getItem("walletName") === "PeraWallet")
-            {
-                await assetOptInPera();
-            }
-        }
         
         const voteYesWalletCheck = async () =>
         {
             if(localStorage.getItem("walletName") === "myAlgoWallet")
             {
-                await Donate();
+                await algoVoteYes();
             }
             else if(localStorage.getItem("walletName") === "PeraWallet")
             {
-                await DonatePera(value);
-            }
-            else if(localStorage.getItem("walletName") === "AlgoSigner")
-            {
-                await DonatePera(value);
+                await algoVoteYesPera(value);
             }
         }
         
@@ -1224,15 +1088,11 @@ useEffect(async() => {
         {
             if(localStorage.getItem("walletName") === "myAlgoWallet")
             {
-                await DonateNo();
+                await algoVoteNo();
             }
             else if(localStorage.getItem("walletName") === "PeraWallet")
             {
-                await DonatePera(value);
-            }
-            else if(localStorage.getItem("walletName") === "AlgoSigner")
-            {
-                await DonatePera(value);
+                await algoVoteNoPera(value);
             }
         }   
 
@@ -1245,49 +1105,7 @@ const max = () =>
         
         <>
         <><ToastContainer position='bottom-right' draggable = {false} transition={Zoom} autoClose={4000} closeOnClick = {false}/></>
-                   <Modal show={showDonate} centered onHide={handleCloseDonate} className="modal-dashboard shadow-sm p-3 mb-5 bg-black rounded">
-                {/* <Modal.Header className="btn-close btn-close-white" closeButton /> */}
-                <Modal.Body className='p-0'>
-                    <Button className='modal-close' onClick={handleCloseDonate} variant='reset'>
-                        <svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <g opacity="1">
-                            <path d="M17.5004 32.0832C9.44597 32.0832 2.91699 25.5542 2.91699 17.4998C2.91699 9.44546 9.44597 2.9165 17.5004 2.9165C25.5548 2.9165 32.0837 9.44546 32.0837 17.4998C32.0837 25.5542 25.5548 32.0832 17.5004 32.0832ZM17.5004 29.1665C20.5946 29.1665 23.562 27.9373 25.75 25.7494C27.9379 23.5615 29.1671 20.594 29.1671 17.4998C29.1671 14.4056 27.9379 11.4382 25.75 9.25026C23.562 7.06233 20.5946 5.83317 17.5004 5.83317C14.4062 5.83317 11.4387 7.06233 9.25076 9.25026C7.06283 11.4382 5.83367 14.4056 5.83367 17.4998C5.83367 20.594 7.06283 23.5615 9.25076 25.7494C11.4387 27.9373 14.4062 29.1665 17.5004 29.1665ZM17.5004 15.4378L21.6245 11.3121L23.6881 13.3757L19.5625 17.4998L23.6881 21.624L21.6245 23.6875L17.5004 19.5619L13.3762 23.6875L11.3126 21.624L15.4383 17.4998L11.3126 13.3757L13.3762 11.3121L17.5004 15.4378Z" fill="white"/>
-                            </g>
-                        </svg>
-                    </Button>
-                    <div className="pb-2 px-3">
-                  
-                        <img src={SLogo} width="80" className="mx-auto mb-1 d-block" alt="icon" />
-                        <h5 className="mb-1 text-center">Element</h5>
-                        <p className="mb-2 pb-1 text-center"></p>
 
-                        <Form className='form-area'>
-                        <Form.Group className="mb-4" controlId="formBasicPassword">
-                            <center><Form.Label><h5>Sale</h5></Form.Label></center> <br/>
-                            <center><Form.Label><p>Spendable Algo Balance:&nbsp;{(parseFloat(minAlgo)/1000000).toFixed(2) === 'NaN' ?<>0.00</> :(parseFloat(minAlgo)/1000000).toFixed(2)} ALGO</p></Form.Label></center> <br/>
-                            {/* <Form.Control type="text" placeholder="Enter Amount" value={value} onChange={(e) => setValue(e.target.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1'))}/> */}
-                            <div className="input-group-max px-3 input-group-max-lg w-100">
-                            <InputGroup>
-                                <FormControl
-                                    // disabled={true}
-                                    value={value}
-                                    type='number'
-                                    placeholder="0.00"
-                                    aria-label="Recipient's username"
-                                    aria-describedby="basic-addon2"
-                                    onChange={(e) => setValue(e.target.value)}
-                                />
-                                <Button variant="primary" className='btn-xs-d' onClick={max}>Max</Button>
-                            </InputGroup>
-                            </div>
-                        </Form.Group>
-                            {/* <ButtonLoad loading={loaderParticipate} size="lg" className='w-100' onClick={()=>donateWalletCheck(value)}>
-                                Participate
-                            </ButtonLoad> */}
-                        </Form>
-                    </div>
-                </Modal.Body>
-            </Modal>
             <Card className='card-dash border-0 d-block'>
                 <div className="mb-3">
                     <img src={Image} className="w-100 img-fluid rounded-16" alt="post img" />
@@ -1348,58 +1166,34 @@ const max = () =>
                     </div>
                 </Modal.Header>
                 <Modal.Body className='p-0'>
-                    {/* <Button className='modal-close' onClick={handleClose} variant='reset'>
-                        <svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <g opacity="1">
-                            <path d="M17.5004 32.0832C9.44597 32.0832 2.91699 25.5542 2.91699 17.4998C2.91699 9.44546 9.44597 2.9165 17.5004 2.9165C25.5548 2.9165 32.0837 9.44546 32.0837 17.4998C32.0837 25.5542 25.5548 32.0832 17.5004 32.0832ZM17.5004 29.1665C20.5946 29.1665 23.562 27.9373 25.75 25.7494C27.9379 23.5615 29.1671 20.594 29.1671 17.4998C29.1671 14.4056 27.9379 11.4382 25.75 9.25026C23.562 7.06233 20.5946 5.83317 17.5004 5.83317C14.4062 5.83317 11.4387 7.06233 9.25076 9.25026C7.06283 11.4382 5.83367 14.4056 5.83367 17.4998C5.83367 20.594 7.06283 23.5615 9.25076 25.7494C11.4387 27.9373 14.4062 29.1665 17.5004 29.1665ZM17.5004 15.4378L21.6245 11.3121L23.6881 13.3757L19.5625 17.4998L23.6881 21.624L21.6245 23.6875L17.5004 19.5619L13.3762 23.6875L11.3126 21.624L15.4383 17.4998L11.3126 13.3757L13.3762 11.3121L17.5004 15.4378Z" fill="white"/>
-                            </g>
-                        </svg>
-                    </Button> */}
                     <center>                   
                     <div className="d-flex align-items-start justify-content-between">
                         <div className='d-flex flex-column'>
                         {/* <strong className="p">Exchange Rate</strong>
                             <div className="h6 mb-10">1 ALGO = 2 ELEM</div> */}
                             <strong className="p mb-20">Question goes here?</strong>
-                            {/* <div className="h6 mb-10">{(parseFloat(algoBalance)/1000000).toFixed(2) === 'NaN' ?<>0.00</> :(parseFloat(algoBalance)/1000000).toFixed(2)}&nbsp; PLANETS</div> */}
-                        </div>
-                        {/* <div className='d-flex ms-auto pt-2 flex-column align-items-end'>
-                            <strong className="p">Commited Balance</strong>
-                            <div className="h6 mb-10">{(parseFloat(algoBalance)/1000000).toFixed(2) === 'NaN' ?<>0.00</> :(parseFloat(algoBalance)/1000000).toFixed(2)}&nbsp; PLANETS</div>
-                            <div className="h6 mb-10">{(parseFloat(elemBalance)/1000000).toFixed(2) === 'NaN' ?<>0.00</> :(parseFloat(elemBalance)/1000000).toFixed(2)}&nbsp; ELEM</div>
-                        </div> */}
                         </div>
 
-                    {/* <div className="d-flex mb-10 flex-wrap align-items-start justify-content-between">
-                        <div>
-                             <strong>Round</strong> 
-                            {parseFloat((ReactDomServer.renderToString(mapTotal))) != parseFloat((ReactDomServer.renderToString(mapGoal))) ? <div className="p mb-0 text-uppercase" style={{color:"green"}}>Sale in Progress</div> : <div className="p mb-0 text-uppercase" style={{color:"red"}}>Sale Ended</div>}
                         </div>
-                        <div className='text-md-end'>
-                            <strong>Time Left</strong>
-                            <div className="h6 mb-0">{lock == true ? (<>{day}d:{hour}h:{min}m:{sec}s</>):(<>{0}d:{0}h:{0}m:{0}s</>)}</div>
-                        </div>
-                    </div> */}
 
-                    {/* <div className="mb-10">
-                        <div className="d-flex justify-content-between">
-                            <strong>Start</strong>
-                            <strong>End</strong>
+                        <div className='mb-20'>
+                        <InputGroup>
+                                <FormControl
+                                    // disabled={true}
+                                    value={value}
+                                    type='number'
+                                    placeholder="0.00"
+                                    aria-label="Recipient's username"
+                                    aria-describedby="basic-addon2"
+                                    onChange={(e) => setValue(e.target.value)}
+                                />
+                            </InputGroup>
+
                         </div>
-                        <ProgressBar className='no-shadow' now={mapPercent} />
-                        <div className="d-flex justify-content-between">
-                            <strong>{mapPercent}%</strong>
-                            <strong>{mapTotal} / {mapGoal} ALGO</strong>
-                        </div>
-                    </div> */}
+
                     <div className="d-flex align-items-start justify-content-between">
-                        {/* <div className='d-flex flex-column'>
-                            <strong className="p">Your Contribution</strong>
-                            <div className="h6 mb-10">{(parseFloat(algoDonated)/1000000).toFixed(2) === 'NaN' ? <>0.000</> : (parseFloat(algoDonated)/1000000).toFixed(2)} ALGO</div>
-                            <div className="h6 mb-10">{(parseFloat(algoDonated) * 2/1000000).toFixed(2) === 'NaN' ? <>0.000</> : (parseFloat(algoDonated) * 2/1000000).toFixed(2)} ELEM Purchased</div>
-                        </div> */}
+
                     <div className="mb-10 d-flex flex-column align-items-end">
-                        {/* {assetOpt === false ? <><ButtonLoad loading={loaderAssetOpt} variant="primary" className='mb-10 py-1' onClick={()=>assetOptinWalletCheck() } style={{textTransform:"capitalize"}}>Asset Opt-in</ButtonLoad><p className='mb-10' style={{color:"red"}}>(Please Opt-In Asset to Participate)</p><br/></> : <></>} */}
                         <Row>
                             <Col>
                                 <ButtonLoad loading={loaderParticipate} variant="primary" className='mb-10 py-1' onClick={()=>voteYesWalletCheck()} style={{textTransform:"capitalize"}}>YES</ButtonLoad>
@@ -1428,46 +1222,6 @@ const max = () =>
                     </center>
                 </Modal.Body>
             </Modal>
-
-            {/* <Modal
-                show={address}
-                size={'lg'}
-                centered={true}
-                onHide={handleCloseAddress}
-                keyboard={false}
-            >
-                <Modal.Body className='p-md-5'>
-                    <Button className='modal-close' onClick={handleCloseAddress} variant='reset'>
-                        <svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <g opacity="1">
-                            <path d="M17.5004 32.0832C9.44597 32.0832 2.91699 25.5542 2.91699 17.4998C2.91699 9.44546 9.44597 2.9165 17.5004 2.9165C25.5548 2.9165 32.0837 9.44546 32.0837 17.4998C32.0837 25.5542 25.5548 32.0832 17.5004 32.0832ZM17.5004 29.1665C20.5946 29.1665 23.562 27.9373 25.75 25.7494C27.9379 23.5615 29.1671 20.594 29.1671 17.4998C29.1671 14.4056 27.9379 11.4382 25.75 9.25026C23.562 7.06233 20.5946 5.83317 17.5004 5.83317C14.4062 5.83317 11.4387 7.06233 9.25076 9.25026C7.06283 11.4382 5.83367 14.4056 5.83367 17.4998C5.83367 20.594 7.06283 23.5615 9.25076 25.7494C11.4387 27.9373 14.4062 29.1665 17.5004 29.1665ZM17.5004 15.4378L21.6245 11.3121L23.6881 13.3757L19.5625 17.4998L23.6881 21.624L21.6245 23.6875L17.5004 19.5619L13.3762 23.6875L11.3126 21.624L15.4383 17.4998L11.3126 13.3757L13.3762 11.3121L17.5004 15.4378Z" fill="white"/>
-                            </g>
-                        </svg>
-                    </Button>
-                    {/* <Form className='form-area'>
-                        <Form.Group className="mb-4" controlId="formBasicEmail">
-                            <Form.Label>Address</Form.Label>
-                            <Form.Control type="text" placeholder="Enter Address" value={addrAddAddress} onChange={(e) => setValueAddrAddAddress(e.target.value)}/>
-                        </Form.Group>
-
-                        <Form.Group className="mb-4" controlId="formBasicPassword">
-                            <Form.Label>Asset ID:</Form.Label>
-                            <Form.Control type="text" placeholder="Enter Asset" />
-                        </Form.Group>
-
-                        <Form.Group className="mb-4" controlId="formBasicPassword">
-                            <Form.Label>Amount:</Form.Label>
-                            <Form.Control type="text" placeholder="Enter Amount" value={valueAddAddress} onChange={(e) => setValueAddAddress(e.target.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1'))}/>
-                        </Form.Group>
-                        <div className="text-end">
-                            <Button variant="grad" onClick={() => addAddress(addrAddAddress, whiteID_global, valueAddAddress, appID_global)}>
-                                Add Address
-                            </Button>
-                        </div>
-                    </Form>
-                    <p className='mt-md-5 mt-4 text-gray'>(Adding Address Function will be visible only to the App creator - Normal users can't access this function)</p>
-                </Modal.Body>
-            </Modal> */}
         </>
     );
 };
