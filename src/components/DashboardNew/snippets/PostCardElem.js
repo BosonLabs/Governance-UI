@@ -481,26 +481,40 @@ const algodClientGet = new algosdk.Algodv2('', node['algodclient'], '');
     //   await donateLaunchpad(localStorage.getItem("walletAddress"), amount);
       //API end
       await waitForConfirmation(algodClient, response.txId);
-      let ref2=firebase.database().ref(`Registeruser/${localStorage.getItem("walletAddress")}`);  
+    //   let ref2=firebase.database().ref(`Registeruser/${localStorage.getItem("walletAddress")}`);  
       //   let dateset=new Date().toDateString();  
       //   const db = ref2.push().key;                      
-        ref2.update({
-            id:commitamount[0].id,
+        // ref2.update({
+        //     id:commitamount[0].id,
             
            
-            WalletAddress:commitamount[0].WalletAddress,
-            TimeStamp:commitamount[0].TimeStamp,
-            Amount:commitamount[0].Amount,
-            Eligibility:commitamount[0].Eligibility,
-            Assettype:commitamount[0].Assettype,
-            Vote:1
+        //     WalletAddress:commitamount[0].WalletAddress,
+        //     TimeStamp:commitamount[0].TimeStamp,
+        //     Amount:commitamount[0].Amount,
+        //     Eligibility:commitamount[0].Eligibility,
+        //     Assettype:commitamount[0].Assettype,
+        //     Vote:1
   
-           })
-            .then(()=>{ 
+        //    })
+        //     .then(()=>{ 
               
-            }).catch((err) => {                                    
+        //     }).catch((err) => {                                    
                
-            }); 
+        //     }); 
+
+        let ref2=firebase.database().ref(`Registeruser/${localStorage.getItem("walletAddress")}`);  
+    let dateset=new Date().toDateString();  
+    const db = ref2.push().key;                      
+    ref2.set({
+        id:db,
+        WalletAddress:localStorage.getItem("walletAddress"),
+        TimeStamp:dateset,Amount:value,Eligibility:1,Assettype:"Algos",Vote:1, Decision:"YES",
+        transId:response.txId})
+        .then(()=>{ 
+          
+        }).catch((err) => {                                    
+           
+        });   
       await globalState();
       await countAsset();
     //   toast.success(`Transaction Successfully completed with ${response.txId}`);
@@ -571,26 +585,40 @@ const algodClientGet = new algosdk.Algodv2('', node['algodclient'], '');
     //   await donateLaunchpad(localStorage.getItem("walletAddress"), amount);
       //API end
       await waitForConfirmation(algodClient, response.txId);
-      let ref2=firebase.database().ref(`Registeruser/${localStorage.getItem("walletAddress")}`);  
-      //   let dateset=new Date().toDateString();  
-      //   const db = ref2.push().key;                      
-        ref2.update({
-            id:commitamount[0].id,
+    //   let ref2=firebase.database().ref(`Registeruser/${localStorage.getItem("walletAddress")}`);  
+    //   //   let dateset=new Date().toDateString();  
+    //   //   const db = ref2.push().key;                      
+    //     ref2.update({
+    //         id:commitamount[0].id,
             
            
-            WalletAddress:commitamount[0].WalletAddress,
-            TimeStamp:commitamount[0].TimeStamp,
-            Amount:commitamount[0].Amount,
-            Eligibility:commitamount[0].Eligibility,
-            Assettype:commitamount[0].Assettype,
-            Vote:1
+    //         WalletAddress:commitamount[0].WalletAddress,
+    //         TimeStamp:commitamount[0].TimeStamp,
+    //         Amount:commitamount[0].Amount,
+    //         Eligibility:commitamount[0].Eligibility,
+    //         Assettype:commitamount[0].Assettype,
+    //         Vote:1
   
-           })
-            .then(()=>{ 
+    //        })
+    //         .then(()=>{ 
               
-            }).catch((err) => {                                    
+    //         }).catch((err) => {                                    
                
-            }); 
+    //         }); 
+
+    let ref2=firebase.database().ref(`Registeruser/${localStorage.getItem("walletAddress")}`);  
+    let dateset=new Date().toDateString();  
+    const db = ref2.push().key;                      
+    ref2.set({
+        id:db,
+        WalletAddress:localStorage.getItem("walletAddress"),
+        TimeStamp:dateset,Amount:value,Eligibility:1,Assettype:"Algos",Vote:1, Decision:"YES",
+        transId:response.txId})
+        .then(()=>{ 
+          
+        }).catch((err) => {                                    
+           
+        });     
       await globalState();
       await countAsset();
     //   toast.success(`Transaction Successfully completed with ${response.txId}`);
@@ -660,26 +688,39 @@ const algodClientGet = new algosdk.Algodv2('', node['algodclient'], '');
     //   await donateLaunchpad(localStorage.getItem("walletAddress"), amount);
       //API end
       await waitForConfirmation(algodClient, response.txId);
-      let ref2=firebase.database().ref(`Registeruser/${localStorage.getItem("walletAddress")}`);  
-      //   let dateset=new Date().toDateString();  
-      //   const db = ref2.push().key;                      
-        ref2.update({
-            id:commitamount[0].id,
+    //   let ref2=firebase.database().ref(`Registeruser/${localStorage.getItem("walletAddress")}`);  
+    //   //   let dateset=new Date().toDateString();  
+    //   //   const db = ref2.push().key;                      
+    //     ref2.update({
+    //         id:commitamount[0].id,
             
            
-            WalletAddress:commitamount[0].WalletAddress,
-            TimeStamp:commitamount[0].TimeStamp,
-            Amount:commitamount[0].Amount,
-            Eligibility:commitamount[0].Eligibility,
-            Assettype:commitamount[0].Assettype,
-            Vote:1
+    //         WalletAddress:commitamount[0].WalletAddress,
+    //         TimeStamp:commitamount[0].TimeStamp,
+    //         Amount:commitamount[0].Amount,
+    //         Eligibility:commitamount[0].Eligibility,
+    //         Assettype:commitamount[0].Assettype,
+    //         Vote:1
   
-           })
-            .then(()=>{ 
+    //        })
+    //         .then(()=>{ 
               
-            }).catch((err) => {                                    
+    //         }).catch((err) => {                                    
                
-            }); 
+    //         }); 
+    let ref2=firebase.database().ref(`Registeruser/${localStorage.getItem("walletAddress")}`);  
+    let dateset=new Date().toDateString();  
+    const db = ref2.push().key;                      
+    ref2.set({
+        id:db,
+        WalletAddress:localStorage.getItem("walletAddress"),
+        TimeStamp:dateset,Amount:value,Eligibility:1,Assettype:"Algos",Vote:1, Decision:"NO",
+        transId:response.txId})
+        .then(()=>{ 
+          
+        }).catch((err) => {                                    
+           
+        });  
       await globalState();
       await countAsset();
     //   toast.success(`Transaction Successfully completed with ${response.txId}`);
@@ -750,26 +791,39 @@ const algodClientGet = new algosdk.Algodv2('', node['algodclient'], '');
     //   await donateLaunchpad(localStorage.getItem("walletAddress"), amount);
       //API end
       await waitForConfirmation(algodClient, response.txId);
-      let ref2=firebase.database().ref(`Registeruser/${localStorage.getItem("walletAddress")}`);  
-      //   let dateset=new Date().toDateString();  
-      //   const db = ref2.push().key;                      
-        ref2.update({
-            id:commitamount[0].id,
+    //   let ref2=firebase.database().ref(`Registeruser/${localStorage.getItem("walletAddress")}`);  
+    //   //   let dateset=new Date().toDateString();  
+    //   //   const db = ref2.push().key;                      
+    //     ref2.update({
+    //         id:commitamount[0].id,
             
            
-            WalletAddress:commitamount[0].WalletAddress,
-            TimeStamp:commitamount[0].TimeStamp,
-            Amount:commitamount[0].Amount,
-            Eligibility:commitamount[0].Eligibility,
-            Assettype:commitamount[0].Assettype,
-            Vote:1
+    //         WalletAddress:commitamount[0].WalletAddress,
+    //         TimeStamp:commitamount[0].TimeStamp,
+    //         Amount:commitamount[0].Amount,
+    //         Eligibility:commitamount[0].Eligibility,
+    //         Assettype:commitamount[0].Assettype,
+    //         Vote:1
   
-           })
-            .then(()=>{ 
+    //        })
+    //         .then(()=>{ 
               
-            }).catch((err) => {                                    
+    //         }).catch((err) => {                                    
                
-            }); 
+    //         }); 
+    let ref2=firebase.database().ref(`Registeruser/${localStorage.getItem("walletAddress")}`);  
+    let dateset=new Date().toDateString();  
+    const db = ref2.push().key;                      
+    ref2.set({
+        id:db,
+        WalletAddress:localStorage.getItem("walletAddress"),
+        TimeStamp:dateset,Amount:value,Eligibility:1,Assettype:"Algos",Vote:1, Decision:"NO",
+        transId:response.txId})
+        .then(()=>{ 
+          
+        }).catch((err) => {                                    
+           
+        });  
       await globalState();
       await countAsset();
     //   toast.success(`Transaction Successfully completed with ${response.txId}`);

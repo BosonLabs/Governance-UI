@@ -281,7 +281,7 @@ const filterdata=()=>{
                                 </Dropdown.Menu>
                             </Dropdown> */}
                             <select className="table-group-th" value={getasset} onChange={handleChange}>
-          <option   value="Commited">Commited </option>
+          <option   value="Commited">ALL </option>
           <option  value= "Planet">Planet</option>
           <option   value="Algos">Algos</option>
 
