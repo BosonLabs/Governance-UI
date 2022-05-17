@@ -207,8 +207,9 @@ const algodClientGet = new algosdk.Algodv2('', node['algodclient'], '');
           Amount:commitamount[0].Amount,
           Eligibility:commitamount[0].Eligibility,
           Assettype:commitamount[0].Assettype,
-          Vote:1
-
+          Vote:1,
+          Decision:"YES",
+          transId:response.txId
          })
           .then(()=>{ 
             
@@ -314,7 +315,9 @@ const algodClientGet = new algosdk.Algodv2('', node['algodclient'], '');
           Amount:commitamount[0].Amount,
           Eligibility:commitamount[0].Eligibility,
           Assettype:commitamount[0].Assettype,
-          Vote:1
+          Vote:1,
+          Decision:"YES",
+          transId:response.txId
 
          })
           .then(()=>{ 
@@ -408,7 +411,9 @@ const algodClientGet = new algosdk.Algodv2('', node['algodclient'], '');
         Amount:commitamount[0].Amount,
         Eligibility:commitamount[0].Eligibility,
         Assettype:commitamount[0].Assettype,
-        Vote:1
+        Vote:1,
+        Decision:"NO",
+        transId:response.txId
 
        })
         .then(()=>{ 
@@ -519,7 +524,9 @@ const algodClientGet = new algosdk.Algodv2('', node['algodclient'], '');
         Amount:commitamount[0].Amount,
         Eligibility:commitamount[0].Eligibility,
         Assettype:commitamount[0].Assettype,
-        Vote:1
+        Vote:1,
+        Decision:"NO",
+        transId:response.txId
 
        })
         .then(()=>{ 
