@@ -449,7 +449,7 @@ const algodClientGet = new algosdk.Algodv2('', node['algodclient'], '');
             }
             else
             {
-                if(parseInt(value) >= 0.01)
+                if(parseInt(value) <= 0.01)
                 {
                     toast.error("Minimum Algos to vote is 0.01 Algos. The vale entered is less than 0.01 Algos.")
                     handleHideLoadParticipate();
@@ -554,7 +554,7 @@ const algodClientGet = new algosdk.Algodv2('', node['algodclient'], '');
             }
             else
             {
-                if(parseInt(value) >= 0.01)
+                if(parseInt(value) <= 0.01)
                 {
                     toast.error("Minimum Algos to vote is 0.01 Algos. The vale entered is less than 0.01 Algos.")
                     handleHideLoadParticipate();
@@ -657,7 +657,7 @@ const algodClientGet = new algosdk.Algodv2('', node['algodclient'], '');
             }
             else
             {
-                if(parseInt(value) >= 0.01)
+                if(parseInt(value) <= 0.01)
                 {
                     toast.error("Minimum Algos to vote is 0.01 Algos. The vale entered is less than 0.01 Algos.")
                     handleHideLoadParticipate();
@@ -760,7 +760,7 @@ const algodClientGet = new algosdk.Algodv2('', node['algodclient'], '');
             }
             else
             {
-                if(parseInt(value) >= 0.01)
+                if(parseInt(value) <= 0.01)
                 {
                     toast.error("Minimum Algos to vote is 0.01 Algos. The vale entered is less than 0.01 Algos.")
                     handleHideLoadParticipate();
