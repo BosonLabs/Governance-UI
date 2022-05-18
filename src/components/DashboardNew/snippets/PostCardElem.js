@@ -1232,17 +1232,17 @@ const max = () =>
             
             <Modal
                 show={show}
-                size={'lg'}
+                size={'md'}
                 centered={true}
                 onHide={handleClose}
                 className="modal-dashboard"
                 keyboard={false}
             >
                 {/* <><ToastContainer position='bottom-right' draggable = {false} transition={Zoom} autoClose={4000} closeOnClick = {false}/></> */}
-                <Modal.Header className='align-items-start' closeButton>
+                <Modal.Header className='align-items-start mb-0' closeButton>
                     <div className="d-flex flex-wrap align-items-start justify-content-between">
                         <div className="d-flex align-items-center flex-wrap modal-head">
-                            <img src={Logo} height="40" width="100" alt="logo" />
+                            
 
                             {/* {appOpt === false ? <><ButtonLoad loading={loaderAppOpt} variant="primary" className='py-1' onClick={()=>appOptinWalletCheck()} style={{textTransform:"capitalize"}}>App Opt-in</ButtonLoad><p style={{color:"red"}}>(Please Opt-In App to Participate)</p></> : <></>} */}
                     
@@ -1250,13 +1250,16 @@ const max = () =>
                         </div>
                     </div>
                 </Modal.Header>
-                <Modal.Body className='p-0'>
-                    <center>                   
+                <Modal.Body className='mt-0 p-0'>
+                    <center>
+                        <div className="text-center mb-20">
+                        <img src={Logo} width="120" alt="logo" />
+                        </div>                   
                     <div className="d-flex align-items-start justify-content-between">
                         <div className='d-flex flex-column'>
                         {/* <strong className="p">Exchange Rate</strong>
                             <div className="h6 mb-10">1 ALGO = 2 ELEM</div> */}
-                            <strong className="p mb-20">Question goes here?</strong>
+                            <strong className="p mb-10">Question goes here?</strong>
                         </div>
 
                         </div>
@@ -1276,33 +1279,26 @@ const max = () =>
 
                         </div>
 
-                    <div className="d-flex align-items-start justify-content-between">
+                    <div className="">
 
-                    <div className="mb-10 d-flex flex-column align-items-end">
+                    <div className="mb-10">
                         <Row>
-                            <Col>
-                                <ButtonLoad loading={loaderParticipate} variant="primary" className='mb-10 py-1' onClick={()=>voteYesWalletCheck()} style={{textTransform:"capitalize"}}>YES</ButtonLoad>
+                            <Col xs="6">
+                                <ButtonLoad loading={loaderParticipate} variant="primary" className='mb-10 btn-blue w-100 py-1' onClick={()=>voteYesWalletCheck()} style={{textTransform:"capitalize"}}>YES</ButtonLoad>
                             </Col>
-                            <Col>
-                                <ButtonLoad loading={loaderAssetOpt} variant="primary" className='mb-10 py-1' onClick={()=>voteNoWalletCheck()} style={{textTransform:"capitalize"}}>NO</ButtonLoad>
+                            <Col xs="6">
+                                <ButtonLoad loading={loaderAssetOpt} variant="primary" className='mb-10 btn-blue w-100 py-1' onClick={()=>voteNoWalletCheck()} style={{textTransform:"capitalize"}}>NO</ButtonLoad>
                             </Col>
                         </Row>
                     </div>
                     </div>
 
-                    <div className="d-flex align-items-start justify-content-between">
-                        <div className='d-flex flex-column'>
-                            {/* <strong className="mb-0">Total Allocation</strong> */}
-                            <strong className="p">Commited Algos</strong>
-                            <div className="h6 mb-10">{(parseFloat(algoCommited)/1000000).toFixed(2) === 'NaN' ?<>0.00</> :(parseFloat(algoCommited)/1000000).toFixed(2)}&nbsp; Algos</div>
-                            {/* <div className="h6 mb-0">{totalElem} ELEM</div> */}
-                            {/* <strong>ELEM</strong> */}
-                        </div>
-                        {/* <div className='d-flex flex-column align-items-end'>
-                            <strong>Total Sold</strong>
-                            <div className="h6 mb-0">{totalSold} ELEM</div>
-                            <strong>ALGO</strong>
-                        </div> */}
+                    <div className='d-flex align-items-center justify-content-between'>
+                        {/* <strong className="mb-0">Total Allocation</strong> */}
+                        <strong className="p">Commited Algos</strong>
+                        <div className="h6 mb-0">{(parseFloat(algoCommited)/1000000).toFixed(2) === 'NaN' ?<>0.00</> :(parseFloat(algoCommited)/1000000).toFixed(2)}&nbsp; Algos</div>
+                        {/* <div className="h6 mb-0">{totalElem} ELEM</div> */}
+                        {/* <strong>ELEM</strong> */}
                     </div>
                     </center>
                 </Modal.Body>

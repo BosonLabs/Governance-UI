@@ -6,6 +6,14 @@ import {
   import Cartoon from '../../assets/images/cartoon_light.png';
 //   import ModalImage from '../../assets/images/desktop_light.png';
   import Logo from '../../assets/images/logo-d.svg'
+  import Icon1 from '../../assets/images/social-icon-1.png';
+  import Icon2 from '../../assets/images/social-icon-2.png';
+  import Icon3 from '../../assets/images/social-icon-3.png';
+  import Icon4 from '../../assets/images/social-icon-4.png';
+  import Icon5 from '../../assets/images/social-icon-5.png';
+  import Icon6 from '../../assets/images/social-icon-6.png';
+  import Icon7 from '../../assets/images/social-icon-7.png';
+  import Icon8 from '../../assets/images/social-icon-8.png';
 const Footer = () => {
     // const [Cartoonshow, setCartoonShow] = React.useState(false);
     // const handle = () => {setCartoonShow(!Cartoonshow); localStorage.setItem('elemCartn', true);};
@@ -26,6 +34,101 @@ const Footer = () => {
     // }, [])
     return (
         <>
+            <footer className="footer-gv py-5">
+                <Container>
+                    <Row>
+                        <Col xs={6} sm={4} md={2} className="mb-3">
+                            <h4 className='mb-2'>Contact Us</h4>
+                            <ul className='list-unstyled'>
+                                <li>
+                                    <a href="mainto:marketing@planetwatch.io">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi me-2 bi-envelope-fill" viewBox="0 0 16 16">
+                                            <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555ZM0 4.697v7.104l5.803-3.558L0 4.697ZM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757Zm3.436-.586L16 11.801V4.697l-5.803 3.546Z"/>
+                                        </svg>
+                                        Marketing
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="mainto:marketing@planetwatch.io">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi me-2 bi-envelope-fill" viewBox="0 0 16 16">
+                                            <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555ZM0 4.697v7.104l5.803-3.558L0 4.697ZM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757Zm3.436-.586L16 11.801V4.697l-5.803 3.546Z"/>
+                                        </svg>
+                                        Business
+                                    </a>
+                                </li>
+                            </ul>
+                        </Col> 
+                        <Col xs={6} sm={4} md={2} className="mb-3">
+                            <h4 className='mb-2'>Blockchain</h4>
+                            <ul className='list-unstyled'>
+                                <li>
+                                    <Link to="/">Algorand</Link>
+                                </li>
+                                <li>
+                                    <Link to="/">Token Model</Link>
+                                </li>
+                            </ul>
+                        </Col> 
+                        <Col xs={6} sm={4} md={2} className="mb-3">
+                            <h4 className='mb-2'>Legal</h4>
+                            <ul className='list-unstyled'>
+                                <li>
+                                    <Link to="/">Terms and Conditions</Link>
+                                </li>
+                                <li>
+                                    <Link to="/">General Terms of sale and delivery</Link>
+                                </li>
+                                <li>
+                                    <Link to="/">Privacy Policy</Link>
+                                </li>
+                                <li>
+                                    <Link to="/">Cookie Policy</Link>
+                                </li>
+                                <li>
+                                    <Link to="/">License agreement</Link>
+                                </li>
+                            </ul>
+                        </Col> 
+
+                        <Col xs={12} sm={12} md={5} className="mb-3 mt-md-0 mt-4">
+                            <div className="social_icons flex-wrap justify-content-center d-flex align-items-center">
+                                <a href="/"><img src={Icon1} alt="icon" /></a>
+                                <a href="/"><img src={Icon2} alt="icon" /></a>
+                                <a href="/"><img src={Icon3} alt="icon" /></a>
+                                <a href="/"><img src={Icon4} alt="icon" /></a>
+                                <a href="/"><img src={Icon5} alt="icon" /></a>
+                                <a href="/"><img src={Icon6} alt="icon" /></a>
+                                <a href="/"><img src={Icon7} alt="icon" /></a>
+                                <a href="/"><img src={Icon8} alt="icon" /></a>
+                            </div>
+                        </Col>
+                    </Row>
+
+                    <hr />
+
+                    <Row className='align-items-center'>
+                        <Col lg={3} md={4} xs={6}>
+                            <p>
+                                Planetwatch S.A.S. <br />
+                                Société Par Actions Simplifiée <br />
+                                50 rue Gustave Eiffel, <br />
+                                01630 St. Genis-Pouilly, France
+                            </p>
+                        </Col>
+                        <Col lg={3} md={4} xs={6}>
+                            <p>
+                                SIREN 880 415 724 <br />
+                                R.C.S. Bourg-En-Bresse <br />
+                                VAT number <br />
+                                FR40880415724
+                            </p>
+                        </Col>
+                        <Col lg={5} md={4} xs={6} className="d-none ms-auto text-center d-md-block">
+                            <img width={150} src="https://www.planetwatch.us/wp-content/themes/Planetwatchre/images/PlanetWatch_logo_new_bianco1.png" alt="logo" />
+                        </Col>
+                    </Row>
+                </Container>
+            </footer>
             {/* <Modal show={show} size="lg" centered className="modal-dashboard" onHide={handleClose}>
                 <Modal.Header closeButton className='align-items-start'>
                     <Modal.Title><h2 className='m-0'>Welcome to Element</h2></Modal.Title>

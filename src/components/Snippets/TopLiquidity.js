@@ -280,7 +280,7 @@ const filterdata=()=>{
                                     
                                 </Dropdown.Menu>
                             </Dropdown> */}
-                            <select className="table-group-th" value={getasset} onChange={handleChange}>
+                            <select className="form-select border-0 p-0 bg-transparent" value={getasset} onChange={handleChange}>
           <option   value="Commited">ALL </option>
           <option  value= "Planet">Planet</option>
           <option   value="Algos">Algos</option>
