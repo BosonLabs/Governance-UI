@@ -1072,13 +1072,26 @@ const maxAlgo = () =>
                                     </div>
 
                                     <Row className='flex-nowrap align-items-center gx-3'>
-                                        <Col>
-                                            {planetBalances/1000000 >= 1 ? <ButtonLoad loading={loadMint} className='btn w-100 btn-blue mb-20' onClick={balCheckPlanetCommit}>
-                                                Commit Planet
-                                            </ButtonLoad> : <ButtonLoad disabled loading={loadMint} className='btn w-100 btn-blue mb-20' onClick={balCheckPlanetCommit}>
-                                                Commit Planet
-                                            </ButtonLoad>}
-                                        </Col>
+                                        {commitamount===""||commitamount ===undefined||commitamount===null ? (<>
+                                            
+                                            <Col>
+                                        
+                                        {planetBalances/1000000 >= 1 ? <ButtonLoad loading={loadMint} className='btn w-100 btn-blue mb-20' onClick={balCheckPlanetCommit}>
+                                            Commit Planet
+                                        </ButtonLoad> : <ButtonLoad disabled loading={loadMint} className='btn w-100 btn-blue mb-20' onClick={balCheckPlanetCommit}>
+                                            Commit Planet
+                                        </ButtonLoad>}
+                                    </Col>
+                                        
+                                        </>):(<>
+                                            <Col>
+                                            <ButtonLoad className='btn w-100 btn-blue mb-20' disabled > Already  Committed</ButtonLoad>
+                                            </Col>
+                                        
+                                        
+                                        
+                                        </>)}
+                                        
                                     </Row>
                                 </Tab>
                                 {/* <Tab eventKey="redeem" title="Commit Algos">

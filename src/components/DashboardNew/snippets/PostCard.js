@@ -1,6 +1,7 @@
 import React, { Component, useState, useEffect, useContext, useRef } from 'react';
 import { Modal, Button, ProgressBar, Form, InputGroup, Card, FormControl, Row, Col } from 'react-bootstrap';
 
+import { useHistory } from "react-router-dom";
 import Image from '../../../assets/images/element_banner_sale.png';
 import Icon from '../../../assets/images/post-icon-1.png';
 import Logo from '../../../assets/images/PlanetWatch.png';
@@ -23,7 +24,7 @@ const algosdk = require('algosdk');
 const myAlgoWallet = new MyAlgoConnect();
 const bridge = "https://bridge.walletconnect.org";
 const PostCard = () => {
-
+    let history=useHistory();
     const [show, setShow] = React.useState(false);
     const [showDonate, setShowDonate] = React.useState(false);
 
@@ -59,7 +60,7 @@ const PostCard = () => {
     
     const [minAlgo, setMinAlgo] = useState("");
     const [commitamount,setcommitamount] = useState("");
-
+    const [votestatus,setvotestatus] = useState("");
 const algodClientGet = new algosdk.Algodv2('', node['algodclient'], '');
 
     const algodClient = new algosdk.Algodv2('', node['algodclient'], '');
@@ -81,8 +82,6 @@ const algodClientGet = new algosdk.Algodv2('', node['algodclient'], '');
             if (data) {                        
        
               r.push({
-              
-
                 id:data.val().id,
                 WalletAddress:data.val().WalletAddress,
                 TimeStamp:data.val().TimeStamp,
@@ -91,12 +90,16 @@ const algodClientGet = new algosdk.Algodv2('', node['algodclient'], '');
                 Assettype:data.val().Assettype,
                 Vote:data.val().Vote
                 
-              })                              
+              })  
+              // setvotestatus(r[0]["Vote"]);                               
           }
           else{
             setcommitamount([""]);  
           }
           setcommitamount(r);
+          
+          
+         
         //   setPlanetAmount(planetAmount);
                
         });                  
@@ -212,7 +215,7 @@ const algodClientGet = new algosdk.Algodv2('', node['algodclient'], '');
           transId:response.txId
          })
           .then(()=>{ 
-            
+            window.location.reload(false);
           }).catch((err) => {                                    
              
           });         
@@ -321,7 +324,7 @@ const algodClientGet = new algosdk.Algodv2('', node['algodclient'], '');
 
          })
           .then(()=>{ 
-            
+            window.location.reload(false);
           }).catch((err) => {                                    
              
           });         
@@ -417,7 +420,7 @@ const algodClientGet = new algosdk.Algodv2('', node['algodclient'], '');
 
        })
         .then(()=>{ 
-          
+          window.location.reload(false);
         }).catch((err) => {                                    
            
         });    
@@ -530,7 +533,7 @@ const algodClientGet = new algosdk.Algodv2('', node['algodclient'], '');
 
        })
         .then(()=>{ 
-          
+          window.location.reload(false);
         }).catch((err) => {                                    
            
         });    
@@ -673,9 +676,43 @@ const max = () =>
                 </div>
 
                 <div className="post-card-footer">
+                  {commitamount === null||commitamount===undefined||commitamount===""  ?(<>
+                  
                     <div>
                     <Button className='w-100' onClick={handleShow}>Vote</Button>      
                     </div>
+                    
+                   
+                  
+                  </>):(<>
+                    {commitamount[0]===null||commitamount[0]===undefined||commitamount[0]===""  ?(
+
+                      <div>
+                    <Button className='w-100' onClick={handleShow}>Vote</Button>      
+                    </div>
+                  ):(
+<>
+                    {commitamount[0].Vote ==1  ?(
+                      <>
+                      <div>
+                      <Button className='w-100' disabled onClick={handleShow}>Already Voted</Button>      
+                      </div>
+                      <div className="d-flex align-items-start justify-content-between"> Commited Amount <strong className="text-end"> {commitamount[0].Amount}</strong></div>
+
+                      </> ):(
+ <div>
+ <Button className='w-100'  onClick={handleShow}> Vote</Button>      
+ </div>
+                    )}
+</>
+                  )
+                    
+                  }
+
+
+
+                    </>)}
+                   
                 </div>
             </Card>
             
