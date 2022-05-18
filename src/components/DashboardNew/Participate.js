@@ -163,30 +163,37 @@ function Participate() {
                        </div><br/>Voting will start after 
                        <div className="h3 mb-0" style={{color:"red"}}>{lock13 == true ? (<>{day13}d : {hour13}h : {min13}m : {sec13}s</>):(<>Registration Ended</>)}</div>    
                        </>):(<>
-                           { Assettype ==="Planet"?(<>
-
-                            <Col lg={4} className='mb-4'>
+                           { Assettype ==="Planet" ?(<>
+{Assettype ==="Planet" && votestatus == 1 ? (<>
+    <Col lg={4} className='mb-4'>
                                <PostCard />
                            </Col>
+
+</>):(<>
+
+    <Col lg={4} className='mb-4'>
+                               <PostCard />
+                           </Col>
+
+</>)}
+                          
                            
                            
                            </>):(<>
                            {Assettype ==="Algos" && votestatus == 1 ?(<>
-                         <center>   <div className="h3 mb-0">  Thanks for  voting  you voted  {Decisionstatus}  and your commited amount is {commitamount}</div> </center>
+                         {/* <center>   <div className="h3 mb-0"> You have already participated in voting, You have committed {commitamount} ALGOS</div> </center> */}
+                         <Col lg={4} className='mb-4'>
+                               <PostCardElem />
+                           </Col>
+                           
+                           
                            </>):(<>
                             <Col lg={4} className='mb-4'>
                                <PostCardElem />
                            </Col>
                            
                            </>)}
-
-                         
-                           
-                          
-                           
-                           
-                           
-                           
+           
                            </>)}
                          
                        

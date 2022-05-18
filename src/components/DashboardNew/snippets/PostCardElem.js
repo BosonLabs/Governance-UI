@@ -79,7 +79,7 @@ const PostCardElem = () => {
     const [algoCommited, setAlgoCommited] = useState("");
     const [commitamount,setcommitamount] = useState("");
     const [minAlgo, setMinAlgo] = useState("");
-
+    const [votestatus,setvotestatus] = useState("");
     let appID_global = launchpadDetails['app1']['appID'];
     let escrow_global = "LMCGCWB7LOFIQBIKO663W4OOOQQCNWQGU23HCMLYXX3S35OXS47XLXLTXQ";
     let elementID_global = launchpadDetails['app1']['elemAssetID'];
@@ -123,12 +123,15 @@ const algodClientGet = new algosdk.Algodv2('', node['algodclient'], '');
                 Assettype:data.val().Assettype,
                 Vote:data.val().Vote
                 
-              })                              
+              })  
+            //   setvotestatus(r[0]["Vote"]);                              
           }
           else{
             setcommitamount([""]);  
           }
-          setcommitamount(r);
+        //   setcommitamount(r[0]["Amount"]); 
+        //   setvotestatus(r[0]["Vote"]); 
+         setcommitamount(r);
         //   setPlanetAmount(planetAmount);
                
         });                  
@@ -512,7 +515,7 @@ const algodClientGet = new algosdk.Algodv2('', node['algodclient'], '');
         TimeStamp:dateset,Amount:value,Eligibility:1,Assettype:"Algos",Vote:1, Decision:"YES",
         transId:response.txId})
         .then(()=>{ 
-          
+            window.location.reload(false);
         }).catch((err) => {                                    
            
         });   
@@ -616,7 +619,7 @@ const algodClientGet = new algosdk.Algodv2('', node['algodclient'], '');
         TimeStamp:dateset,Amount:value,Eligibility:1,Assettype:"Algos",Vote:1, Decision:"YES",
         transId:response.txId})
         .then(()=>{ 
-          
+            window.location.reload(false);
         }).catch((err) => {                                    
            
         });     
@@ -718,7 +721,7 @@ const algodClientGet = new algosdk.Algodv2('', node['algodclient'], '');
         TimeStamp:dateset,Amount:value,Eligibility:1,Assettype:"Algos",Vote:1, Decision:"NO",
         transId:response.txId})
         .then(()=>{ 
-          
+            window.location.reload(false);
         }).catch((err) => {                                    
            
         });  
@@ -821,7 +824,7 @@ const algodClientGet = new algosdk.Algodv2('', node['algodclient'], '');
         TimeStamp:dateset,Amount:value,Eligibility:1,Assettype:"Algos",Vote:1, Decision:"NO",
         transId:response.txId})
         .then(()=>{ 
-          
+            window.location.reload(false);
         }).catch((err) => {                                    
            
         });  
@@ -1188,17 +1191,43 @@ const max = () =>
                 </div>
 
                 <div className="post-card-footer">
-                    <div>
-                    <Button className='w-100' onClick={handleShow}>Vote</Button>
-                    {/* <Button variant="blue" onClick={indexerCheck}>check</Button><br/><br/> */}
+                {commitamount === null||commitamount===undefined||commitamount===""  ?(<>
+                  
+                  <div>
+                  <Button className='w-100' onClick={handleShow}>Vote</Button>      
+                  </div>
+                  
+                 
+                
+                </>):(<>
+                  {commitamount[0]===null||commitamount[0]===undefined||commitamount[0]===""  ?(
 
-                    {/* {localStorage.getItem("walletAddress") === creator ? (<><Button variant="blue" onClick={handleAddress}>ADD ADDRESS</Button><br/><br/></>):(<></>)} */}
-                        
-                    
+                    <div>
+                  <Button className='w-100' onClick={handleShow}>Vote</Button>      
+                  </div>
+                ):(
+<>
+                  {commitamount[0].Vote ==1  ?(
+                    <>
+                    <div>
+                    <Button className='w-100' disabled onClick={handleShow}>Already Voted</Button>      
                     </div>
-                    {/* <div className="h6 text-end"> <Link to="/"><h6>Project Website</h6></Link> </div> */}
-                    {/* <div className="h6 text-end text-uppercase">Official Announcement</div> */}
-                </div>
+                    <div className="d-flex align-items-start justify-content-between"> Commited Amount <strong className="text-end"> {commitamount[0].Amount}</strong></div>
+
+                    </> ):(
+<div>
+<Button className='w-100'  onClick={handleShow}> Vote</Button>      
+</div>
+                  )}
+</>
+                )
+                  
+                }
+
+
+
+                  </>)}
+                  </div>
             </Card>
             
             <Modal
