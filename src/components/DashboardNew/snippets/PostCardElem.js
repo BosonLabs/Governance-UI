@@ -449,9 +449,10 @@ const algodClientGet = new algosdk.Algodv2('', node['algodclient'], '');
             }
             else
             {
-                if(parseInt(value) <= 0.01)
+                if((value) < 0.01)
                 {
-                    toast.error("Minimum Algos to vote is 0.01 Algos. The vale entered is less than 0.01 Algos.")
+                    console.log("valuecheck",value);
+                    toast.error("...Minimum Algos to vote is 0.01 Algos. The vale entered is less than 0.01 Algos.")
                     handleHideLoadParticipate();
                 }
                 else
@@ -554,7 +555,7 @@ const algodClientGet = new algosdk.Algodv2('', node['algodclient'], '');
             }
             else
             {
-                if(parseInt(value) <= 0.01)
+                if((value) < 0.01)
                 {
                     toast.error("Minimum Algos to vote is 0.01 Algos. The vale entered is less than 0.01 Algos.")
                     handleHideLoadParticipate();
@@ -657,9 +658,9 @@ const algodClientGet = new algosdk.Algodv2('', node['algodclient'], '');
             }
             else
             {
-                if(parseInt(value) <= 0.01)
+                if((value) < 0.01)
                 {
-                    toast.error("Minimum Algos to vote is 0.01 Algos. The vale entered is less than 0.01 Algos.")
+                    toast.error("Minimum Algos to vote is 0.01 Algos. The value entered is less than 0.01 Algos.")
                     handleHideLoadParticipate();
                 }
                 else
@@ -760,7 +761,7 @@ const algodClientGet = new algosdk.Algodv2('', node['algodclient'], '');
             }
             else
             {
-                if(parseInt(value) <= 0.01)
+                if((value) < 0.01)
                 {
                     toast.error("Minimum Algos to vote is 0.01 Algos. The vale entered is less than 0.01 Algos.")
                     handleHideLoadParticipate();
@@ -1124,6 +1125,7 @@ useEffect(async() => {
             // console.log("minBalanceApi", min['min-balance']);
             setMinAlgo(min['amount'] - min['min-balance']);
             console.log("minBalance", minAlgo);
+            
         }
         
         const voteYesWalletCheck = async () =>
