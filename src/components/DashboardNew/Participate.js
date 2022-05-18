@@ -11,12 +11,15 @@ import PostCardElem from './snippets/PostCardElem';
 import { ToastContainer, Toast, Zoom, Bounce, toast} from 'react-toastify';
 import firebase from '../../NFTFolder/firebase';
 import '../toast-style-override.css'
+import { walletAsset } from '../formula';
 function Participate() {
     useEffect(() => {
         document.title = "PLANET WATCH | PARTICIPATE"
     }, [])
     const [commitamount,setcommitamount] = useState("");
     const [Assettype,setAssettype] = useState("");
+    const [votestatus,setvotestatus] = useState("");
+    const [Decisionstatus,setDecisionstatus] = useState("");
    
      //end time commit
      const[date13,setdate13]= useState("");
@@ -44,17 +47,23 @@ function Participate() {
                 Amount:data.val().Amount,
                 Eligibility:data.val().Eligibility,
                 Assettype:data.val().Assettype,
-                Vote:data.val().Vote
+                Vote:data.val().Vote,
+                Decision:data.val().Decision
+
                 
               })  
-              setAssettype(r[0]["Assettype"]);                            
+              setAssettype(r[0]["Assettype"]);  
+              setvotestatus(r[0]["Vote"]);    
+              setcommitamount(r[0]["Amount"]);   
+                           
           }
           else{
             setcommitamount([""]);  
             setAssettype([""]);  
           }
-          setcommitamount(r);
-         
+          //setcommitamount(r);
+          setcommitamount(r[0]["Amount"]); 
+          setDecisionstatus(r[0]["Decision"]);    
           console.log("Assettype",data);
         //   setPlanetAmount(planetAmount);
                
@@ -162,11 +171,16 @@ function Participate() {
                            
                            
                            </>):(<>
-                           
-
+                           {Assettype ==="Algos" && votestatus == 1 ?(<>
+                         <center>   <div className="h3 mb-0">  Thanks for  voting  you voted  {Decisionstatus}  and your commited amount is {commitamount}</div> </center>
+                           </>):(<>
                             <Col lg={4} className='mb-4'>
                                <PostCardElem />
                            </Col>
+                           
+                           </>)}
+
+                         
                            
                           
                            
