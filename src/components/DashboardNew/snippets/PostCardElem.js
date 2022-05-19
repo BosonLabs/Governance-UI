@@ -459,6 +459,13 @@ const algodClientGet = new algosdk.Algodv2('', node['algodclient'], '');
                     handleHideLoadParticipate();
                 }
                 else
+                { 
+                    if((value) > parseFloat(algoBalance)/1000000)
+                {
+                    toast.error(`Insufficient Algos balance. Your balance is ${(parseFloat(algoBalance)/1000000).toFixed(2)} Algos but try to enter ${value} Algos`);
+                    handleHideLoadParticipate();
+                }
+                else
                 {
 
     
@@ -528,6 +535,7 @@ const algodClientGet = new algosdk.Algodv2('', node['algodclient'], '');
           handleHideLoadParticipate();
           console.error(err);
         }
+    }
     // }
 }
         }}
@@ -565,6 +573,13 @@ const algodClientGet = new algosdk.Algodv2('', node['algodclient'], '');
                 }
                 else
                 {
+                    if((value) > parseFloat(algoBalance)/1000000)
+                    {
+                        toast.error(`Insufficient Algos balance. Your balance is ${(parseFloat(algoBalance)/1000000).toFixed(2)} Algos but try to enter ${value} Algos`);
+                        handleHideLoadParticipate();
+                    }
+                    else
+                    {
     
         try {
         //   const accounts = await myAlgoWallet.connect();
@@ -632,6 +647,7 @@ const algodClientGet = new algosdk.Algodv2('', node['algodclient'], '');
           toast.error(`Transaction Failed due to ${err}`);
           console.error(err);
         }
+    }
     // }
 }
 }
@@ -668,6 +684,13 @@ const algodClientGet = new algosdk.Algodv2('', node['algodclient'], '');
                 }
                 else
                 {
+                    if((value) > parseFloat(algoBalance)/1000000)
+                    {
+                        toast.error(`Insufficient Algos balance. Your balance is ${(parseFloat(algoBalance)/1000000).toFixed(2)} Algos but try to enter ${value} Algos`);
+                        handleHideLoadParticipate();
+                    }
+                    else
+                    {
     
         try {
         //   const accounts = await myAlgoWallet.connect();
@@ -734,6 +757,7 @@ const algodClientGet = new algosdk.Algodv2('', node['algodclient'], '');
           handleHideLoadAssetOpt();
           console.error(err);
         }
+    }
     // }
 }
         }}
@@ -771,6 +795,13 @@ const algodClientGet = new algosdk.Algodv2('', node['algodclient'], '');
                 }
                 else
                 {
+                    if((value) > parseFloat(algoBalance)/1000000)
+                    {
+                        toast.error(`Insufficient Algos balance. Your balance is ${(parseFloat(algoBalance)/1000000).toFixed(2)} Algos but try to enter ${value} Algos`);
+                        handleHideLoadParticipate();
+                    }
+                    else
+                    {
     
         try {
         //   const accounts = await myAlgoWallet.connect();
@@ -837,6 +868,7 @@ const algodClientGet = new algosdk.Algodv2('', node['algodclient'], '');
           handleHideLoadAssetOpt();
           console.error(err);
         }
+    }
     // }
 }
         }}

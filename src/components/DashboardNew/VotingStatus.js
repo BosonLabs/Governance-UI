@@ -6,6 +6,7 @@ import node from './nodeapi.json';
 import governance from './governance.json';
 import ReactDomServer from 'react-dom/server';
 import firebase from '../../NFTFolder/firebase';
+import { compileString } from 'sass';
 const algosdk = require('algosdk');
 const VoteStatus = () => {
 
@@ -18,11 +19,11 @@ const VoteStatus = () => {
     const algodClient = new algosdk.Algodv2('', node['algodclient'], '');
     const indexClient = new algosdk.Indexer('', node['indexerclient'], '');
 
-    const[totalYes,setTotalYes]= useState("");
-    const[totalNo,setTotalNo]= useState("");
-    const[voteYes,setVoteYes]= useState("");
-    const[voteNo,setVoteNo]= useState("");
-    const[result,setResult]= useState("");
+    const[totalYes,setTotalYes]= useState();
+    const[totalNo,setTotalNo]= useState();
+    const[voteYes,setVoteYes]= useState();
+    const[voteNo,setVoteNo]= useState();
+    const[result,setResult]= useState();
     const[yesPercent,setYesPercent]= useState();
     const[noPercent,setNoPercent]= useState();
     const[totalVotePercent,setTotalVotePercent]= useState();
@@ -36,10 +37,7 @@ const VoteStatus = () => {
     const [eligible,setEligible] = useState(0);
     const [noteligible,setNotEligible] = useState(0);
     
-    console.log("noteligible",noteligible);
-    const[map1,setMap]= useState([]); 
-
-    let appID = governance["appID"];
+    //console.log("noteligible",noteligible);
 
 
     const dbcallProfile=async()=>{            
@@ -50,6 +48,9 @@ const VoteStatus = () => {
             let Totalcount=0; 
             let Totaleligible=0;
             let Totalnoteligible=0;
+            let totalYesCount=0;
+            let totalNoCount=0;
+            let Decision=0;
         firebase.database().ref("Registeruser").on("value", (data) => {     
         // firebase.database().ref(`Registeruser/${localStorage.getItem("walletAddress")}`).on("value", (data) => {          
                                    
@@ -57,20 +58,29 @@ const VoteStatus = () => {
                     data.forEach((d) => { 
                       Totalcount=Totalcount +1;
                       let value=d.val();
-                      console.log("valuecheck",value);
+                    //   console.log("valuecheck",value);
                       if(d.val().Assettype==="Planet"){
                                 TPA= TPA + parseFloat(d.val().Amount) ;
                       }
                       else if(d.val().Assettype==="Algos"){
                         TALA=TALA + parseFloat(d.val().Amount);
-              }
-                         if(d.val().Eligibility==="1"||d.val().Eligibility=== 1){
-                            Totaleligible=Totaleligible + 1;
-      }
-      else if(d.val().Eligibility==="0"||d.val().Eligibility=== 0){
-        Totalnoteligible=Totalnoteligible + 1;
-    }
-              
+                      }
+                      if(d.val().Eligibility==="1"||d.val().Eligibility=== 1){
+                        Totaleligible=Totaleligible + 1;
+                      }
+                      else if(d.val().Eligibility==="0"||d.val().Eligibility=== 0){
+                        Totalnoteligible=Totalnoteligible + 1;
+                    }
+                    if(d.val().Decision === "YES" && (d.val().Eligibility==="1"||d.val().Eligibility=== 1))
+                    {
+                      totalYesCount++;
+                    }
+                    else if(d.val().Decision === "NO" && (d.val().Eligibility==="1"||d.val().Eligibility=== 1))
+                    {
+                      totalNoCount++;
+                    }
+                    
+
                     //   r.push({
                                     
     
@@ -83,13 +93,44 @@ const VoteStatus = () => {
                     //     Vote:d.val().Vote
                         
                     // })  
+                    let countEligible = parseInt(count) - parseInt(noteligible);
+
+                    setYesPercent(((parseInt(totalYes) / (parseInt(countEligible))) * 100).toFixed(0));
+                    setNoPercent(((parseInt(totalNo) / (parseInt(countEligible))) * 100).toFixed(0));
+                
+                //console.log("count", parseInt(countEligible));
+                
+                    setYesPercentValue(((parseInt(totalYes) / (parseInt(countEligible))) * 100).toFixed(2));
+                    setNoPercentValue(((parseInt(totalNo) / (parseInt(countEligible))) * 100).toFixed(2));
+                
+                    //console.log("totalYes", parseInt(totalYes), "totalNo", parseInt(totalNo));
+             
+                    setTotalVotePercent((((parseFloat(parseInt(totalYes) + parseInt(totalNo)) / parseInt(countEligible)) * 100).toFixed(0)));
+             
+                    setTotalVotePercentValue(((parseFloat(parseInt(totalYes) + parseInt(totalNo)) / parseInt(countEligible)) * 100).toFixed(2));  
+                    let nowInMs = Date.now();
+                    let nowInSecond = Math.round(nowInMs/1000);
+                    
+                    console.log("date", nowInSecond);
+                    if((totalYesCount > totalNoCount) && (nowInSecond >= governance["endTimeVote"]))
+                    {
+                        setResult(1);  
+                    }
+                    else if((totalYesCount < totalNoCount) && (nowInSecond >= governance["endTimeVote"])) {
+                        setResult(0);  
+                    }
+                    else{
+                        setResult(2);
+                    }
                       
       })
       setPlanetAmount(TPA);
        setAlgoAmount(TALA); 
-       setCount(Totalcount) ;
+       setCount(Totalcount);
        setEligible(Totaleligible);
-       setNotEligible(Totalnoteligible);                         
+       setNotEligible(Totalnoteligible); 
+       setTotalYes(totalYesCount);
+       setTotalNo(totalNoCount);                   
           }
           else{
             setcommitamount([""]);  
@@ -102,65 +143,7 @@ const VoteStatus = () => {
         //console.log('error occured during search', error);    
       }                
     }
-    useEffect(()=>{dbcallProfile()},[])
-
-    useEffect(async() =>{await globalState()},[totalYes, totalNo, voteYes, voteNo, result]) 
-
-const globalState = async () =>
-{
-      try {
-        let appById = await indexClient.lookupApplications(appID).do();
-        //  console.log("app", appById['application']['params']['global-state']);
-         setMap(appById['application']['params']['global-state']);
-         //console.log("length", appById['application']['params']['global-state']['length']);
-let endCount = appById['application']['params']['global-state']['length'];
-for(let i = 0; i < endCount; i++)
-{
-        if(appById['application']['params']['global-state'][i]['key'] == "dG90YWxQYXJ0aWNpcGF0ZVllcw=="){
-            let endDate_c = JSON.stringify(await appById['application']['params']['global-state'][i]['value'][`uint`]);
-             console.log("totalYes", endDate_c);
-            setTotalYes(JSON.stringify(await appById['application']['params']['global-state'][i]['value'][`uint`]));
-        }
-        if(appById['application']['params']['global-state'][i]['key'] == "dG90YWxQYXJ0aWNpcGF0ZU5v"){
-            let endDate_c = JSON.stringify(await appById['application']['params']['global-state'][i]['value'][`uint`]);
-             console.log("totalNo", endDate_c);
-            setTotalNo(JSON.stringify(await appById['application']['params']['global-state'][i]['value'][`uint`]));
-        }
-        if(appById['application']['params']['global-state'][i]['key'] == "dG90YWxWb3RlWWVz"){
-            // let endDate_c = JSON.stringify(await appById['application']['params']['global-state'][i]['value'][`uint`]);
-             //console.log("endDate", endDate_c);
-            setVoteYes(JSON.stringify(await appById['application']['params']['global-state'][i]['value'][`uint`]));
-        }
-        if(appById['application']['params']['global-state'][i]['key'] == "dG90YWxWb3RlTm8="){
-            // let endDate_c = JSON.stringify(await appById['application']['params']['global-state'][i]['value'][`uint`]);
-             //console.log("endDate", endDate_c);
-            setVoteNo(JSON.stringify(await appById['application']['params']['global-state'][i]['value'][`uint`]));
-        }
-        if(appById['application']['params']['global-state'][i]['key'] == "UmVzdWx0"){
-            // let endDate_c = JSON.stringify(await appById['application']['params']['global-state'][i]['value'][`uint`]);
-             //console.log("endDate", endDate_c);
-            setResult(JSON.stringify(await appById['application']['params']['global-state'][i]['value'][`uint`]));
-        }
-    }
-
-    setYesPercent(((parseInt(totalYes) / (parseInt(count) + 1)) * 100).toFixed(0));
-    setNoPercent(((parseInt(totalNo) / (parseInt(count) + 1)) * 100).toFixed(0));
-
-console.log("count", parseInt(count));
-
-    setYesPercentValue(((parseInt(totalYes) / (parseInt(count) + 1)) * 100).toFixed(2));
-    setNoPercentValue(((parseInt(totalNo) / (parseInt(count) + 1)) * 100).toFixed(2));
-    let total = (parseInt(totalYes) + parseInt(totalNo));
-    setTotalVotePercent((( total / (parseInt(count) + 1)) * 100).toFixed(0));
-    setTotalVotePercentValue((( total / (parseInt(count) + 1)) * 100).toFixed(2));
-
-    console.log("totalVote", parseInt(totalYes), "totalNo", parseInt(totalNo));
-
-} catch (e) {
-    //console.error(e);
-    return JSON.stringify(e, null, 2);
-}
-}
+    useEffect(()=>{dbcallProfile()},[totalYes, totalNo, planetamount, algoAmount, count, eligible, noteligible, yesPercent, noPercent, yesPercentValue, noPercentValue, result])
 
     return (
         <Layout>
@@ -301,7 +284,8 @@ console.log("count", parseInt(count));
                                         </div>
                                     </div>
                                     <div className="h4 mb-1">Result</div>
-                                    <div className="h5 mb-0">To Be Announced</div>
+                                    {result === 2 ? <div className="h5 mb-0">To Be Announced</div> : result === 1 ? <div className="h5 mb-0">Yes statement</div> : <div className="h5 mb-0">No statement</div>}
+                                    
                             </div>
                         </Card>
                         <Card className='card-dash border-0 mb-4'>
@@ -367,7 +351,7 @@ console.log("count", parseInt(count));
                                 <h6 className='sub-heading mb-0'>
                                     
                                 </h6>
-                                {planetamount===""||planetamount===null||planetamount===undefined ?( <h4 className='mb-2'>0 Planets</h4>):( <h4 className='mb-2'> {planetamount} Planets</h4>)}
+                                {planetamount===""||planetamount===null||planetamount===undefined ?( <h4 className='mb-2'>0 Planets</h4>):( <h4 className='mb-2'> {planetamount.toFixed(2)} Planets</h4>)}
                                
                             </div>
                         </Card> 
@@ -401,7 +385,7 @@ console.log("count", parseInt(count));
                                 {/* <h6 className='sub-heading mb-0'>
                                     Percentage per Redeem
                                 </h6> */}
-                               {algoAmount===""||algoAmount===null||algoAmount===undefined ?( <h4 className='mb-2'>0 Algo</h4>):( <h4 className='mb-2'> {algoAmount} Algo</h4>)}
+                               {algoAmount===""||algoAmount===null||algoAmount===undefined ?( <h4 className='mb-2'>0 Algo</h4>):( <h4 className='mb-2'> {algoAmount.toFixed(2)} Algo</h4>)}
                             </div>
                         </Card> 
 
