@@ -196,6 +196,9 @@ function App() {
         <Route path="/register">
           <StablecoinApp />
         </Route>
+        <Route path="/faucet">
+          <FaucetApp />
+        </Route>
         {/*
         <Route path="/redeem">
           <RedeemApp />
@@ -218,9 +221,7 @@ function App() {
         <Route path="/find">
           <FindApp />
         </Route>
-        <Route path="/faucet">
-          <FaucetApp />
-        </Route>
+
         <Route path="/buyback">
           <BuybackApp />
         </Route>

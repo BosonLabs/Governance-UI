@@ -138,9 +138,6 @@ const PieChart = () => {
             toolbar: {
             show: false
             },
-            stroke: {
-                curve: 'straight'
-            },
             zoom: {
                 enabled: true
             }
@@ -151,7 +148,7 @@ const PieChart = () => {
         },
         stroke: {
             curve: 'smooth',
-            width: 5,
+            width: 2,
             colors: ['#252525']
         },
         tooltip: {
@@ -166,7 +163,7 @@ const PieChart = () => {
             size: 0
         },
         legend: {
-            show: true
+            show: false
         }
     }
     
