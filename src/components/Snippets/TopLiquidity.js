@@ -76,7 +76,7 @@ const TopLiquidity = () => {
     const [algoPrice, setAlgoPrice] = useState("");
     const [usdcPrice, setUsdcPrice] = useState("");
     const[c,setc] = useState([]);
-    const[pageSize,setPageSize]=useState(0); 
+    // const[pageSize,setPageSize]=useState(0); 
    const[getasset,setAsset]=useState("Commited");
     const[startingpage,setstap ] = useState(0);
     const[spvalue,setpvalue] = useState("");
@@ -98,6 +98,7 @@ const TopLiquidity = () => {
     const[appOpted,setOpted] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const [postsPerPage,setpostperpage] = useState(4);
+    const[pageSizes,setPageSizes]=useState(5);
     let appID_global = AppId;
 
     let currentPosts;
@@ -212,7 +213,11 @@ const TopLiquidity = () => {
    
   
     
-
+    const decrementSize=()=>{
+      if(pageSizes >= 10){
+      setPageSizes(pageSizes-4)
+      }        
+  }
    
    const setincrm= async()=>{
      if(postsPerPage < (dbvalues.length)){
@@ -324,8 +329,9 @@ const filterdata=()=>{
 </div>
                     </>):(<>
                     
-                        {filterdata().map((pageSize)=>{
+                        {filterdata().map((pageSize,index)=>{
                         //    if(i<pageSize)
+                             if(index<pageSizes)
 // console.log("pagesize",(pageSize.fees/1000000)* algoPrice)
                             return(<>
                             <div className=" text-gray-AA" >
@@ -370,25 +376,32 @@ const filterdata=()=>{
                     
                 
             </div>
+            {b.length <= 5 ? (
 
-            <div className="pagination-footer d-flex align-items-center justify-content-between">
-                <p>showing {startingpage+1}-{startingpage + 4} from {parseFloat(dbvalues.length/4).toFixed(0)} Page</p>
+              
+                                <></>
+                            ):(
 
-                <div className="d-flex pagination align-items-center">
+                              <div className="pagination justify-content-end d-flex align-items-center">
+                {/* <p>showing {startingpage+1}-{startingpage + 4} from {parseFloat(dbvalues.length/4).toFixed(0)} Page</p> */}
+
+                <div className="pagination justify-content-end d-flex align-items-center">
                   
 
-                    <Button variant='page' onClick={()=>{setpostcall()}}>
+                    <Button variant='page' onClick={()=>{decrementSize()}}>
                         <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="#fff" class="bi m-0 bi-chevron-left" viewBox="0 0 16 16">
                             <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
                         </svg>
                     </Button>
-                    <Button variant='page' onClick={()=>{setincrm()}}>
+                    <Button variant='page' onClick={()=>{setPageSizes(pageSizes+4)}}>
                         <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="#fff" class="bi m-0 bi-chevron-right" viewBox="0 0 16 16">
                             <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
                         </svg>
                     </Button>
                 </div>
             </div>
+)}
+            
          
            
 
