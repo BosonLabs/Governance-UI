@@ -5,7 +5,7 @@ h5, h6{
   }
   
   h1, .h1{
-      font-size: 38px;
+      font-size: 28px;
       font-weight: 700;
       line-height: 1.1em;
       margin-bottom: 20px;
@@ -13,7 +13,7 @@ h5, h6{
     //   text-shadow: 0px 0px 4px $color-F6;
   
       @include maxDevice(767px){
-          font-size: 26px;
+          font-size: 24px;
           margin-bottom: 10px;
           position: relative;
           z-index: 8;

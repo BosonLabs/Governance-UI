@@ -8,7 +8,8 @@
     --hr: rgb(51,51,51);
     --bg-77: rgb(77, 77, 77);
     --text-primary: #000;
-    --blue: rgb(19,58,198);
+    --blue: #0042ac;
+    --success: #9aea3b;
     --dark-primary: #191919;
     --gray: rgb(153,153,153);
     --dark-text-primary: #f2f2f2;
@@ -18,7 +19,7 @@
     --text-187: rgb(187, 175, 236);
     --text-204 : rgb(204, 204, 204);
     --black-trans : rgba(0, 0, 0, 0.04);
-    --font-sans: "Mohr Rounded Regular",-apple-system,system-ui,BlinkMacSystemFont,"Helvetica Neue","Helvetica",sans-serif;
+    --font-sans: 'Raleway', sans-serif;
 }
 
 ::-webkit-scrollbar {
@@ -84,122 +85,7 @@ body{
 }
 
 
-@font-face {
-    font-family: 'MohrRounded';
-    src: url('../assets/fonts/MohrRounded-Bold.eot');
-    src: url('../assets/fonts/MohrRounded-Bold.eot?#iefix') format('embedded-opentype'),
-        url('../assets/fonts/MohrRounded-Bold.woff2') format('woff2'),
-        url('../assets/fonts/MohrRounded-Bold.woff') format('woff'),
-        url('../assets/fonts/MohrRounded-Bold.ttf') format('truetype'),
-        url('../assets/fonts/MohrRounded-Bold.svg#MohrRounded-Bold') format('svg');
-    font-weight: bold;
-    font-style: normal;
-    font-display: swap;
-}
 
-@font-face {
-    font-family: 'MohrRounded';
-    src: url('../assets/fonts/MohrRounded-Thin.eot');
-    src: url('../assets/fonts/MohrRounded-Thin.eot?#iefix') format('embedded-opentype'),
-        url('../assets/fonts/MohrRounded-Thin.woff2') format('woff2'),
-        url('../assets/fonts/MohrRounded-Thin.woff') format('woff'),
-        url('../assets/fonts/MohrRounded-Thin.ttf') format('truetype'),
-        url('../assets/fonts/MohrRounded-Thin.svg#MohrRounded-Thin') format('svg');
-    font-weight: 100;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'MohrRounded';
-    src: url('../assets/fonts/MohrRounded-Black.eot');
-    src: url('../assets/fonts/MohrRounded-Black.eot?#iefix') format('embedded-opentype'),
-        url('../assets/fonts/MohrRounded-Black.woff2') format('woff2'),
-        url('../assets/fonts/MohrRounded-Black.woff') format('woff'),
-        url('../assets/fonts/MohrRounded-Black.ttf') format('truetype'),
-        url('../assets/fonts/MohrRounded-Black.svg#MohrRounded-Black') format('svg');
-    font-weight: 900;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'MohrRounded';
-    src: url('../assets/fonts/MohrRounded-ExtraLight.eot');
-    src: url('../assets/fonts/MohrRounded-ExtraLight.eot?#iefix') format('embedded-opentype'),
-        url('../assets/fonts/MohrRounded-ExtraLight.woff2') format('woff2'),
-        url('../assets/fonts/MohrRounded-ExtraLight.woff') format('woff'),
-        url('../assets/fonts/MohrRounded-ExtraLight.ttf') format('truetype'),
-        url('../assets/fonts/MohrRounded-ExtraLight.svg#MohrRounded-ExtraLight') format('svg');
-    font-weight: 200;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'MohrRounded';
-    src: url('../assets/fonts/MohrRounded-Heavy.eot');
-    src: url('../assets/fonts/MohrRounded-Heavy.eot?#iefix') format('embedded-opentype'),
-        url('../assets/fonts/MohrRounded-Heavy.woff2') format('woff2'),
-        url('../assets/fonts/MohrRounded-Heavy.woff') format('woff'),
-        url('../assets/fonts/MohrRounded-Heavy.ttf') format('truetype'),
-        url('../assets/fonts/MohrRounded-Heavy.svg#MohrRounded-Heavy') format('svg');
-    font-weight: 900;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'MohrRounded';
-    src: url('../assets/fonts/MohrRounded-Light.eot');
-    src: url('../assets/fonts/MohrRounded-Light.eot?#iefix') format('embedded-opentype'),
-        url('../assets/fonts/MohrRounded-Light.woff2') format('woff2'),
-        url('../assets/fonts/MohrRounded-Light.woff') format('woff'),
-        url('../assets/fonts/MohrRounded-Light.ttf') format('truetype'),
-        url('../assets/fonts/MohrRounded-Light.svg#MohrRounded-Light') format('svg');
-    font-weight: 300;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'MohrRounded';
-    src: url('../assets/fonts/MohrRounded-Medium.eot');
-    src: url('../assets/fonts/MohrRounded-Medium.eot?#iefix') format('embedded-opentype'),
-        url('../assets/fonts/MohrRounded-Medium.woff2') format('woff2'),
-        url('../assets/fonts/MohrRounded-Medium.woff') format('woff'),
-        url('../assets/fonts/MohrRounded-Medium.ttf') format('truetype'),
-        url('../assets/fonts/MohrRounded-Medium.svg#MohrRounded-Medium') format('svg');
-    font-weight: 500;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'MohrRounded';
-    src: url('../assets/fonts/MohrRounded-Regular.eot');
-    src: url('../assets/fonts/MohrRounded-Regular.eot?#iefix') format('embedded-opentype'),
-        url('../assets/fonts/MohrRounded-Regular.woff2') format('woff2'),
-        url('../assets/fonts/MohrRounded-Regular.woff') format('woff'),
-        url('../assets/fonts/MohrRounded-Regular.ttf') format('truetype'),
-        url('../assets/fonts/MohrRounded-Regular.svg#MohrRounded-Regular') format('svg');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: 'MohrRounded';
-    src: url('../assets/fonts/MohrRounded-SemiBold.eot');
-    src: url('../assets/fonts/MohrRounded-SemiBold.eot?#iefix') format('embedded-opentype'),
-        url('../assets/fonts/MohrRounded-SemiBold.woff2') format('woff2'),
-        url('../assets/fonts/MohrRounded-SemiBold.woff') format('woff'),
-        url('../assets/fonts/MohrRounded-SemiBold.ttf') format('truetype'),
-        url('../assets/fonts/MohrRounded-SemiBold.svg#MohrRounded-SemiBold') format('svg');
-    font-weight: 600;
-    font-style: normal;
-    font-display: swap;
-}
 
 
 
@@ -455,7 +341,7 @@ body{
 .footer{
     &-dashboard{
         background-color: var(--dark-primary);
-        font-family: 'MohrRounded';
+        font-family: 'Raleway', sans-serif;
         font-weight: 500;
         
         padding: 32px;
@@ -490,7 +376,7 @@ body{
     }
 
     &-normal{
-        font-weight: normal !important;
+        font-weight: 400 !important;
     }
 }
 
@@ -536,9 +422,9 @@ body{
 #dashboard{
     background-color: var(--dark-primary);
     color: var(--dark-text-primary);
-    font-family: 'MohrRounded';
+    font-family: 'Raleway', sans-serif;
     padding-bottom: 32px;
-    font-weight: normal;
+    font-weight: 400;
     padding-left: 282px;
     padding-top: 175px;
     // min-height: calc(100vh - 86px);
@@ -624,7 +510,7 @@ body{
     }
 
     .sub-heading{
-        font-family: 'MohrRounded';
+        font-family: 'Raleway', sans-serif;
         color: var(--gray);
         font-weight: 500;
 
@@ -657,6 +543,11 @@ body{
         &-blue{
             background-color: var(--blue);
             color: #fff !important;
+        }
+
+        &-success{
+            background-color: var(--success) !important;
+            color: var(--blue) !important;
         }
         
         &-primary{
@@ -1261,7 +1152,7 @@ body{
         background-color: var(--text-primary) !important;
         color: var(--white) !important;
         text-align: left !important;
-        font-family: 'MohrRounded';
+        font-family: 'Raleway', sans-serif;
         border-radius: 12px;
         min-width: auto;
         font-size: 13px;
@@ -1636,6 +1527,54 @@ body{
         font-weight: 400;
         margin-left: 10px;
         color: inherit !important;
+    }
+}
+
+.table-group-th{
+    select{
+        padding-right: 38px !important;
+        box-shadow: none !important;
+        outline: none !important;
+        font-weight: inherit;
+        font-size: inherit;
+        width: auto;
+    }
+}
+
+.footer-gv{
+    background-color: var(--blue);
+    position: relative;
+    color: #fff;
+
+    li{
+        margin-bottom: 3px;
+    }
+    
+    a{
+        color: #fff;
+        
+        &:hover{
+            color: var(--success) !important;
+        }
+    }
+
+    .social_icons{
+        margin-left: auto;
+        max-width: 240px;
+        width: 100%;
+
+        @include maxDevice(767px){
+            margin: auto;
+        }
+
+        a{
+            margin: 0 12px 20px;
+        }
+
+        img{
+            width: 36px;
+            height: 36px;
+        }
     }
 }
 

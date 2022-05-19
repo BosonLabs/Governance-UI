@@ -718,7 +718,7 @@ const max = () =>
             
             <Modal
                 show={show}
-                size={'lg'}
+                size={'md'}
                 centered={true}
                 onHide={handleClose}
                 className="modal-dashboard"
