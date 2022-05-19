@@ -1108,6 +1108,10 @@ var countDowndate   =us * 1000;
                             
                             <div className="d-flex align-items-center float-end mt-1 acc-h-links">
                             </div>
+                            {!localStorage.getItem("walletAddress")?(<>
+                                <center><h3>Please connect your wallet</h3></center>
+                            </>) : (<>
+
                             {Math.round(Date.now()/1000) < governance["startTimeCommit"] ? <center><h3 className='mb-20'>Registration will starts in </h3> <br/> <h3> {day} d : {hour} h : {min} m : {sec} s </h3></center> : Math.round(Date.now()/1000) > governance["endTimeCommit"] ? 
                             <center><h3>Registration Time Ended</h3></center>
                             : (<>
@@ -1229,6 +1233,8 @@ var countDowndate   =us * 1000;
                                     </Row>
                                 </Tab> */}
                             </Tabs>                            
+                            </>)}
+                            
                             </>)}
                         </Card>
                     </Col>
