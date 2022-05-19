@@ -32,7 +32,7 @@ const PieChart = () => {
         } 
     }
 
-    const series1 = [99, 1];
+    const series1 = [100, 0];
     const options1 = {
         chart: {
             height: 350,
@@ -49,7 +49,7 @@ const PieChart = () => {
         },
         colors: ['#55689e', '#2c3862'],
         dataLabels: {
-            enabled: true,
+            enabled: false,
         },
         stroke: {
             curve: 'smooth',
