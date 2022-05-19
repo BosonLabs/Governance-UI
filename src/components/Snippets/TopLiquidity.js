@@ -256,7 +256,7 @@ const filterdata=()=>{
 
           {/* <center><h6>Before Add Liquidity go to Swap Page and do App Opt-In</h6></center> */}
           {/* <br></br> */}
-            <h2 className="h3 text-uppercase mb-40">Governors</h2>
+            <h2 className="h3 text-uppercase mb-40">Registration Report</h2>
            
                
             <ToastContainer position='top-center' draggable = {false} transition={Zoom} autoClose={8000} closeOnClick = {false}/>
@@ -285,18 +285,18 @@ const filterdata=()=>{
                                     
                                 </Dropdown.Menu>
                             </Dropdown> */}
-                            <select className="form-select border-0 p-0 bg-transparent" value={getasset} onChange={handleChange}>
-          <option   value="Commited">ALL </option>
-          <option  value= "Planet">Planet</option>
-          <option   value="Algos">Algos</option>
+                            <select className="form-select border-0 p-0 bg-transparent noarrow" value={getasset} onChange={handleChange}>
+          {/* <option   value="Commited">ALL </option> */}
+          <option  value= "Planet">Planets Committed</option>
+          {/* <option   value="Algos">Algos</option> */}
 
         
         </select>
              
                         </div>
                         
-                        <div className="table-group-th">Registered</div>
-                        <div className="table-group-th">Votes </div>
+                        <div className="table-group-th">Registered Date</div>
+                        {/* <div className="table-group-th">Votes </div> */}
                         <div className="table-group-th">Status</div>
                     
                     </div>
@@ -365,7 +365,7 @@ const filterdata=()=>{
  </>)}
 
 <div className="table-group-td">{pageSize.TimeStamp}</div>
-{(pageSize.Vote=== " " || pageSize.Vote === null || pageSize.Vote === undefined ) ?(<> 0 </>):(<> <div className="table-group-td">{pageSize.Vote}</div></>) }
+{/* {(pageSize.Vote=== " " || pageSize.Vote === null || pageSize.Vote === undefined ) ?(<> 0 </>):(<> <div className="table-group-td">{pageSize.Vote}</div></>) } */}
 {(pageSize.Eligibility=== " " || pageSize.Eligibility === null || pageSize.Eligibility === undefined || pageSize.Eligibility === "0" ||pageSize.Eligibility === 0) ?(<><div className="table-group-td" style={{color:"red"}}>Not Eligible </div></>):(<> <div className="table-group-td" style={{color:"green"}}>Eligible </div></>) }
 
 
