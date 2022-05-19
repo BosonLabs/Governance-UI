@@ -89,6 +89,13 @@ const Stablecoin = () => {
     const [usdcAmountEinr, setUsdcAmountEinr ] = useState();
     const [elemAmountEinr, setElemAmountEinr ] = useState();
     const [einrAmount, setEinrAmount ] = useState();
+    const[day,setTime4]= useState("");
+    const[hour,setTim1]= useState("");
+    const[min,setTim2]= useState("");
+    const[sec,setTim3]= useState("");
+    const[lock,setlock]= useState("");
+    const[date,setdate]= useState("");
+    const[time,settime]= useState(""); 
 
     const [assets, setAssets] = useState("");
     const [usdcLock, setUsdcLock] = useState("");
@@ -1017,6 +1024,78 @@ const maxAlgo = () =>
     setAlgoAmount((parseFloat(minAlgo)/1000000));
 }
 
+useEffect(async() => {
+    await first()
+}, [day, hour, min, sec, lock]);
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+ }
+
+const first = async () => {
+
+    var us= governance["startTimeCommit"];
+    var ff=new Date(us);
+setdate(ff.toDateString());
+var hours = ff.getHours();
+  var minutes = ff.getMinutes();
+  var ampm = hours >= 12 ? 'pm' : 'am';
+  hours = hours % 12;
+  hours = hours ? hours : 12; // the hour '0' should be '12'
+  minutes = minutes < 10 ? '0'+minutes : minutes;
+  settime( hours + ':' + minutes + ' ' + ampm);
+//settime(lock);
+var countDowndate   =us * 1000;
+//console.log(countDowndate);
+// var countDownDate = new Date().getTime() + (lock * 1000) ;
+//alert(time);
+    var x = setInterval(function() {
+       var now = new Date().getTime();
+      var distance = countDowndate - now ;
+    //   console.log("-------------------now", distance);
+     // console.log(now);
+      // Time calculations for days, hours, minutes and seconds
+     var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        
+    //   console.log("date e", day);
+    //   console.log("hour e", hour);
+    //   console.log("min e", minutes);
+    //   console.log("sec e", seconds);
+
+      // Output the result in an element with id="demo"
+     // document.getElementById("demo").innerHTML = hours + "h "
+     // + minutes + "m " + seconds + "s ";
+    setTime4(days);
+    setTim1(hours);
+    setTim2(minutes);
+    setTim3(seconds);
+
+
+    
+    
+    
+    
+      // If the count down is over, write some text 
+      if (distance < 0) {
+            clearInterval(x);
+            setlock(false);
+
+           // console.log('CountDown Finished');
+        }
+        else{
+         setlock(true);
+        }
+
+    
+      
+    }, 1000);
+   
+
+}
+
     return (
         <Layout>
             <><ToastContainer position='bottom-right' draggable = {false} transition={Zoom} autoClose={4000} closeOnClick = {false}/></>
@@ -1029,7 +1108,10 @@ const maxAlgo = () =>
                             
                             <div className="d-flex align-items-center float-end mt-1 acc-h-links">
                             </div>
-                            <Tabs defaultActiveKey="mint" className='dashboard-tabs' id="tab-example-1">
+                            {Math.round(Date.now()/1000) < governance["startTimeCommit"] ? <center><h3 className='mb-20'>Registration will starts in </h3> <br/> <h3> {day} d : {hour} h : {min} m : {sec} s </h3></center> : Math.round(Date.now()/1000) > governance["endTimeCommit"] ? 
+                            <center><h3>Registration Time Ended</h3></center>
+                            : (<>
+                                <Tabs defaultActiveKey="mint" className='dashboard-tabs' id="tab-example-1">
                                 <Tab eventKey="mint" title="Commit Planet">
                                     <div className="group-row mb-20">
                                         <Row>
@@ -1146,7 +1228,8 @@ const maxAlgo = () =>
                                         </Col>
                                     </Row>
                                 </Tab> */}
-                            </Tabs>
+                            </Tabs>                            
+                            </>)}
                         </Card>
                     </Col>
                 </Row>
