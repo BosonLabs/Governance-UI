@@ -105,9 +105,9 @@ const VoteStatus = () => {
                 
                     //console.log("totalYes", parseInt(totalYes), "totalNo", parseInt(totalNo));
              
-                    setTotalVotePercent((((parseFloat(parseInt(totalYes) + parseInt(totalNo)) / parseInt(countEligible)) * 100).toFixed(0)));
+                    setTotalVotePercent((((parseFloat(parseInt(totalYes) + parseInt(totalNo)) / parseInt(count)) * 100).toFixed(0)));
              
-                    setTotalVotePercentValue(((parseFloat(parseInt(totalYes) + parseInt(totalNo)) / parseInt(countEligible)) * 100).toFixed(2));  
+                    setTotalVotePercentValue(((parseFloat(parseInt(totalYes) + parseInt(totalNo)) / parseInt(count)) * 100).toFixed(2));  
                     let nowInMs = Date.now();
                     let nowInSecond = Math.round(nowInMs/1000);
                     
