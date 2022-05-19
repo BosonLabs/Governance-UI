@@ -308,9 +308,9 @@ const filterdata=()=>{
                         <div className="table-group-body text-gray-AA">
          
                <span className="d-block text-center">
-                  <svg version="1.1" id="L9" width="80" height="80" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+                  {/* <svg version="1.1" id="L9" width="80" height="80" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
                       viewBox="0 0 100 100" enable-background="new 0 0 0 0">
-                        <path fill="#fff" d="M73,50c0-12.7-10.3-23-23-23S27,37.3,27,50 M30.9,50c0-10.5,8.5-19.1,19.1-19.1S69.1,39.5,69.1,50">
+                        <path fill="black" d="M73,50c0-12.7-10.3-23-23-23S27,37.3,27,50 M30.9,50c0-10.5,8.5-19.1,19.1-19.1S69.1,39.5,69.1,50">
                           <animateTransform 
                             attributeName="transform" 
                             attributeType="XML" 
@@ -320,7 +320,8 @@ const filterdata=()=>{
                             to="360 50 50" 
                             repeatCount="indefinite" />
                       </path>
-                    </svg>
+                    </svg> */}
+                    NO DATA FOUND
                 </span>
                <div className="table-group-body text-gray-AA" >
 
@@ -366,11 +367,11 @@ const filterdata=()=>{
 
 <div className="table-group-td">{pageSize.TimeStamp}</div>
 
-{(pageSize.Vote=== " " || pageSize.Vote === null || pageSize.Vote === undefined ) ?(<> 0 </>):(<> <div className="table-group-td">{pageSize.Vote}</div></>) }
+{/* {(pageSize.Vote=== " " || pageSize.Vote === null || pageSize.Vote === undefined ) ?(<> 0 </>):(<> <div className="table-group-td">{pageSize.Vote}</div></>) } */}
 {(pageSize.Eligibility=== " " || pageSize.Eligibility === null || pageSize.Eligibility === undefined || pageSize.Eligibility === "0" ||pageSize.Eligibility === 0) ?(<><div className="table-group-td" style={{color:"red"}}>Not Eligible </div></>):(<> <div className="table-group-td" style={{color:"#9aea3b"}}>Eligible </div></>) }
 
 {/* {(pageSize.Vote=== " " || pageSize.Vote === null || pageSize.Vote === undefined ) ?(<> 0 </>):(<> <div className="table-group-td">{pageSize.Vote}</div></>) } */}
-{(pageSize.Eligibility=== " " || pageSize.Eligibility === null || pageSize.Eligibility === undefined || pageSize.Eligibility === "0" ||pageSize.Eligibility === 0) ?(<><div className="table-group-td" style={{color:"red"}}>Not Eligible </div></>):(<> <div className="table-group-td" style={{color:"green"}}>Eligible </div></>) }
+{/* {(pageSize.Eligibility=== " " || pageSize.Eligibility === null || pageSize.Eligibility === undefined || pageSize.Eligibility === "0" ||pageSize.Eligibility === 0) ?(<><div className="table-group-td" style={{color:"red"}}>Not Eligible </div></>):(<> <div className="table-group-td" style={{color:"green"}}>Eligible </div></>) } */}
 
 
 

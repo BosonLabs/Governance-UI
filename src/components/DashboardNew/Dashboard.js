@@ -378,7 +378,7 @@ const Dashboard = () => {
                                         <div className='mb-20 pt-sm-3'>
                                             <div className="p d-flex align-items-center mb-1  ">
                                                 <svg className="d-inline-block me-2" style={{width: '16px', height: '16px', borderRadius: '4px'}}><rect fill="#2C3862" x="0" y="0" width="16" height="16"></rect></svg>
-                                                Sun, June 1st 00:00 AM EST
+                                                Thu, May 19th 11:30 PM EST
 
                                                 {/* <OverlayTrigger
                                                     key="left"
@@ -397,7 +397,7 @@ const Dashboard = () => {
                                         <div className='mb-20'>
                                             <div className="p d-flex align-items-center mb-1  ">
                                                 <svg className="d-inline-block me-2" style={{width: '16px', height: '16px', borderRadius: '4px'}}><rect fill="#55689E" x="0" y="0" width="16" height="16"></rect></svg>
-                                                Mon, June 6th 11:59 PM EST
+                                                Wed, May 25th 11:30 AM EST
 
                                                 {/* <OverlayTrigger
                                                     key="left"
@@ -452,8 +452,8 @@ const Dashboard = () => {
                                     <Col xs={'auto'} sm={12}>
                                         <div className='mb-20 pt-sm-3'>
                                             <div className="p d-flex align-items-center mb-1  ">
-                                                <svg className="d-inline-block me-2" style={{width: '16px', height: '16px', borderRadius: '4px'}}><rect fill="#2C3862" x="0" y="0" width="16" height="16"></rect></svg>
-                                                Sun, June 1st 00:00 AM EST
+                                                {/* <svg className="d-inline-block me-2" style={{width: '16px', height: '16px', borderRadius: '4px'}}><rect fill="#2C3862" x="0" y="0" width="16" height="16"></rect></svg> */}
+                                                {/* Sun, June 1st 00:00 AM EST */}
 
                                                 {/* <OverlayTrigger
                                                     key="left"
@@ -467,12 +467,13 @@ const Dashboard = () => {
                                                         <svg className="tooltip-icon ms-2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21.25 12C21.25 17.1086 17.1086 21.25 12 21.25C6.89137 21.25 2.75 17.1086 2.75 12C2.75 6.89137 6.89137 2.75 12 2.75C17.1086 2.75 21.25 6.89137 21.25 12Z" stroke="#CCCCCC" stroke-width="1.5"></path><path d="M11 8C11 7.44772 11.4477 7 12 7C12.5523 7 13 7.44772 13 8C13 8.55228 12.5523 9 12 9C11.4477 9 11 8.55228 11 8Z" fill="#CCCCCC"></path><path d="M11 12C11 11.4477 11.4477 11 12 11C12.5523 11 13 11.4477 13 12V16C13 16.5523 12.5523 17 12 17C11.4477 17 11 16.5523 11 16V12Z" fill="#CCCCCC"></path></svg>
                                                     </OverlayTrigger> */}
                                             </div>
-                                            <div className="h1 mb-0">{lock == true ? (<>{day}d : {hour}h : {min}m : {sec}s</>):(<>Voting Started</>)}</div>
+                                            {/* <div className="h1 mb-0">{lock == true ? (<>{day}d : {hour}h : {min}m : {sec}s</>):(<>Voting Started</>)}</div> */}
+                                            <div className="h1 mb-0"> Scheduled to Release </div>
                                         </div>
                                         <div className='mb-20'>
                                             <div className="p d-flex align-items-center mb-1  ">
-                                                <svg className="d-inline-block me-2" style={{width: '16px', height: '16px', borderRadius: '4px'}}><rect fill="#55689E" x="0" y="0" width="16" height="16"></rect></svg>
-                                                Mon, June 6th 11:59 PM EST
+                                                {/* <svg className="d-inline-block me-2" style={{width: '16px', height: '16px', borderRadius: '4px'}}><rect fill="#55689E" x="0" y="0" width="16" height="16"></rect></svg>
+                                                Mon, June 6th 11:59 PM EST */}
 
                                                 {/* <OverlayTrigger
                                                     key="left"
@@ -486,7 +487,7 @@ const Dashboard = () => {
                                                         <svg className="tooltip-icon ms-2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21.25 12C21.25 17.1086 17.1086 21.25 12 21.25C6.89137 21.25 2.75 17.1086 2.75 12C2.75 6.89137 6.89137 2.75 12 2.75C17.1086 2.75 21.25 6.89137 21.25 12Z" stroke="#CCCCCC" stroke-width="1.5"></path><path d="M11 8C11 7.44772 11.4477 7 12 7C12.5523 7 13 7.44772 13 8C13 8.55228 12.5523 9 12 9C11.4477 9 11 8.55228 11 8Z" fill="#CCCCCC"></path><path d="M11 12C11 11.4477 11.4477 11 12 11C12.5523 11 13 11.4477 13 12V16C13 16.5523 12.5523 17 12 17C11.4477 17 11 16.5523 11 16V12Z" fill="#CCCCCC"></path></svg>
                                                     </OverlayTrigger> */}
                                             </div>
-                                            <div className="h1 mb-0">{lock1 == true ? (<>{day1}d : {hour1}h : {min1}m : {sec1}s</>):(<>Voting Ended</>)}</div>
+                                            {/* <div className="h1 mb-0">{lock1 == true ? (<>{day1}d : {hour1}h : {min1}m : {sec1}s</>):(<>Voting Ended</>)}</div> */}
                                         </div>
                                     </Col>
                                 </Row>

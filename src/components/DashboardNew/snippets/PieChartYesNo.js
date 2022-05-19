@@ -89,9 +89,7 @@ const PieChart = () => {
                     setNoPercentValue(((parseInt(totalNo) / (parseInt(countEligible))) * 100).toFixed(2));
                 
                     //console.log("totalYes", parseInt(totalYes), "totalNo", parseInt(totalNo));
-             
-                    setTotalVotePercent((((parseFloat(parseInt(totalYes) + parseInt(totalNo)) / parseInt(countEligible)) * 100).toFixed(0)));
-             
+                    setTotalVotePercent((((parseFloat(parseInt(totalYes) + parseInt(totalNo)) / parseInt(count)) * 100).toFixed(0)));             
                     setTotalVotePercentValue(((parseFloat(parseInt(totalYes) + parseInt(totalNo)) / parseInt(countEligible)) * 100).toFixed(2));  
                     let nowInMs = Date.now();
                     let nowInSecond = Math.round(nowInMs/1000);
@@ -130,7 +128,7 @@ const PieChart = () => {
     }
     useEffect(()=>{dbcallProfile()},[totalYes, totalNo, planetamount, algoAmount, count, eligible, noteligible, yesPercent, noPercent, yesPercentValue, noPercentValue, result])
 
-    const series1 = [parseInt(yesPercent), parseInt(noPercent)];
+    const series1 = [parseInt(yesPercent), parseInt(noPercent), parseInt(100 - totalVotePercent)];
     const options1 = {
         chart: {
             height: 350,
@@ -142,7 +140,7 @@ const PieChart = () => {
                 enabled: true
             }
         },
-        colors: ['#9aea3b', '#FF0000'],
+        colors: ['#9aea3b', '#FF0000', '#0000FF'],
         dataLabels: {
             enabled: true,
         },
