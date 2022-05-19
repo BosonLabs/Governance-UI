@@ -596,9 +596,23 @@ const algodClientGet = new algosdk.Algodv2('', node['algodclient'], '');
             suggestedParams: params
            });
 
-          const signedTx1 = await myAlgoWallet.signTransaction(transaction1.toByte());
+           // time to sign . . . which we have to do with walletconnect
+           const txns = [transaction1]
+           const txnsToSign = txns.map(txn => {
+             const encodedTxn = Buffer.from(algosdk.encodeUnsignedTransaction(txn)).toString("base64");
+             return {
+               txn: encodedTxn,
+           };
+         });
+         const requestParams = [ txnsToSign ];
+         const request = formatJsonRpcRequest("algo_signTxn", requestParams);
+       
+         const result = await connector.sendCustomRequest(request);
+         const decodedResult = result.map(element => {
+           return element ? new Uint8Array(Buffer.from(element, "base64")) : null;
+         });
 
-      const response = await algodClient.sendRawTransaction(signedTx1.blob).do();
+      const response = await algodClient.sendRawTransaction(decodedResult).do();
       // //console.log("TxID", JSON.stringify(response, null, 1));
       //API for Connect wallet  stored in /lpTracker
     //   await donateLaunchpad(localStorage.getItem("walletAddress"), amount);
@@ -818,9 +832,25 @@ const algodClientGet = new algosdk.Algodv2('', node['algodclient'], '');
             suggestedParams: params
            });
 
-          const signedTx1 = await myAlgoWallet.signTransaction(transaction1.toByte());
+           let txId = transaction1.txID().toString();
+  
+           // time to sign . . . which we have to do with walletconnect
+           const txns = [transaction1]
+           const txnsToSign = txns.map(txn => {
+             const encodedTxn = Buffer.from(algosdk.encodeUnsignedTransaction(txn)).toString("base64");
+             return {
+               txn: encodedTxn,
+           };
+         });
+         const requestParams = [ txnsToSign ];
+         const request = formatJsonRpcRequest("algo_signTxn", requestParams);
+       
+         const result = await connector.sendCustomRequest(request);
+         const decodedResult = result.map(element => {
+           return element ? new Uint8Array(Buffer.from(element, "base64")) : null;
+         });
 
-      const response = await algodClient.sendRawTransaction(signedTx1.blob).do();
+      const response = await algodClient.sendRawTransaction(decodedResult).do();
       // //console.log("TxID", JSON.stringify(response, null, 1));
       //API for Connect wallet  stored in /lpTracker
     //   await donateLaunchpad(localStorage.getItem("walletAddress"), amount);
