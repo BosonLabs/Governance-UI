@@ -41,7 +41,7 @@ const Footer = () => {
                             <h4 className='mb-2'>Contact Us</h4>
                             <ul className='list-unstyled'>
                                 <li>
-                                    <a href="mainto:marketing@planetwatch.io">
+                                    <a href="mailto:marketing@planetwatch.io">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi me-2 bi-envelope-fill" viewBox="0 0 16 16">
                                             <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555ZM0 4.697v7.104l5.803-3.558L0 4.697ZM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757Zm3.436-.586L16 11.801V4.697l-5.803 3.546Z"/>
                                         </svg>
@@ -49,7 +49,7 @@ const Footer = () => {
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="mainto:marketing@planetwatch.io">
+                                    <a href="mailto:marketing@planetwatch.io">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi me-2 bi-envelope-fill" viewBox="0 0 16 16">
                                             <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555ZM0 4.697v7.104l5.803-3.558L0 4.697ZM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757Zm3.436-.586L16 11.801V4.697l-5.803 3.546Z"/>
                                         </svg>
@@ -62,10 +62,11 @@ const Footer = () => {
                             <h4 className='mb-2'>Blockchain</h4>
                             <ul className='list-unstyled'>
                                 <li>
-                                    <Link to="/">Algorand</Link>
+                                    < a href="https://www.algorand.com/" target="_blank" rel="noreferer">Algorand</a>
                                 </li>
                                 <li>
-                                    <Link to="/">Token Model</Link>
+                                   < a href="https://www.planetwatch.us/our-token-model/" target="_blank" rel="noreferer">Token Model</a>
+                                    
                                 </li>
                             </ul>
                         </Col> 
@@ -73,33 +74,33 @@ const Footer = () => {
                             <h4 className='mb-2'>Legal</h4>
                             <ul className='list-unstyled'>
                                 <li>
-                                    <Link to="/">Terms and Conditions</Link>
+                                < a href="https://www.planetwatch.us/legal-terms-and-conditions/" target="_blank" rel="noreferer">Terms and Conditions</a>
                                 </li>
                                 <li>
-                                    <Link to="/">General Terms of sale and delivery</Link>
+                                < a href="https://www.planetwatch.us/general-terms-of-sale-and-delivery/" target="_blank" rel="noreferer">General Terms of sale and delivery</a>
                                 </li>
                                 <li>
-                                    <Link to="/">Privacy Policy</Link>
+                                < a href="https://www.iubenda.com/privacy-policy/13390372" target="_blank" rel="noreferer">Privacy Policy</a>
                                 </li>
                                 <li>
-                                    <Link to="/">Cookie Policy</Link>
+                                < a href="https://www.iubenda.com/privacy-policy/13390372/cookie-policy" target="_blank" rel="noreferer">Cookie Policy</a>
                                 </li>
                                 <li>
-                                    <Link to="/">License agreement</Link>
+                                < a href="https://www.planetwatch.us/license-agreement/" target="_blank" rel="noreferer">License agreement</a>
                                 </li>
                             </ul>
                         </Col> 
 
                         <Col xs={12} sm={12} md={5} className="mb-3 mt-md-0 mt-4">
                             <div className="social_icons flex-wrap justify-content-center d-flex align-items-center">
-                                <a href="/"><img src={Icon1} alt="icon" /></a>
-                                <a href="/"><img src={Icon2} alt="icon" /></a>
-                                <a href="/"><img src={Icon3} alt="icon" /></a>
-                                <a href="/"><img src={Icon4} alt="icon" /></a>
-                                <a href="/"><img src={Icon5} alt="icon" /></a>
-                                <a href="/"><img src={Icon6} alt="icon" /></a>
-                                <a href="/"><img src={Icon7} alt="icon" /></a>
-                                <a href="/"><img src={Icon8} alt="icon" /></a>
+                                <a href="https://www.facebook.com/PlanetWatch-106206814422901/"  target="_blank" rel="noreferer"><img src={Icon1} alt="icon" /></a>
+                                <a href="/https://www.linkedin.com/company/planetwatch" target="_blank" rel="noreferer"> <img src={Icon2} alt="icon" /></a>
+                                <a href="/https://t.me/planetwatch" target="_blank" rel="noreferer"> <img src={Icon3} alt="icon" /></a>
+                                <a href="/https://twitter.com/planetwatchsas" target="_blank" rel="noreferer"> <img src={Icon4} alt="icon" /></a>
+                                <a href="/https://discord.com/invite/2DQF6UYdRC" target="_blank" rel="noreferer"><img src={Icon5} alt="icon" /></a>
+                                <a href="/https://medium.com/planet-watch" target="_blank" rel="noreferer"><img src={Icon6} alt="icon" /></a>
+                                <a href="/https://www.instagram.com/planetwatchsas/" target="_blank" rel="noreferer"><img src={Icon7} alt="icon" /></a>
+                                <a href="/https://www.youtube.com/channel/UCe5uT64o7nugWNzSgPoktQw" target="_blank" rel="noreferer"><img src={Icon8} alt="icon" /></a>
                             </div>
                         </Col>
                     </Row>
