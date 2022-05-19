@@ -6,7 +6,7 @@ import node from './nodeapi.json';
 import governance from './governance.json';
 import ReactDomServer from 'react-dom/server';
 import firebase from '../../NFTFolder/firebase';
-import { compileString } from 'sass';
+import PieChartYesNo from './snippets/PieChartYesNo';
 const algosdk = require('algosdk');
 const VoteStatus = () => {
 
@@ -193,8 +193,8 @@ const VoteStatus = () => {
                                             {/* </div> */}
                                             <div className="h4 mb-0">Question goes here?</div>
                                             </div>                               
-                                    {/* Progress bar */}
-                                    <div className="mb-10">
+                                    {/* Progress bar Yes */}
+                                    {/* <div className="mb-10">
                                         <div className="d-flex justify-content-between">
                                         <div className='pt-sm-3'>
                                             <div className="text-sm d-flex align-items-center mb-1  ">
@@ -213,19 +213,17 @@ const VoteStatus = () => {
                                                         <svg className="tooltip-icon ms-2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21.25 12C21.25 17.1086 17.1086 21.25 12 21.25C6.89137 21.25 2.75 17.1086 2.75 12C2.75 6.89137 6.89137 2.75 12 2.75C17.1086 2.75 21.25 6.89137 21.25 12Z" stroke="#CCCCCC" stroke-width="1.5"></path><path d="M11 8C11 7.44772 11.4477 7 12 7C12.5523 7 13 7.44772 13 8C13 8.55228 12.5523 9 12 9C11.4477 9 11 8.55228 11 8Z" fill="#CCCCCC"></path><path d="M11 12C11 11.4477 11.4477 11 12 11C12.5523 11 13 11.4477 13 12V16C13 16.5523 12.5523 17 12 17C11.4477 17 11 16.5523 11 16V12Z" fill="#CCCCCC"></path></svg>
                                                     </OverlayTrigger>
                                             </div>
-                                            {/* <h6>{parseInt((tauTotalSupply - parseFloat(tauCir)/1000000)) ? (parseInt((tauTotalSupply - parseFloat(tauCir)/1000000).toFixed(0))).toLocaleString() : "0"} TAU</h6> */}
                                         </div>
                                         </div>
                                         <ProgressBar className='no-shadow' now={yesPercent} variant="success"/>
                                         <div className="d-flex justify-content-between">
                                             <strong>{yesPercentValue}%</strong>
-                                            {/* <strong>{50} / {50} ALGO</strong> */}
                                         </div>
-                                    </div>
+                                    </div> */}
                                     {/* Progress bar */}
                                     
-                                    {/* Progress bar */}
-                                    <div className="mb-10">
+                                    {/* Progress bar No */}
+                                    {/* <div className="mb-10">
                                         <div className="d-flex justify-content-between">
                                         <div className='pt-sm-3'>
                                             <div className="text-sm d-flex align-items-center mb-1  ">
@@ -244,15 +242,19 @@ const VoteStatus = () => {
                                                         <svg className="tooltip-icon ms-2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21.25 12C21.25 17.1086 17.1086 21.25 12 21.25C6.89137 21.25 2.75 17.1086 2.75 12C2.75 6.89137 6.89137 2.75 12 2.75C17.1086 2.75 21.25 6.89137 21.25 12Z" stroke="#CCCCCC" stroke-width="1.5"></path><path d="M11 8C11 7.44772 11.4477 7 12 7C12.5523 7 13 7.44772 13 8C13 8.55228 12.5523 9 12 9C11.4477 9 11 8.55228 11 8Z" fill="#CCCCCC"></path><path d="M11 12C11 11.4477 11.4477 11 12 11C12.5523 11 13 11.4477 13 12V16C13 16.5523 12.5523 17 12 17C11.4477 17 11 16.5523 11 16V12Z" fill="#CCCCCC"></path></svg>
                                                     </OverlayTrigger>
                                             </div>
-                                            {/* <h6>{(parseInt((parseFloat(tauCir)/1000000))) ? (parseInt((parseFloat(tauCir)/1000000).toFixed(0))).toLocaleString() : "0"} TAU</h6> */}
                                         </div>
                                         </div>
                                         <ProgressBar className='no-shadow' now={noPercent} variant="danger"/>
                                         <div className="d-flex justify-content-between">
                                             <strong>{noPercentValue}%</strong>
-                                            {/* <strong>{50} / {50} ALGO</strong> */}
                                         </div>
-                                    </div>
+                                    </div> */}
+
+                                        <div className="mb-10">
+                                        <div className="d-flex justify-content-between">
+                                            <PieChartYesNo />
+                                        </div>
+                                        </div>
 
                                     {/* Progress bar */}
                                     <div className="mb-20">
