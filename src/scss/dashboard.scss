@@ -172,7 +172,7 @@ body{
         @include flexbox();
         @include darkCard;
         font-weight: 500;
-        position: fixed;
+        position: absolute;
         font-size: 16px;
         padding: 15px;
         width: 250px;
@@ -182,9 +182,20 @@ body{
         .dropdown-menu{
             box-shadow: none !important;
             font-size: 0.8em !important;
+            z-index: 1;
             
             a, .btn{
                 padding: 4px 12px !important;
+
+                &:hover, &.active{
+                    color: #fff !important;
+                    background-color: var(--blue) !important;
+                    background: var(--blue) !important;
+
+                    img{
+                        filter: invert(1);
+                    }
+                }
 
                 .badge{
                     top: 2px;
@@ -225,8 +236,11 @@ body{
                 line-height: 16px;
                 min-height: 35px;
     
-                &:hover, &.active{
-                    @include linkHover;
+                &:hover{
+                    // @include linkHover;
+                    background: #fff !important;
+                    background-color: #fff !important;
+                    color: var(--success) !important;
                 }
     
                 &[disabled]{
@@ -269,6 +283,7 @@ body{
                     
                     &:hover, &.active{
                         background: none !important;
+                        color: var(--success);
                     }
                 }
             }
@@ -333,7 +348,7 @@ body{
 
     &-logo{
         img{
-            height: 50px;
+            height: 34px;
         }
     }
 }
@@ -1082,6 +1097,7 @@ body{
     }
 
     .pagination{
+        margin-top: 15px;
         & > *{
             margin-left: 10px;
         }
@@ -1537,6 +1553,7 @@ body{
         outline: none !important;
         font-weight: inherit;
         font-size: inherit;
+        filter: invert(1);
         width: auto;
     }
 }
@@ -1573,13 +1590,25 @@ body{
 
         img{
             width: 36px;
-            height: 36px;
         }
     }
 }
 
+.table-group-td .table-group-td{
+    padding: 0;
+}
+
 .light-mode{
-    .text-white {
+    .table-group-th{
+        select{
+            filter: invert(0);
+        }
+    }
+
+    #dashboard .pagination .btn, #dashboard .pagination .page-count{
+        background-color: var(--blue);
+    }
+    .text-white, .modal-content span, .modal-content strong {
         color: #000 !important;
     }
     .form-control-field{
@@ -1591,7 +1620,11 @@ body{
     }
     #dashboard{
         color: var(--white);
-        background: linear-gradient(73.6deg,#f9f5ff 2.11%,#f5f5ff 46.46%,#f5f8ff 85.72%);
+        background: #fff;
+        
+        .text-purple, .text-sm{
+            color: var(--white);
+        }
 
         .side-navigation a:hover, .side-navigation a.active, .side-navigation .btn:hover, .side-navigation .btn.active, .dashboard-tabs.nav button.active{
             background: linear-gradient(119.72deg,rgba(189,201,225,.2) -142.08%,rgba(66,102,227,.2) -56.42%,rgba(174,162,241,.2) 33.45%,rgba(165,146,217,.2) 127.53%);
@@ -1607,6 +1640,10 @@ body{
             &.active{
                 color: var(--white) !important;
             }
+        }
+
+        .header-navigation{
+            background-color: var(--blue);
         }
 
         .input-group-max{
@@ -1628,6 +1665,14 @@ body{
         label{
             background-color: rgba(0, 0, 0, 0.04);
             border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+    }
+
+    .text{
+        &-white{
+            svg{
+                fill: var(--dark-text-primary);
+            }
         }
     }
 

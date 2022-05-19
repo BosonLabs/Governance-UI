@@ -252,12 +252,9 @@ const VoteStatus = () => {
 
                                         <div className="mb-10">
                                         <Row>    
-                                            <Col>    
-                                            <PieChartYesNo />
-                                            </Col>
-                                            <Col>
+                                        <Col sm={6} className="order-sm-2">
                                             <div className="text-sm d-flex align-items-center mb-1  ">
-                                            <svg className="d-inline-block me-2" style={{width: '16px', height: '16px', borderRadius: '4px'}}><rect fill='#00FF00' x="0" y="0" width="16" height="16"></rect></svg>
+                                            <svg className="d-inline-block me-2" style={{width: '16px', height: '16px', borderRadius: '4px'}}><rect fill='#9aea3b' x="0" y="0" width="16" height="16"></rect></svg>
                                                 YES
 
                                                 <OverlayTrigger
@@ -290,6 +287,9 @@ const VoteStatus = () => {
                                                     </OverlayTrigger>
                                                     </div>
                                                     </Col>
+                                            <Col sm={6}>    
+                                                <PieChartYesNo />
+                                            </Col>
                                                 </Row>
                                         </div>
 

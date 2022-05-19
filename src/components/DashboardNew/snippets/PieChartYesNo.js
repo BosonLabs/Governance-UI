@@ -142,7 +142,7 @@ const PieChart = () => {
                 enabled: true
             }
         },
-        colors: ['#00FF00', '#FF0000'],
+        colors: ['#9aea3b', '#FF0000'],
         dataLabels: {
             enabled: true,
         },
