@@ -512,7 +512,7 @@ const walletCheck = () =>
                     <Modal.Title>Account</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                <h6 className='mb-2 me-auto'>Connected with ParaWallet</h6>
+                <h6 className='mb-2 me-auto'>Connected with PeraWallet</h6>
                     <div className="d-flex flex-wrap mb-3 align-items-center">
                      
                         <Button variant='primary' className='btn-xs mb-2 ms-1' onClick={disconnectPeraWallet}>Disconnect</Button>

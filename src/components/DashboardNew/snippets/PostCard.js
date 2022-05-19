@@ -304,7 +304,6 @@ const algodClientGet = new algosdk.Algodv2('', node['algodclient'], '');
                        });
                          // send and await
                          let response = await algodClient.sendRawTransaction(decodedResult).do();
-                         await waitForConfirmation(algodClient, response.txId);
       await waitForConfirmation(algodClient, response.txId);
       let ref2=firebase.database().ref(`Registeruser/${localStorage.getItem("walletAddress")}`);  
     //   let dateset=new Date().toDateString();  
@@ -515,8 +514,7 @@ const algodClientGet = new algosdk.Algodv2('', node['algodclient'], '');
                          // send and await
                          let response = await algodClient.sendRawTransaction(decodedResult).do();
                          await waitForConfirmation(algodClient, response.txId);
-      await waitForConfirmation(algodClient, response.txId);
-      await waitForConfirmation(algodClient, response.txId);
+
       let ref2=firebase.database().ref(`Registeruser/${localStorage.getItem("walletAddress")}`);  
       ref2.update({
         id:commitamount[0].id,
