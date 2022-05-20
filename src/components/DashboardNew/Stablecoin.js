@@ -330,6 +330,7 @@ const optInAppPera = async () =>
 {
     const connector = new WalletConnect({ bridge, qrcodeModal: QRCodeModal });
     setConnector(connector);
+    handleShowAppOpt();
     if (localStorage.getItem("walletAddress") === "")
         {
             toast.error("Connect your wallet");
