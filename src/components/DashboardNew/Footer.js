@@ -15,28 +15,29 @@ import {
   import Icon7 from '../../assets/images/social-icon-7.png';
   import Icon8 from '../../assets/images/social-icon-8.png';
 const Footer = () => {
-    // const [Cartoonshow, setCartoonShow] = React.useState(false);
-    // const handle = () => {setCartoonShow(!Cartoonshow); localStorage.setItem('elemCartn', true);};
+    const [Cartoonshow, setCartoonShow] = React.useState(false);
+    const handle = () => {setCartoonShow(!Cartoonshow); localStorage.setItem('elemCartn', true);};
 
-    // const [show, setShow] = React.useState(false);
+    const [show, setShow] = React.useState(false);
 
-    // const handleClose = () => {setShow(false); localStorage.setItem('elemCartn', true);}
+    const handleClose = () => {setShow(false); localStorage.setItem('elemCartn', true);}
 
-    // React.useEffect(() => {
-    //     if(!localStorage.getItem('elemCartn')){
-    //         setTimeout(() => {
-    //             setCartoonShow(true);
-    //         }, 1000);
-    //         setTimeout(() => {
-    //             setShow(true);
-    //         }, 2000);
-    //     }
-    // }, [])
+    React.useEffect(() => {
+        if(!localStorage.getItem('elemCartn')){
+            setTimeout(() => {
+                setCartoonShow(true);
+            }, 1000);
+            setTimeout(() => {
+                setShow(true);
+            }, 2000);
+        }
+    }, [])
     return (
         <>
             <footer className="footer-gv py-5">
                 <Container>
                     <Row>
+                        
                         <Col xs={6} sm={4} md={2} className="mb-3">
                             <h4 className='mb-2'>Contact Us</h4>
                             <ul className='list-unstyled'>
@@ -177,7 +178,7 @@ const Footer = () => {
                 </Modal.Body>
             </Modal> */}
 
-            {/* <img src={Cartoon} onClick={handle} alt="Cartoon" className={`footer-cartoon ${Cartoonshow ? '' : 'c-hide'}`} /> */}
+            <img src={Cartoon} onClick={handle} alt="Cartoon" className={`footer-cartoon ${Cartoonshow ? '' : 'c-hide'}`} />
             {/* <div className='footer-dashboard'>
                 <Link to="/dashboard" activeClassName='active'>Analytics</Link>
                 <Link to="https://bridge.harmony.one/" target="_blank" rel='noopener noreferrer'>Harmony Bridge</Link>
