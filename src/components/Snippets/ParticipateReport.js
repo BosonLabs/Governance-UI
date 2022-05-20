@@ -47,7 +47,7 @@ const algodClient = new algosdk.Algodv2('',node['algodclient'], '');
 
 const myAlgoWallet = new MyAlgoConnect();
 let data = escrowProgram;
-const TopLiquidity = () => {
+const Participatereport = () => {
   useEffect(() => {
     document.title = "PLANET WATCH | ANALYTICS"
 }, [])
@@ -256,7 +256,7 @@ const filterdata=()=>{
 
           {/* <center><h6>Before Add Liquidity go to Swap Page and do App Opt-In</h6></center> */}
           {/* <br></br> */}
-            <h2 className="h3 text-uppercase mb-40">Registration Report</h2>
+            <h2 className="h3 text-uppercase mb-40">Participation Report(AUTOMATED)</h2>
            
                
             <ToastContainer position='top-center' draggable = {false} transition={Zoom} autoClose={8000} closeOnClick = {false}/>
@@ -295,8 +295,8 @@ const filterdata=()=>{
              
                         </div>
                         
-                        <div className="table-group-th">Registered Date</div>
-                        {/* <div className="table-group-th">Votes </div> */}
+                    {/* <div className="table-group-th">Registered Date</div> */}
+                        <div className="table-group-th">Votes </div>
                         <div className="table-group-th">Status</div>
                     
                     </div>
@@ -340,37 +340,36 @@ const filterdata=()=>{
                             
 <div className="table-group-tr">
 {pageSize.Assettype==="Planet" ?(<>
-<div className="table-group-td">
-    <div className="d-flex align-items-center td-cell">
-    {/* {(localStorage.getItem("walletAddress")).substring(0, 4)}...{(localStorage.getItem("walletAddress")).substring((localStorage.getItem("walletAddress")).length -4, (localStorage.getItem("walletAddress")).length)} */}
-        <div className="table-group-td">{(pageSize.WalletAddress).substring(0, 8)}...{(pageSize.WalletAddress).substring((pageSize.WalletAddress).length -4,(pageSize.WalletAddress).length)} </div>
-       
-    </div>
+  <div className="table-group-td">
+
+<div className="d-flex align-items-center td-cell">
+{/* {(localStorage.getItem("walletAddress")).substring(0, 4)}...{(localStorage.getItem("walletAddress")).substring((localStorage.getItem("walletAddress")).length -4, (localStorage.getItem("walletAddress")).length)} */}
+    <div className="table-group-td">{(pageSize.WalletAddress).substring(0, 8)}...{(pageSize.WalletAddress).substring((pageSize.WalletAddress).length -4,(pageSize.WalletAddress).length)} </div>
+   
+</div>
 </div>
 <div className="table-group-td"></div>
 
 {/* <div className="table-group-td"></div> */}
-
-
-  {(pageSize.Amount=== " " || pageSize.Amount === null || pageSize.Amount === undefined ) ? 
+{(pageSize.Amount=== " " || pageSize.Amount === null || pageSize.Amount === undefined ) ? 
 (<>
 <div className="table-group-td">0</div>
 </>) :
- 
- (<>
- <div className="table-group-td">
- 
-   {/* {pageSize.Assettype==="Algos"?(<>
-    <img src={algologo} alt="logo" style={{width:'10%',height:'8%'}} className='me-2 avatar-pic' />
-   </>):(<> */}
-    <img src={planetlogo} alt="logo" style={{width:'10%',height:'8%'}} className='me-2 avatar-pic' />
-   {/* </>)} */}
-   {parseFloat(pageSize.Amount)} {(pageSize.Assettype)}</div>
- </>)}
 
-<div className="table-group-td">{pageSize.TimeStamp}</div>
+(<>
+<div className="table-group-td">
 
-{/* {(pageSize.Vote=== " " || pageSize.Vote === null || pageSize.Vote === undefined ) ?(<> 0 </>):(<> <div className="table-group-td">{pageSize.Vote}</div></>) } */}
+{/* {pageSize.Assettype==="Algos"?(<>
+<img src={algologo} alt="logo" style={{width:'10%',height:'8%'}} className='me-2 avatar-pic' />
+</>):(<> */}
+<img src={planetlogo} alt="logo" style={{width:'10%',height:'8%'}} className='me-2 avatar-pic' />
+{/* </>)} */}
+{parseFloat(pageSize.Amount)} {(pageSize.Assettype)}</div>
+</>)}
+
+{/* <div className="table-group-td">{pageSize.TimeStamp}</div> */}
+
+{(pageSize.Vote=== " " || pageSize.Vote === null || pageSize.Vote === undefined ) ?(<> 0 </>):(<> <div className="table-group-td">{pageSize.Vote}</div></>) }
 {(pageSize.Eligibility=== " " || pageSize.Eligibility === null || pageSize.Eligibility === undefined || pageSize.Eligibility === "0" ||pageSize.Eligibility === 0) ?(<><div className="table-group-td" style={{color:"red"}}>Not Eligible </div></>):(<> <div className="table-group-td" style={{color:"#9aea3b"}}>Eligible </div></>) }
 
 {/* {(pageSize.Vote=== " " || pageSize.Vote === null || pageSize.Vote === undefined ) ?(<> 0 </>):(<> <div className="table-group-td">{pageSize.Vote}</div></>) } */}
@@ -380,10 +379,21 @@ const filterdata=()=>{
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </>):(<></>)}
-
-
-
 
 </div>
 </div></>)
@@ -426,4 +436,4 @@ const filterdata=()=>{
     );
 };
 
-export default TopLiquidity;
+export default Participatereport;

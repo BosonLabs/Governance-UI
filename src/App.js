@@ -28,7 +28,8 @@ import Vaults from './components/Vaults';
 // import SingleStake from './components/Dashboard/Stake';
 // import SwapTau from './components/Dashboard/SwapTau';
 import Analytics from './components/Dashboard/Analytics';
-
+import ParticipateAnalytics from './components/Dashboard/ParticipateAnalytics';
+import ManualAnalytics from './components/Dashboard/ManualAnalytics';
 // /import Element from './components/Element';
 import Home from './components/DashboardNew/Dashboard';
 // import Mint from './components/Dashboard/Mint';
@@ -333,6 +334,12 @@ function App() {
         </Route> */}
         <Route path="/analytics">
           <Analytics />
+        </Route>
+        <Route path="/participateanalytics">
+          <ParticipateAnalytics />
+        </Route>
+        <Route path="/manualanalytics">
+          <ManualAnalytics />
         </Route>
         {/* <Route path="/bridge">
           <Bridge />
