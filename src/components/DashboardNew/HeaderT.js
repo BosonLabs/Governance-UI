@@ -3,7 +3,7 @@ import { Button, Dropdown, Modal } from 'react-bootstrap';
 import {
     NavLink as Link
   } from "react-router-dom";
-import Logo from '../../assets/images/site-logo.png'
+import Logo from '../../assets/images/PlanetWatchWhite.png'
 import PeraWalletLogo from '../../assets/images/PeraWalletLogo.svg';
 import MyAlgoLogo from '../../assets/images/MyAlgoLogo.svg';
 import Sidebar from './Sidebar';
@@ -339,7 +339,7 @@ const walletCheck = () =>
                     }
 
                 </Button>
-                <Link to="/dashboard" className="header-logo"><img src={Logo} alt="Logo" /></Link>
+                <Link to="/dashboard"><img src={Logo} height="50px" width="150px" alt="Logo" /></Link>
 
                 <div className="header-navigation-control ms-auto d-flex align-items-center">
                 { showButton ? 

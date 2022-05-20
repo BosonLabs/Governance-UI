@@ -452,14 +452,14 @@ const algodClientGet = new algosdk.Algodv2('', node['algodclient'], '');
             }
             else
             {
-                if((value) < 0.01)
-                {
-                    console.log("valuecheck",value);
-                    toast.error("...Minimum Algos to vote is 0.01 Algos. The vale entered is less than 0.01 Algos.")
-                    handleHideLoadParticipate();
-                }
-                else
-                { 
+                // if((value) < 0.01)
+                // {
+                //     console.log("valuecheck",value);
+                //     toast.error("...Minimum Algos to vote is 0.01 Algos. The vale entered is less than 0.01 Algos.")
+                //     handleHideLoadParticipate();
+                // }
+                // else
+                // { 
                     if((value) > parseFloat(algoBalance)/1000000)
                 {
                     toast.error(`Insufficient Algos balance. Your balance is ${(parseFloat(algoBalance)/1000000).toFixed(2)} Algos but try to enter ${value} Algos`);
@@ -473,13 +473,13 @@ const algodClientGet = new algosdk.Algodv2('', node['algodclient'], '');
         //   const accounts = await myAlgoWallet.connect();
           // const addresses = accounts.map(account => account.address);
           const params = await algodClient.getTransactionParams().do();
-          let noteVote = "yes " + value; 
+          let noteVote = "yes"; 
           let notefield = new Uint8Array(Buffer.from(noteVote.toString(), 'utf8'));            
           
           let transaction1 = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
             from: localStorage.getItem("walletAddress"), 
             to: governance["yesAddress"], 
-            amount: 0,
+            amount: 0.01 * 1000000,
             note: notefield,
             suggestedParams: params
            });
@@ -535,7 +535,7 @@ const algodClientGet = new algosdk.Algodv2('', node['algodclient'], '');
           handleHideLoadParticipate();
           console.error(err);
         }
-    }
+    // }
     // }
 }
         }}
@@ -566,13 +566,13 @@ const algodClientGet = new algosdk.Algodv2('', node['algodclient'], '');
             }
             else
             {
-                if((value) < 0.01)
-                {
-                    toast.error("Minimum Algos to vote is 0.01 Algos. The vale entered is less than 0.01 Algos.")
-                    handleHideLoadParticipate();
-                }
-                else
-                {
+                // if((value) < 0.01)
+                // {
+                //     toast.error("Minimum Algos to vote is 0.01 Algos. The vale entered is less than 0.01 Algos.")
+                //     handleHideLoadParticipate();
+                // }
+                // else
+                // {
                     if((value) > parseFloat(algoBalance)/1000000)
                     {
                         toast.error(`Insufficient Algos balance. Your balance is ${(parseFloat(algoBalance)/1000000).toFixed(2)} Algos but try to enter ${value} Algos`);
@@ -585,13 +585,13 @@ const algodClientGet = new algosdk.Algodv2('', node['algodclient'], '');
         //   const accounts = await myAlgoWallet.connect();
           // const addresses = accounts.map(account => account.address);
           const params = await algodClient.getTransactionParams().do();
-          let noteVote = "yes " + value; 
+          let noteVote = "yes"; 
           let notefield = new Uint8Array(Buffer.from(noteVote.toString(), 'utf8'));            
           
           let transaction1 = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
             from: localStorage.getItem("walletAddress"), 
             to: governance["yesAddress"], 
-            amount: 0,
+            amount: 0.01 * 1000000,
             note: notefield,
             suggestedParams: params
            });
@@ -661,7 +661,7 @@ const algodClientGet = new algosdk.Algodv2('', node['algodclient'], '');
           toast.error(`Transaction Failed due to ${err}`);
           console.error(err);
         }
-    }
+    // }
     // }
 }
 }
@@ -691,13 +691,13 @@ const algodClientGet = new algosdk.Algodv2('', node['algodclient'], '');
             }
             else
             {
-                if((value) < 0.01)
-                {
-                    toast.error("Minimum Algos to vote is 0.01 Algos. The value entered is less than 0.01 Algos.")
-                    handleHideLoadParticipate();
-                }
-                else
-                {
+                // if((value) < 0.01)
+                // {
+                //     toast.error("Minimum Algos to vote is 0.01 Algos. The value entered is less than 0.01 Algos.")
+                //     handleHideLoadParticipate();
+                // }
+                // else
+                // {
                     if((value) > parseFloat(algoBalance)/1000000)
                     {
                         toast.error(`Insufficient Algos balance. Your balance is ${(parseFloat(algoBalance)/1000000).toFixed(2)} Algos but try to enter ${value} Algos`);
@@ -710,13 +710,13 @@ const algodClientGet = new algosdk.Algodv2('', node['algodclient'], '');
         //   const accounts = await myAlgoWallet.connect();
           // const addresses = accounts.map(account => account.address);
           const params = await algodClient.getTransactionParams().do();
-          let noteVote = "no " + value; 
+          let noteVote = "no"; 
           let notefield = new Uint8Array(Buffer.from(noteVote.toString(), 'utf8'));            
           
           let transaction1 = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
             from: localStorage.getItem("walletAddress"), 
             to: governance["noAddress"], 
-            amount: 0,
+            amount: 0.01 * 1000000,
             note: notefield,
             suggestedParams: params
            });
@@ -771,7 +771,7 @@ const algodClientGet = new algosdk.Algodv2('', node['algodclient'], '');
           handleHideLoadAssetOpt();
           console.error(err);
         }
-    }
+    // }
     // }
 }
         }}
@@ -802,13 +802,13 @@ const algodClientGet = new algosdk.Algodv2('', node['algodclient'], '');
             }
             else
             {
-                if((value) < 0.01)
-                {
-                    toast.error("Minimum Algos to vote is 0.01 Algos. The vale entered is less than 0.01 Algos.")
-                    handleHideLoadParticipate();
-                }
-                else
-                {
+                // if((value) < 0.01)
+                // {
+                //     toast.error("Minimum Algos to vote is 0.01 Algos. The vale entered is less than 0.01 Algos.")
+                //     handleHideLoadParticipate();
+                // }
+                // else
+                // {
                     if((value) > parseFloat(algoBalance)/1000000)
                     {
                         toast.error(`Insufficient Algos balance. Your balance is ${(parseFloat(algoBalance)/1000000).toFixed(2)} Algos but try to enter ${value} Algos`);
@@ -821,13 +821,13 @@ const algodClientGet = new algosdk.Algodv2('', node['algodclient'], '');
         //   const accounts = await myAlgoWallet.connect();
           // const addresses = accounts.map(account => account.address);
           const params = await algodClient.getTransactionParams().do();
-          let noteVote = "no " + value; 
+          let noteVote = "no"; 
           let notefield = new Uint8Array(Buffer.from(noteVote.toString(), 'utf8'));            
           
           let transaction1 = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
             from: localStorage.getItem("walletAddress"), 
             to: governance["noAddress"], 
-            amount: 0,
+            amount: 0.01 * 1000000,
             note: notefield,
             suggestedParams: params
            });
@@ -898,7 +898,7 @@ const algodClientGet = new algosdk.Algodv2('', node['algodclient'], '');
           handleHideLoadAssetOpt();
           console.error(err);
         }
-    }
+    // }
     // }
 }
         }}
@@ -1274,7 +1274,7 @@ const max = () =>
                     <div>
                     <Button className='w-100' disabled onClick={handleShow}>Already Voted</Button>      
                     </div>
-                    <div className="d-flex align-items-start justify-content-between"> Commited Amount <strong className="text-end"> {commitamount[0].Amount}</strong></div>
+                    {/* <div className="d-flex align-items-start justify-content-between"> Commited Amount <strong className="text-end"> {commitamount[0].Amount}</strong></div> */}
 
                     </> ):(
 <div>
@@ -1326,7 +1326,7 @@ const max = () =>
 
                         </div>
 
-                        <div className='mb-20'>
+                        {/* <div className='mb-20'>
                         <InputGroup>
                                 <FormControl
                                     // disabled={true}
@@ -1339,7 +1339,7 @@ const max = () =>
                                 />
                             </InputGroup>
 
-                        </div>
+                        </div> */}
 
                     <div className="">
 
@@ -1355,13 +1355,13 @@ const max = () =>
                     </div>
                     </div>
 
-                    <div className='d-flex align-items-center justify-content-between'>
+                    {/* <div className='d-flex align-items-center justify-content-between'> */}
                         {/* <strong className="mb-0">Total Allocation</strong> */}
-                        <strong className="p">Commited Algos</strong>
-                        <div className="h6 mb-0">{(parseFloat(algoCommited)/1000000).toFixed(2) === 'NaN' ?<>0.00</> :(parseFloat(algoCommited)/1000000).toFixed(2)}&nbsp; Algos</div>
+                        {/* <strong className="p">Commited Algos</strong>
+                        <div className="h6 mb-0">{(parseFloat(algoCommited)/1000000).toFixed(2) === 'NaN' ?<>0.00</> :(parseFloat(algoCommited)/1000000).toFixed(2)}&nbsp; Algos</div> */}
                         {/* <div className="h6 mb-0">{totalElem} ELEM</div> */}
                         {/* <strong>ELEM</strong> */}
-                    </div>
+                    {/* </div> */}
                     </center>
                 </Modal.Body>
             </Modal>

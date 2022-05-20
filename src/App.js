@@ -28,9 +28,10 @@ import Vaults from './components/Vaults';
 // import SingleStake from './components/Dashboard/Stake';
 // import SwapTau from './components/Dashboard/SwapTau';
 import Analytics from './components/Dashboard/Analytics';
-
+import ParticipateAnalytics from './components/Dashboard/ParticipateAnalytics';
+import ManualAnalytics from './components/Dashboard/ManualAnalytics';
 // /import Element from './components/Element';
-import Home from './components/DashboardNew/Dashboard';
+import Home from './components/DashboardNew/VotingStatus';
 // import Mint from './components/Dashboard/Mint';
 // import Redeem from './components/Dashboard/Redeem';
 // import Buyback from './components/Dashboard/Buyback';
@@ -81,6 +82,7 @@ import MintNFTApp from './components/DashboardNew/MintNFT'
 // import EditArtists from "./components/DashboardNew/EditArtists";
 import MyNFTCopy from "./components/DashboardNew/MyNFTCopy";
 import Participateapp from "./components/DashboardNew/Participate";
+import ParticipateManualapp from "./components/DashboardNew/ParticipateManual";
 import TopCollections from "./components/DashboardNew/TopCollections";
 import TopCategories from "./components/DashboardNew/TopCategories";
 import Market from "./components/DashboardNew/Market";
@@ -297,6 +299,9 @@ function App() {
         <Route path="/Participate">
           <Participateapp />
         </Route>
+        <Route path="/Participate-manual">
+          <ParticipateManualapp />
+        </Route>
         {/* 
         <Route path="/mint">
           <Mint />
@@ -333,6 +338,12 @@ function App() {
         </Route> */}
         <Route path="/analytics">
           <Analytics />
+        </Route>
+        <Route path="/participateanalytics">
+          <ParticipateAnalytics />
+        </Route>
+        <Route path="/manualanalytics">
+          <ManualAnalytics />
         </Route>
         {/* <Route path="/bridge">
           <Bridge />
