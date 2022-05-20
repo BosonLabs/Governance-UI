@@ -23,7 +23,7 @@ const VoteStatus = () => {
     const[totalYes,setTotalYes]= useState();
     const[totalNo,setTotalNo]= useState();
     const[voteYes,setVoteYes]= useState();
-    const[voteNo,setVoteNo]= useState();
+    const[countEligibleValue,setCountEligibile]= useState();
     const[result,setResult]= useState();
     const[yesPercent,setYesPercent]= useState();
     const[noPercent,setNoPercent]= useState();
@@ -95,7 +95,7 @@ const VoteStatus = () => {
                         
                     // })  
                     let countEligible = parseInt(count) - parseInt(noteligible);
-
+                    setCountEligibile(countEligible);
                     setYesPercent(((parseInt(totalYes) / (parseInt(countEligible))) * 100).toFixed(0));
                     setNoPercent(((parseInt(totalNo) / (parseInt(countEligible))) * 100).toFixed(0));
                 
@@ -182,7 +182,7 @@ const VoteStatus = () => {
                             
 
 
-                            <hr className='mb-20 mt-0' />
+                            <hr className='mb-10 mt-0' />
                             <div className='mb-0'>
                             <div className='mb-20 pt-sm-3'>
                                             {/* <div className="p d-flex align-items-center mb-1  "> */}
@@ -279,7 +279,7 @@ const VoteStatus = () => {
                                                         <svg className="tooltip-icon ms-2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21.25 12C21.25 17.1086 17.1086 21.25 12 21.25C6.89137 21.25 2.75 17.1086 2.75 12C2.75 6.89137 6.89137 2.75 12 2.75C17.1086 2.75 21.25 6.89137 21.25 12Z" stroke="#CCCCCC" stroke-width="1.5"></path><path d="M11 8C11 7.44772 11.4477 7 12 7C12.5523 7 13 7.44772 13 8C13 8.55228 12.5523 9 12 9C11.4477 9 11 8.55228 11 8Z" fill="#CCCCCC"></path><path d="M11 12C11 11.4477 11.4477 11 12 11C12.5523 11 13 11.4477 13 12V16C13 16.5523 12.5523 17 12 17C11.4477 17 11 16.5523 11 16V12Z" fill="#CCCCCC"></path></svg>
                                                     </OverlayTrigger>
                                                     </div>
-
+                                                    <h6>{(parseInt(totalYes)) ? (parseInt(totalYes)) : "0 "} Voted YES</h6>
                                                      <div className="text-sm d-flex align-items-center mb-1">
                                             <svg className="d-inline-block me-2" style={{width: '16px', height: '16px', borderRadius: '4px'}}><rect fill="red" x="0" y="0" width="16" height="16"></rect></svg>
                                                 NO
@@ -296,7 +296,7 @@ const VoteStatus = () => {
                                                         <svg className="tooltip-icon ms-2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21.25 12C21.25 17.1086 17.1086 21.25 12 21.25C6.89137 21.25 2.75 17.1086 2.75 12C2.75 6.89137 6.89137 2.75 12 2.75C17.1086 2.75 21.25 6.89137 21.25 12Z" stroke="#CCCCCC" stroke-width="1.5"></path><path d="M11 8C11 7.44772 11.4477 7 12 7C12.5523 7 13 7.44772 13 8C13 8.55228 12.5523 9 12 9C11.4477 9 11 8.55228 11 8Z" fill="#CCCCCC"></path><path d="M11 12C11 11.4477 11.4477 11 12 11C12.5523 11 13 11.4477 13 12V16C13 16.5523 12.5523 17 12 17C11.4477 17 11 16.5523 11 16V12Z" fill="#CCCCCC"></path></svg>
                                                     </OverlayTrigger>
                                                     </div>
-
+                                                    <h6>{(parseInt(totalNo)) ? (parseInt(totalNo)) : "0"} Voted No</h6>
                                                     <div className="text-sm d-flex align-items-center mb-1">
                                             <svg className="d-inline-block me-2" style={{width: '16px', height: '16px', borderRadius: '4px'}}><rect fill="blue" x="0" y="0" width="16" height="16"></rect></svg>
                                                 Not Voted
@@ -313,14 +313,15 @@ const VoteStatus = () => {
                                                         <svg className="tooltip-icon ms-2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21.25 12C21.25 17.1086 17.1086 21.25 12 21.25C6.89137 21.25 2.75 17.1086 2.75 12C2.75 6.89137 6.89137 2.75 12 2.75C17.1086 2.75 21.25 6.89137 21.25 12Z" stroke="#CCCCCC" stroke-width="1.5"></path><path d="M11 8C11 7.44772 11.4477 7 12 7C12.5523 7 13 7.44772 13 8C13 8.55228 12.5523 9 12 9C11.4477 9 11 8.55228 11 8Z" fill="#CCCCCC"></path><path d="M11 12C11 11.4477 11.4477 11 12 11C12.5523 11 13 11.4477 13 12V16C13 16.5523 12.5523 17 12 17C11.4477 17 11 16.5523 11 16V12Z" fill="#CCCCCC"></path></svg>
                                                     </OverlayTrigger>
                                                     </div>
+                                                    <h6>{countEligibleValue - (parseInt(((parseInt(totalYes) + parseInt(totalNo))))) ? countEligibleValue - (parseInt(((parseInt(totalYes) + parseInt(totalNo))))) : "0"} Not Voted</h6>
                                                     </Col>
                                             <Col sm={6}>    
-                                                {/* <PieChartYesNo /> */}
-                                                <PieChart />
+                                                <PieChartYesNo />
+                                                {/* <PieChart /> */}
                                             </Col>
                                                 </Row>
                                         </div>
-
+                                         
                                     {/* Progress bar */}
                                     {/* <div className="mb-20">
                                         <div className="d-flex justify-content-between">
