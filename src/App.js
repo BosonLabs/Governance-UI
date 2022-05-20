@@ -81,6 +81,7 @@ import MintNFTApp from './components/DashboardNew/MintNFT'
 // import EditArtists from "./components/DashboardNew/EditArtists";
 import MyNFTCopy from "./components/DashboardNew/MyNFTCopy";
 import Participateapp from "./components/DashboardNew/Participate";
+import ParticipateManualapp from "./components/DashboardNew/ParticipateManual";
 import TopCollections from "./components/DashboardNew/TopCollections";
 import TopCategories from "./components/DashboardNew/TopCategories";
 import Market from "./components/DashboardNew/Market";
@@ -296,6 +297,9 @@ function App() {
         </Route> */}
         <Route path="/Participate">
           <Participateapp />
+        </Route>
+        <Route path="/Participate-manual">
+          <ParticipateManualapp />
         </Route>
         {/* 
         <Route path="/mint">

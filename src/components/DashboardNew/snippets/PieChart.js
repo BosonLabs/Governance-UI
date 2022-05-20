@@ -53,7 +53,7 @@ const PieChart = () => {
         },
         stroke: {
             curve: 'smooth',
-            width: 5,
+            width: 1,
             colors: ['#252525']
         },
         tooltip: {
