@@ -31,7 +31,7 @@ import Analytics from './components/Dashboard/Analytics';
 import ParticipateAnalytics from './components/Dashboard/ParticipateAnalytics';
 import ManualAnalytics from './components/Dashboard/ManualAnalytics';
 // /import Element from './components/Element';
-import Home from './components/DashboardNew/Dashboard';
+import Home from './components/DashboardNew/VotingStatus';
 // import Mint from './components/Dashboard/Mint';
 // import Redeem from './components/Dashboard/Redeem';
 // import Buyback from './components/Dashboard/Buyback';

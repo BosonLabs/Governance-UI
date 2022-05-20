@@ -1154,18 +1154,20 @@ var countDowndate   =us * 1000;
                                     <div className="mb-20">
                                         <div className="d-flex mb-1 align-items-center justify-content-between text-md">
                                             <span> </span>
-                                            <strong className='font-semibold'>Minimum Commit : 1 PLANETS</strong>
+                                            <strong className='font-semibold mb-20'>Minimum Commit : 1 PLANETS</strong>
                                         </div>
                                     </div>
-
                                     <Row className='flex-nowrap align-items-center gx-3'>
                                         {commitamount===""||commitamount ===undefined||commitamount===null ? (<>
                                             
                                             <Col>
-                                        
+                                            {planetBalances/1000000 < 1 ? <div style={{color:"red"}} className='h5'>
+                                                <svg className="tooltip-icon ms-2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21.25 12C21.25 17.1086 17.1086 21.25 12 21.25C6.89137 21.25 2.75 17.1086 2.75 12C2.75 6.89137 6.89137 2.75 12 2.75C17.1086 2.75 21.25 6.89137 21.25 12Z" stroke="#FF0000" stroke-width="1.5"></path><path d="M11 8C11 7.44772 11.4477 7 12 7C12.5523 7 13 7.44772 13 8C13 8.55228 12.5523 9 12 9C11.4477 9 11 8.55228 11 8Z" fill="#FF0000"></path><path d="M11 12C11 11.4477 11.4477 11 12 11C12.5523 11 13 11.4477 13 12V16C13 16.5523 12.5523 17 12 17C11.4477 17 11 16.5523 11 16V12Z" fill="#FF0000"></path></svg>
+                                                &nbsp;You can commit only if you have minimum PLANET asset 1. But your balance is {(planetBalances/1000000).toFixed(2)}.
+                                            </div> : <></>}
                                         {planetBalances/1000000 >= 1 ? <ButtonLoad loading={loadMint} className='btn w-100 btn-blue mb-20' onClick={balCheckPlanetCommit}>
                                             Commit Planet
-                                        </ButtonLoad> : <ButtonLoad disabled loading={loadMint} className='btn w-100 btn-blue mb-20' onClick={balCheckPlanetCommit}>
+                                        </ButtonLoad>  : <ButtonLoad disabled loading={loadMint} className='btn w-100 btn-blue mb-20' onClick={balCheckPlanetCommit}>
                                             Commit Planet
                                         </ButtonLoad>}
                                     </Col>

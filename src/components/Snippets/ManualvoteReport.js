@@ -257,7 +257,7 @@ const filterdata=()=>{
 
           {/* <center><h6>Before Add Liquidity go to Swap Page and do App Opt-In</h6></center> */}
           {/* <br></br> */}
-            <h2 className="h3 text-uppercase mb-40">Manual Vote Report</h2>
+            <h2 className="h3 text-uppercase mb-40 text-blue">Manual Voting Report</h2>
            
                
             <ToastContainer position='top-center' draggable = {false} transition={Zoom} autoClose={8000} closeOnClick = {false}/>
