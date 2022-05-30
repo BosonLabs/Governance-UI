@@ -511,7 +511,7 @@ const VoteStatus = () => {
                                         {lock2 == true ? <div className="h4 d-flex align-items-center mb-1">Registration window will begin in</div> : <></>}
                                             <div className="p d-flex align-items-center mb-1  ">
                                                 <svg className="d-inline-block me-2" style={{width: '16px', height: '16px', borderRadius: '4px'}}><rect fill="#2C3862" x="0" y="0" width="16" height="16"></rect></svg>
-                                                Thu, May 19th 11:30 PM EST
+                                                Mon, May 30th 9:30 AM EST
 
                                                 {/* <OverlayTrigger
                                                     key="left"
@@ -531,7 +531,7 @@ const VoteStatus = () => {
                                         {lock13 == true ? <div className="h4 d-flex align-items-center mb-1">Registration window will ends in</div> : <></>}
                                             <div className="p d-flex align-items-center mb-1  ">
                                                 <svg className="d-inline-block me-2" style={{width: '16px', height: '16px', borderRadius: '4px'}}><rect fill="#55689E" x="0" y="0" width="16" height="16"></rect></svg>
-                                                Wed, May 25th 11:30 AM EST
+                                                Mon, Jun 13th 9:00 AM EST
 
                                                 {/* <OverlayTrigger
                                                     key="left"
@@ -776,7 +776,7 @@ const VoteStatus = () => {
                                         {lock == true ? <div className="h4 d-flex align-items-center mb-1">Voting window will begin in</div> : <></>}
                                             <div className="p d-flex align-items-center mb-1  ">
                                                 <svg className="d-inline-block me-2" style={{width: '16px', height: '16px', borderRadius: '4px'}}><rect fill="#2C3862" x="0" y="0" width="16" height="16"></rect></svg>
-                                                Wed, May 25th 11:30 AM EST
+                                                Mon, Jun 13th 9:00 AM EST
 
                                                 {/* <OverlayTrigger
                                                     key="left"
@@ -797,7 +797,7 @@ const VoteStatus = () => {
                                         {lock1 == true ? <div className="h4 d-flex align-items-center mb-1">Voting window will ends in</div> : <></>}
                                             <div className="p d-flex align-items-center mb-1  ">
                                                 <svg className="d-inline-block me-2" style={{width: '16px', height: '16px', borderRadius: '4px'}}><rect fill="#55689E" x="0" y="0" width="16" height="16"></rect></svg>
-                                                Tue, May 31st 11:59 PM EST
+                                                Fri, Jun 24th 12:00 AM EST
 
                                                 {/* <OverlayTrigger
                                                     key="left"
@@ -1014,9 +1014,21 @@ const VoteStatus = () => {
                                         <div className="d-flex justify-content-between">
                                             <strong>{totalVotePercentValue}%</strong>
                                         </div>
-                                    </div>
-                                    <div className="h4 mb-1">Result</div>
-                                    {result === 2 ? <div className="h5 mb-0">To Be Announced</div> : result === 1 ? <div className="h5 mb-0">Yes statement</div> : <div className="h5 mb-0">No statement</div>} */}
+                                    </div>*/}
+                            <div className="h3 mb-10 font-semibold leading-7 text-blue">Result  
+                            <OverlayTrigger
+                                key="right"
+                                placement="right"
+                                overlay={
+                                    <Tooltip id={`tooltip-right`}>
+                                       Result will be displayed once the voting time ends
+                                    </Tooltip>
+                                }
+                                >
+                                    <svg className="tooltip-icon ms-2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21.25 12C21.25 17.1086 17.1086 21.25 12 21.25C6.89137 21.25 2.75 17.1086 2.75 12C2.75 6.89137 6.89137 2.75 12 2.75C17.1086 2.75 21.25 6.89137 21.25 12Z" stroke="#CCCCCC" stroke-width="1.5"></path><path d="M11 8C11 7.44772 11.4477 7 12 7C12.5523 7 13 7.44772 13 8C13 8.55228 12.5523 9 12 9C11.4477 9 11 8.55228 11 8Z" fill="#CCCCCC"></path><path d="M11 12C11 11.4477 11.4477 11 12 11C12.5523 11 13 11.4477 13 12V16C13 16.5523 12.5523 17 12 17C11.4477 17 11 16.5523 11 16V12Z" fill="#CCCCCC"></path></svg>
+                                </OverlayTrigger>
+                            </div>
+                                    {result === 2 ? <div className="h5 mb-0">To Be Announced</div> : result === 1 ? <div className="h5 mb-0">Yes statement</div> : <div className="h5 mb-0">No statement</div>} 
                                     
                             </div>
                         </Card>
